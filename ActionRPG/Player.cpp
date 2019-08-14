@@ -1,9 +1,9 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player(TextureMap *textureMap)
 {
-	sf::Sprite sprite;
-	sprite.setTexture(TextureMap::getTexture(playerTextureFilename));
+	textureMap = textureMap;
+	sprite = sf::Sprite(textureMap->getTexture(playerTextureFilename));
 	setSprite(sprite);
 	health = startingHealth;
 	setPosition(initialPosition);

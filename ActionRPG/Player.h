@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "TextureMap.h"
 
 class Player : GameObject
 {
@@ -10,7 +9,7 @@ private:
 	const std::string playerTextureFilename = "sprites/player.png";
 
 public:
-	Player();
+	Player(TextureMap *textureMap);
 
 	// Override for GameObject::update
 	virtual void update(int timeElapsed) override;

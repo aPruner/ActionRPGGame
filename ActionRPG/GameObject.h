@@ -1,11 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "TextureMap.h"
 
 // Abstract class from which to derive GameObject classes
 class GameObject : sf::Drawable
 {
 private:
-	// TODO: private GameObject data (if applicable)
+	// TextureMap to fetch textures from
+	TextureMap *textureMap;
 
 public:
 	// Constants used by derived classes

@@ -6,13 +6,11 @@ class TextureMap
 {
 private:
 	// Map of filenames to textures
-	std::map<std::string, sf::Texture> textures;
-
-	// The TextureMap class is a singleton
-	static TextureMap *instance;
+	std::map<std::string, sf::Texture> *textureMap;
 public:
 	TextureMap();
+	~TextureMap();
 	
 	// Fetch a texture from the map
-	static sf::Texture& getTexture(std::string const& filename);
+	sf::Texture& getTexture(std::string const& filename);
 };
