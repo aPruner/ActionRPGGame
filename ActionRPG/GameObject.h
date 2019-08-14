@@ -2,14 +2,19 @@
 #include <SFML/Graphics.hpp>
 
 // Abstract class from which to derive GameObject classes
-class GameObject : sf::Drawable {
+class GameObject : sf::Drawable
+{
 private:
 	// Sprite for the GameObject
 	sf::Sprite sprite;
-
-	// TODO: More GameObject data
 	
 public:
+	// Constants used by derived classes
+	const enum Direction { UP, RIGHT, DOWN, LEFT };
+	const float initialPositionX = 0;
+	const float initialPositionY = 0;
+	const sf::Vector2f initialPosition = sf::Vector2f(initialPositionX, initialPositionY);
+
 	// Pure virtual method for updating the game object
 	// Must be defined in the subclass
 	// params:
@@ -21,8 +26,6 @@ public:
 	void setSprite(sf::Sprite newSprite);
 	
 	// Getter/Setter for the position
-
-	// TODO: figure out API for getPosition
-	void getPosition();
-	void setPosition();
+	sf::FloatRect getPosition();
+	void setPosition(sf::Vector2f position);
 };

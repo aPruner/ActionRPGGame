@@ -2,7 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 
-class Engine {
+class Engine
+{
 private:
 	// Pointer to the gameWindow
 	sf::RenderWindow *gameWindow;
