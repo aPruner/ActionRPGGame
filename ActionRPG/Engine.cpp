@@ -1,35 +1,35 @@
 #include <SFML/Graphics.hpp>
 #include "Engine.h"
 #include "Player.h"
-#include "TextureMap.h"
 
 // Engine constructor
 Engine::Engine()
 {
 	int screenWidth = sf::VideoMode::getDesktopMode().width;
 	int screenHeight = sf::VideoMode::getDesktopMode().height;
-	gameWindow = new sf::RenderWindow(sf::VideoMode(screenWidth, screenHeight), "Action RPG");
+	m_gameWindow = new sf::RenderWindow(sf::VideoMode(screenWidth, screenHeight), "Action RPG");
 
 	TextureMap *textureMap = new TextureMap();
 
-	// TODO: Relevant when there are multiple game objects to draw
-	gameObjects = new std::vector<GameObject*>();
+	// TODO: pass Player pointer into game instance constructor (create overload)
+	m_game = new Game();
 
-	// TODO: add the player to the game and draw him/her
 	Player *player = new Player(textureMap);
-	gameObjects->push_back(player);
+	m_game->addGameObject(player);
 }
 
 // Draw the screen
 void Engine::draw()
 {
-	gameWindow->clear();
-	// TODO: Draw the player
+	m_gameWindow->clear();
+
+	std::vector<GameObject *> *gameObjects = m_game->getGameObjects();
+
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
-		gameWindow->draw(**it);
+		m_gameWindow->draw(**it);
 	}
-	gameWindow->display();
+	m_gameWindow->display();
 }
 
 // TODO: update the game state
@@ -42,9 +42,9 @@ void Engine::update()
 void Engine::input()
 {
 	sf::Event event;
-	while (gameWindow->pollEvent(event)) {
+	while (m_gameWindow->pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
-			gameWindow->close();
+			m_gameWindow->close();
 		}
 	}
 }
@@ -52,7 +52,7 @@ void Engine::input()
 // Run the game loop
 void Engine::run()
 {
-	while (gameWindow->isOpen())
+	while (m_gameWindow->isOpen())
 	{
 		input();
 		update();

@@ -1,16 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "Game.h"
+#include "TextureMap.h"
 
 class Engine
 {
 private:
-	// Pointer to the gameWindow
-	sf::RenderWindow *gameWindow;
+	// SFML Game Window
+	sf::RenderWindow *m_gameWindow;
 
-	// An array of game objects to render
-	// TODO: maybe a static array is better, look into this
-	std::vector<GameObject*> *gameObjects;
+	// TextureMap instance
+	TextureMap *m_textureMap;
+
+	// Game instance
+	Game *m_game;
 
 	// Handle game input
 	void input();
