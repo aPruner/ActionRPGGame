@@ -1,16 +1,15 @@
 #pragma once
-#include <map>
 #include <SFML/Graphics.hpp>
+#include <map>
 
 class TextureMap
 {
 private:
 	// Map of filenames to textures
-	std::map<std::string, sf::Texture> *textureMap;
+	std::map<std::string, sf::Texture> textures;
 
 	// The TextureMap class is a singleton
 	static TextureMap *instance;
-	static void addTexture(std::string const& filename);
 public:
 	TextureMap();
 	

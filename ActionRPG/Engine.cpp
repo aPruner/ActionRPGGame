@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Engine.h"
+#include "Player.h"
 
 // Engine constructor
 Engine::Engine()
@@ -7,12 +8,21 @@ Engine::Engine()
 	int screenWidth = sf::VideoMode::getDesktopMode().width;
 	int screenHeight = sf::VideoMode::getDesktopMode().height;
 	gameWindow = new sf::RenderWindow(sf::VideoMode(screenWidth, screenHeight), "Action RPG");
+
+	// TODO: Relevant when there are multiple game objects to draw
+	// gameObjects = new std::vector<GameObject>();
+
+	// TODO: add the player to the game and draw him/her
+	Player *player = new Player();
+
 }
 
 // Draw the screen
 void Engine::draw()
 {
 	gameWindow->clear();
+	// TODO: Draw the player
+	// gameWindow->draw();
 	gameWindow->display();
 }
 

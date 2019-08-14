@@ -1,23 +1,27 @@
+#include <assert.h>
 #include "TextureMap.h"
+
+// Initially, the singleton instance will be null
+TextureMap *TextureMap::instance = nullptr;
 
 TextureMap::TextureMap()
 {
-	textureMap = new std::map<std::string, sf::Texture>();
+	assert(instance == nullptr);
 	instance = this;
 }
 
 sf::Texture& TextureMap::getTexture(std::string const& filename)
 {
-	auto &textureMap = instance->textureMap;
-	if (textureMap->find(filename) != textureMap->end())
+	auto& m = instance->textures;
+	auto it = m.find(filename);
+	if (it != m.end())
 	{
-		return textureMap->at(filename);
+		return it->second;
 	}
 	else
 	{
-		sf::Texture texture;
+		auto& texture = m[filename];
 		texture.loadFromFile(filename);
-		textureMap->insert(std::pair<std::string, sf::Texture>(filename, texture));
 		return texture;
 	}
 }

@@ -8,7 +8,8 @@ private:
 	// Pointer to the gameWindow
 	sf::RenderWindow *gameWindow;
 
-	// An array of game objects to render (maybe a static array is better)
+	// An array of game objects to render
+	// TODO: maybe a static array is better, look into this
 	std::vector<GameObject> *gameObjects;
 
 	// Handle game input
