@@ -10,7 +10,7 @@ private:
 
 	// An array of game objects to render
 	// TODO: maybe a static array is better, look into this
-	std::vector<GameObject> *gameObjects;
+	std::vector<GameObject*> *gameObjects;
 
 	// Handle game input
 	void input();

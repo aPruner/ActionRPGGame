@@ -13,11 +13,11 @@ Engine::Engine()
 	TextureMap *textureMap = new TextureMap();
 
 	// TODO: Relevant when there are multiple game objects to draw
-	// gameObjects = new std::vector<GameObject>();
+	gameObjects = new std::vector<GameObject*>();
 
 	// TODO: add the player to the game and draw him/her
 	Player *player = new Player(textureMap);
-
+	gameObjects->push_back(player);
 }
 
 // Draw the screen
@@ -25,7 +25,10 @@ void Engine::draw()
 {
 	gameWindow->clear();
 	// TODO: Draw the player
-	// gameWindow->draw();
+	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
+	{
+		gameWindow->draw(**it);
+	}
 	gameWindow->display();
 }
 

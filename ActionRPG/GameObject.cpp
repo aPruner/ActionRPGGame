@@ -2,20 +2,20 @@
 
 sf::Sprite GameObject::getSprite()
 {
-	return sprite;
+	return m_sprite;
 }
 
 void GameObject::setSprite(sf::Sprite newSprite)
 {
-	sprite = newSprite;
+	m_sprite = newSprite;
 }
 
 sf::FloatRect GameObject::getPosition()
 {
-	return sprite.getGlobalBounds();
+	return m_sprite.getGlobalBounds();
 }
 
 void GameObject::setPosition(sf::Vector2f position)
 {
-	sprite.setPosition(position);
+	m_sprite.setPosition(position);
 }

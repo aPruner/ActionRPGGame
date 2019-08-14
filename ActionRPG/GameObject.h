@@ -3,22 +3,24 @@
 #include "TextureMap.h"
 
 // Abstract class from which to derive GameObject classes
-class GameObject : sf::Drawable
+class GameObject : public sf::Drawable
 {
-private:
+protected:
 	// TextureMap to fetch textures from
-	TextureMap *textureMap;
-
-public:
-	// Constants used by derived classes
-	const enum Direction { UP, RIGHT, DOWN, LEFT };
-	const float initialPositionX = 0;
-	const float initialPositionY = 0;
-	const sf::Vector2f initialPosition = sf::Vector2f(initialPositionX, initialPositionY);
+	TextureMap *m_textureMap;
 
 	// Sprite for the GameObject
-	sf::Sprite sprite;
+	sf::Sprite m_sprite;
 
+	// Direction enum
+	const enum Direction { UP, RIGHT, DOWN, LEFT };
+
+	// Default initial position for GameObjects
+	const float c_initialPositionX = 0;
+	const float c_initialPositionY = 0;
+	const sf::Vector2f c_initialPosition = sf::Vector2f(c_initialPositionX, c_initialPositionY);
+
+public:
 	// Pure virtual method for updating the game object
 	// Must be defined in the derived class
 	// params:

@@ -23,7 +23,7 @@ sf::Texture& TextureMap::getTexture(std::string const& filename)
 		sf::Texture texture;
 		texture.loadFromFile(filename);
 		textureMap->insert(std::pair<std::string, sf::Texture>(filename, texture));
-		return texture;
+		return textureMap->at(filename);
 	}
 }
 
