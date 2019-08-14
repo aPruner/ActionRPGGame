@@ -9,11 +9,11 @@ private:
 	std::map<std::string, sf::Texture> *textureMap;
 
 	// The TextureMap class is a singleton
-	static TextureMap* instance;
+	static TextureMap *instance;
+	static void addTexture(std::string const& filename);
 public:
 	TextureMap();
 	
 	// Fetch a texture from the map
 	static sf::Texture& getTexture(std::string const& filename);
-	void addTexture(std::string const& filename);
 };

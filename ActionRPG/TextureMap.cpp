@@ -8,10 +8,18 @@ TextureMap::TextureMap()
 
 sf::Texture& TextureMap::getTexture(std::string const& filename)
 {
-	
+	auto &textureMap = instance->textureMap;
+	if (textureMap->find(filename) != textureMap->end())
+	{
+		return textureMap->at(filename);
+	}
+	else
+	{
+		sf::Texture texture;
+		texture.loadFromFile(filename);
+		textureMap->insert(std::pair<std::string, sf::Texture>(filename, texture));
+		return texture;
+	}
 }
 
-void TextureMap::addTexture(std::string const& filename)
-{
-
-}
+// TODO: Maybe add a batch loadAllTextures method to load all textures at once in the future
