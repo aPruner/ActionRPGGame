@@ -10,12 +10,11 @@ Engine::Engine()
 	m_gameWindow = new sf::RenderWindow(sf::VideoMode(screenWidth, screenHeight), "Action RPG");
 
 	TextureMap *textureMap = new TextureMap();
-
-	// TODO: pass Player pointer into game instance constructor (create overload)
-	m_game = new Game();
-
 	Player *player = new Player(textureMap);
-	m_game->addGameObject(player);
+	m_game = new Game(textureMap, player);
+
+	// TODO: Load all the sprites and textures (into respective map data structures) before running the game loop
+	// not sure where the code to do this should reside
 }
 
 // Draw the screen

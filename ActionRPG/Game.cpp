@@ -1,8 +1,11 @@
 #include "Game.h"
 
-Game::Game()
+Game::Game(TextureMap *textureMap, Player *player)
 {
+	m_player = player;
+	m_textureMap = textureMap;
 	m_gameObjects = new std::vector<GameObject *>();
+	m_gameObjects->push_back(m_player);
 }
 
 Game::~Game()
