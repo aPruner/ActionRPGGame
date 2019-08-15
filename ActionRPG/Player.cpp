@@ -15,12 +15,12 @@ void Player::update(float timeElapsed)
 {
 	if (m_moveUp_pressed)
 	{
-		m_center.y += timeElapsed * m_speed;
+		m_center.y -= timeElapsed * m_speed;
 	}
 
 	if (m_moveDown_pressed)
 	{
-		m_center.y -= timeElapsed * m_speed;
+		m_center.y += timeElapsed * m_speed;
 	}
 
 	if (m_moveLeft_pressed)

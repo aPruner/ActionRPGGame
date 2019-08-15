@@ -29,49 +29,48 @@ void Engine::input()
 		// TODO: Implement a control map to allow for switching controls
 		if (event.type == sf::Event::KeyPressed)
 		{
-
 			// For now, escape quits the game
 			if (event.key.code == sf::Keyboard::Escape)
 			{
 				m_gameWindow->close();
 			}
+		}
 
-			// Handle movement
-			if (event.key.code == sf::Keyboard::W)
-			{
-				m_player->move(GameObject::Direction::UP);
-			}
-			else
-			{
-				m_player->stopMove(GameObject::Direction::UP);
-			}
+		// Handle movement
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			m_player->move(GameObject::Direction::UP);
+		}
+		else
+		{
+			m_player->stopMove(GameObject::Direction::UP);
+		}
 
-			if (event.key.code == sf::Keyboard::S)
-			{
-				m_player->move(GameObject::Direction::DOWN);
-			}
-			else
-			{
-				m_player->stopMove(GameObject::Direction::DOWN);
-			}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			m_player->move(GameObject::Direction::DOWN);
+		}
+		else
+		{
+			m_player->stopMove(GameObject::Direction::DOWN);
+		}
 
-			if (event.key.code == sf::Keyboard::A)
-			{
-				m_player->move(GameObject::Direction::LEFT);
-			}
-			else
-			{
-				m_player->stopMove(GameObject::Direction::LEFT);
-			}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			m_player->move(GameObject::Direction::LEFT);
+		}
+		else
+		{
+			m_player->stopMove(GameObject::Direction::LEFT);
+		}
 
-			if (event.key.code == sf::Keyboard::D)
-			{
-				m_player->move(GameObject::Direction::RIGHT);
-			}
-			else
-			{
-				m_player->stopMove(GameObject::Direction::RIGHT);
-			}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			m_player->move(GameObject::Direction::RIGHT);
+		}
+		else
+		{
+			m_player->stopMove(GameObject::Direction::RIGHT);
 		}
 
 	}
