@@ -17,6 +17,7 @@ sf::FloatRect GameObject::getPosition()
 
 void GameObject::setPosition(sf::Vector2f position)
 {
+	m_center = position;
 	m_sprite.setPosition(position);
 }
 

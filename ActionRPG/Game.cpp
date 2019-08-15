@@ -21,6 +21,11 @@ Player *Game::getPlayer()
 	return m_player;
 }
 
+sf::View Game::getView()
+{
+	return m_gameView;
+}
+
 std::vector<GameObject *> *Game::getGameObjects()
 {
 	return m_gameObjects;

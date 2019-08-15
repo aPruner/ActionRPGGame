@@ -78,9 +78,9 @@ void Engine::input()
 }
 
 // TODO: update the game state
-void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock clock)
+void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 {
-	sf::Time dt = clock.restart();
+	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
@@ -91,7 +91,9 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock clock)
 // Draw the screen
 void Engine::draw(std::vector<GameObject *> *gameObjects)
 {
+	// Draw everything in the gameView
 	m_gameWindow->clear();
+	m_gameWindow->setView(m_game->getView());
 
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
@@ -103,8 +105,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 // Run the game loop
 void Engine::run()
 {
-	// Clock for keeping track of timeElapsed
-	sf::Clock clock;
+	sf::Clock *clock = new sf::Clock();
 	while (m_gameWindow->isOpen())
 	{
 		std::vector<GameObject *> *gameObjects = m_game->getGameObjects();

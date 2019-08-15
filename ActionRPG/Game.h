@@ -27,6 +27,8 @@ public:
 	Game(TextureMap *textureMap, Player *player, sf::Vector2f screenResolution);
 	~Game();
 
+	sf::View getView();
+
 	Player *getPlayer();
 
 	std::vector<GameObject *> *getGameObjects();
