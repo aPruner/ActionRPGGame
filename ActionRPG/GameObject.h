@@ -12,8 +12,9 @@ protected:
 	// Sprite for the GameObject
 	sf::Sprite m_sprite;
 
-	// Direction enum
-	const enum Direction { UP, RIGHT, DOWN, LEFT };
+	// Center (position) of the GameObject
+	// TODO: Clarify if this should be called center or position
+	sf::Vector2f m_center;
 
 	// Default initial position for GameObjects
 	const float c_initialPositionX = 0;
@@ -21,11 +22,14 @@ protected:
 	const sf::Vector2f c_initialPosition = sf::Vector2f(c_initialPositionX, c_initialPositionY);
 
 public:
+	// Direction enum
+	const enum Direction { UP, RIGHT, DOWN, LEFT };
+
 	// Pure virtual method for updating the game object
 	// Must be defined in the derived class
 	// params:
 	// int timeElapsed: ms elapsed since last draw
-	virtual void update(int timeElapsed) = 0;
+	virtual void update(float timeElapsed) = 0;
 
 	// Pure virtual method for drawing the game object
 	// Must be defined in the derived class
@@ -35,8 +39,11 @@ public:
 	sf::Sprite getSprite();
 	void setSprite(sf::Sprite newSprite);
 	
-	// Getter/Setter for the position
-	// NOTE: setPosition assumes the sprite has already been set
+	// Get the position (global bounds) of the GameObject
 	sf::FloatRect getPosition();
-	void setPosition(sf::Vector2f position);
+	void setPosition(sf::Vector2f);
+
+	// Getter/Setter for the center of the GameObject
+	sf::Vector2f getCenter();
+	void setCenter(sf::Vector2f position);
 };

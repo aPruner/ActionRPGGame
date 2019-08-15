@@ -19,3 +19,14 @@ void GameObject::setPosition(sf::Vector2f position)
 {
 	m_sprite.setPosition(position);
 }
+
+void GameObject::setCenter(sf::Vector2f position)
+{
+	m_center = position;
+	m_sprite.setOrigin(position);
+}
+
+sf::Vector2f GameObject::getCenter()
+{
+	return m_center;
+}

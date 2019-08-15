@@ -6,12 +6,34 @@ Player::Player(TextureMap *textureMap)
 	m_sprite = sf::Sprite(textureMap->getTexture(c_playerTextureFilename));
 	setSprite(m_sprite);
 	m_health = c_startingHealth;
-	setPosition(c_initialPosition);
+	m_speed = c_startingSpeed;
+	setCenter(c_initialPosition);
 }
 
-void Player::update(int timeElapsed)
+// Update position values based on player state
+void Player::update(float timeElapsed)
 {
-	
+	if (m_moveUp_pressed)
+	{
+		m_center.y += timeElapsed * m_speed;
+	}
+
+	if (m_moveDown_pressed)
+	{
+		m_center.y -= timeElapsed * m_speed;
+	}
+
+	if (m_moveLeft_pressed)
+	{
+		m_center.x -= timeElapsed * m_speed;
+	}
+
+	if (m_moveRight_pressed)
+	{
+		m_center.x += timeElapsed * m_speed;
+	}
+
+	setPosition(m_center);
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -19,7 +41,50 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_sprite, states);
 }
 
+// Set the movement input flags to true based on input directions (pressed)
 void Player::move(Direction direction)
 {
+	if (direction == Direction::UP)
+	{
+		m_moveUp_pressed = true;
+	}
 
+	if (direction == Direction::DOWN)
+	{
+		m_moveDown_pressed = true;
+	}
+
+	if (direction == Direction::LEFT)
+	{
+		m_moveLeft_pressed = true;
+	}
+
+	if (direction == Direction::RIGHT)
+	{
+		m_moveRight_pressed = true;
+	}
+}
+
+// Set the movement input flags to false based on input directions (unpressed)
+void Player::stopMove(Direction direction)
+{
+	if (direction == Direction::UP)
+	{
+		m_moveUp_pressed = false;
+	}
+
+	if (direction == Direction::DOWN)
+	{
+		m_moveDown_pressed = false;
+	}
+
+	if (direction == Direction::LEFT)
+	{
+		m_moveLeft_pressed = false;
+	}
+
+	if (direction == Direction::RIGHT)
+	{
+		m_moveRight_pressed = false;
+	}
 }

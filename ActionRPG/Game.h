@@ -19,9 +19,15 @@ private:
 
 	// Pointer to the TextureMap
 	TextureMap *m_textureMap;
+
+	// Screen resolution, passed down from the engine
+	sf::Vector2f m_screenResolution;
+
 public:
-	Game(TextureMap *textureMap, Player *player);
+	Game(TextureMap *textureMap, Player *player, sf::Vector2f screenResolution);
 	~Game();
+
+	Player *getPlayer();
 
 	std::vector<GameObject *> *getGameObjects();
 	void addGameObject(GameObject *gameObject);

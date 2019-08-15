@@ -1,16 +1,24 @@
 #include "Game.h"
 
-Game::Game(TextureMap *textureMap, Player *player)
+Game::Game(TextureMap *textureMap, Player *player, sf::Vector2f screenResolution)
 {
+	m_screenResolution = screenResolution;
 	m_player = player;
 	m_textureMap = textureMap;
 	m_gameObjects = new std::vector<GameObject *>();
-	m_gameObjects->push_back(m_player);
+	addGameObject(player);
+	m_gameView = sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y));
+	m_gameView.setCenter(player->getCenter());
 }
 
 Game::~Game()
 {
 	delete m_gameObjects;
+}
+
+Player *Game::getPlayer()
+{
+	return m_player;
 }
 
 std::vector<GameObject *> *Game::getGameObjects()
