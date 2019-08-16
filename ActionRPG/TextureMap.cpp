@@ -23,7 +23,7 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 	while (std::getline(tileListFile, line))
 	{
 		std::istringstream iss(line);
-		std::string spriteName;
+		std::string textureName;
 		int topLeftX, topLeftY, offsetX, offsetY, frames;
 	}
 }
