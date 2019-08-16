@@ -8,6 +8,7 @@ Game::Game(TextureMap *textureMap, Player *player, sf::Vector2f screenResolution
 	m_gameObjects = new std::vector<GameObject *>();
 	addGameObject(player);
 	m_room = new Room(textureMap);
+	m_room->createRoom();
 	m_gameView = sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y));
 	m_gameView.setCenter(player->getCenter());
 }

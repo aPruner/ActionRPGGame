@@ -7,7 +7,7 @@ private:
 	// Player constants
 	const static int c_startingHealth = 100;
 	const static int c_startingSpeed = 200;
-	const static std::string c_playerTextureFilename = "sprites/player.png";
+	const std::string c_playerTextureFilename = "sprites/player.png";
 
 	// Player health
 	int m_health;

@@ -6,8 +6,14 @@ class Room
 {
 private:
 	// Room constants
-	const static int c_maxRoomWidth = 256;
-	const static int c_maxRoomHeight = 256;
+	const static int c_maxRoomWidthPixels = 256;
+	const static int c_maxRoomHeightPixels = 256;
+	// Tiles are 16x16 in the sprite sheet
+	// TODO: Scale these up a bit
+	const static int c_tileSideLengthPixels = 16;
+	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
+	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
+	const static int c_vertsInQuad = 4;
 
 	// VertexArray representing the room
 	sf::VertexArray m_roomVA;
@@ -26,4 +32,6 @@ public:
 
 	// Getter for the VA, which will need to be drawn by the Engine
 	sf::VertexArray *getRoomVA();
+
+	sf::Texture *getSpriteSheet();
 };
