@@ -19,6 +19,7 @@ private:
 	// Player instance
 	Player *m_player;
 
+	// Clock instance
 	sf::Clock clock;
 
 	// Screen resolution

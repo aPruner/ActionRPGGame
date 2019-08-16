@@ -5,9 +5,9 @@ class Player : virtual public GameObject
 {
 private:
 	// Player constants
-	const int c_startingHealth = 100;
-	const int c_startingSpeed = 200;
-	const std::string c_playerTextureFilename = "sprites/player.png";
+	const static int c_startingHealth = 100;
+	const static int c_startingSpeed = 200;
+	const static std::string c_playerTextureFilename = "sprites/player.png";
 
 	// Player health
 	int m_health;

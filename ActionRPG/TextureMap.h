@@ -6,7 +6,7 @@ class TextureMap
 {
 private:
 	// Map of filenames to textures
-	std::map<std::string, sf::Texture> *textureMap;
+	std::map<std::string, sf::Texture> *m_textureMap;
 public:
 	TextureMap();
 	~TextureMap();

@@ -6,6 +6,11 @@
 class GameObject : public sf::Drawable
 {
 protected:
+	// GameObject constants
+	const float c_initialPositionX = 0;
+	const float c_initialPositionY = 0;
+	const sf::Vector2f c_initialPosition = sf::Vector2f(c_initialPositionX, c_initialPositionY);
+
 	// TextureMap to fetch textures from
 	TextureMap *m_textureMap;
 
@@ -15,11 +20,6 @@ protected:
 	// Center (position) of the GameObject
 	// TODO: Clarify if this should be called center or position
 	sf::Vector2f m_center;
-
-	// Default initial position for GameObjects
-	const float c_initialPositionX = 0;
-	const float c_initialPositionY = 0;
-	const sf::Vector2f c_initialPosition = sf::Vector2f(c_initialPositionX, c_initialPositionY);
 
 public:
 	// Direction enum

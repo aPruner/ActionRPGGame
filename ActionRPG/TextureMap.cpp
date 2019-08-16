@@ -3,18 +3,18 @@
 
 TextureMap::TextureMap()
 {
-	textureMap = new std::map<std::string, sf::Texture>();
+	m_textureMap = new std::map<std::string, sf::Texture>();
 }
 
 TextureMap::~TextureMap()
 {
-	delete textureMap;
+	delete m_textureMap;
 }
 
 sf::Texture& TextureMap::getTexture(std::string const& filename)
 {
-	auto it = textureMap->find(filename);
-	if (it != textureMap->end())
+	auto it = m_textureMap->find(filename);
+	if (it != m_textureMap->end())
 	{
 		return it->second;
 	}
@@ -22,8 +22,8 @@ sf::Texture& TextureMap::getTexture(std::string const& filename)
 	{
 		sf::Texture texture;
 		texture.loadFromFile(filename);
-		textureMap->insert(std::pair<std::string, sf::Texture>(filename, texture));
-		return textureMap->at(filename);
+		m_textureMap->insert(std::pair<std::string, sf::Texture>(filename, texture));
+		return m_textureMap->at(filename);
 	}
 }
 

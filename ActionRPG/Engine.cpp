@@ -2,7 +2,6 @@
 #include "Engine.h"
 #include "Player.h"
 
-// Engine constructor
 Engine::Engine()
 {
 	sf::VideoMode screenResolutionVM = sf::VideoMode::getDesktopMode();
@@ -13,8 +12,8 @@ Engine::Engine()
 	m_player = new Player(m_textureMap);
 	m_game = new Game(m_textureMap, m_player, m_screenResolution);
 
-	// TODO: Load all the sprites and textures (into respective map data structures) before running the game loop
-	// not sure where the code to do this should reside
+	// TODO: Maybe it'd be better to load all the sprites and textures (into respective map data structures)
+	// before running the game loop, not sure where the code to do this should reside
 }
 
 // Handle input
@@ -76,7 +75,7 @@ void Engine::input()
 	}
 }
 
-// TODO: update the game state
+// Update the game state
 void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 {
 	sf::Time dt = clock->restart();
