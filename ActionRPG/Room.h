@@ -16,6 +16,8 @@ private:
 	const static int c_vertsInQuad = 4;
 	const static size_t c_roomVASize = c_maxRoomWidthPixels * c_maxRoomHeightTiles * c_vertsInQuad;
 
+	const std::string c_spriteSheetFilename = "sprites/sprite_sheets/all_sprites.png";
+
 	// VertexArray representing the room
 	sf::VertexArray m_roomVA;
 

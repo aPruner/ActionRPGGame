@@ -1,3 +1,6 @@
+# INFO: the following texture coordinate format is:
+# <name> <top_left_x> <top_left_y> <x_offset> <y_offset> <frames>
+
 wall_top_left 16 0 16 16
 wall_top_mid 32 0 16 16
 wall_top_right 48 0 16 16
