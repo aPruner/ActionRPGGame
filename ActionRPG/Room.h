@@ -14,6 +14,7 @@ private:
 	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
 	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
 	const static int c_vertsInQuad = 4;
+	const static size_t c_roomVASize = c_maxRoomWidthPixels * c_maxRoomHeightTiles * c_vertsInQuad;
 
 	// VertexArray representing the room
 	sf::VertexArray m_roomVA;
@@ -31,7 +32,7 @@ public:
 	void createRoom();
 
 	// Getter for the VA, which will need to be drawn by the Engine
-	sf::VertexArray *getRoomVA();
+	sf::VertexArray& getRoomVA();
 
 	sf::Texture *getSpriteSheet();
 };
