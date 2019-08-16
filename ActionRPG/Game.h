@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "TextureMap.h"
+#include "Room.h"
 
 class Game
 {
@@ -23,6 +24,9 @@ private:
 	// Screen resolution, passed down from the engine
 	sf::Vector2f m_screenResolution;
 
+	// Instance of the room
+	Room *m_room;
+
 public:
 	Game(TextureMap *textureMap, Player *player, sf::Vector2f screenResolution);
 	~Game();
@@ -30,6 +34,8 @@ public:
 	sf::View getView();
 
 	Player *getPlayer();
+
+	Room *getRoom();
 
 	std::vector<GameObject *> *getGameObjects();
 	void addGameObject(GameObject *gameObject);
