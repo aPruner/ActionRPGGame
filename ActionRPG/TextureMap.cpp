@@ -1,4 +1,7 @@
-#include <assert.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include "TextureMap.h"
 
 TextureMap::TextureMap()
@@ -11,7 +14,21 @@ TextureMap::~TextureMap()
 	delete m_textureMap;
 }
 
-sf::Texture& TextureMap::getTexture(std::string const& filename)
+void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
+{
+	std::ifstream tileListFile;
+	tileListFile.open(tileListFilename);
+
+	std::string line;
+	while (std::getline(tileListFile, line))
+	{
+		std::istringstream iss(line);
+		std::string spriteName;
+		int topLeftX, topLeftY, offsetX, offsetY, frames;
+	}
+}
+
+sf::Texture& TextureMap::getTextureFromFilename(std::string const& filename)
 {
 	auto it = m_textureMap->find(filename);
 	if (it != m_textureMap->end())

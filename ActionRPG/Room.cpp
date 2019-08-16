@@ -3,7 +3,7 @@
 Room::Room(TextureMap* textureMap)
 {
 	m_textureMap = textureMap;
-	m_spriteSheet = m_textureMap->getTexture(c_spriteSheetFilename);
+	m_spriteSheet = m_textureMap->getTextureFromFilename(c_spriteSheetFilename);
 }
 
 // Populate the VA

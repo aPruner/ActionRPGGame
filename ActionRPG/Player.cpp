@@ -3,7 +3,7 @@
 Player::Player(TextureMap *textureMap)
 {
 	m_textureMap = textureMap;
-	m_sprite = sf::Sprite(textureMap->getTexture(c_playerTextureFilename));
+	m_sprite = sf::Sprite(textureMap->getTextureFromFilename(c_playerTextureFilename));
 	setSprite(m_sprite);
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
