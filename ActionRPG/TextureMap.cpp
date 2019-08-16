@@ -7,6 +7,7 @@
 TextureMap::TextureMap()
 {
 	m_textureMap = new std::map<std::string, sf::Texture>();
+	loadTexturesFromTileList(c_tileListFilename);
 }
 
 TextureMap::~TextureMap()
@@ -22,9 +23,11 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 	std::string line;
 	while (std::getline(tileListFile, line))
 	{
+		// TODO split the line properly, and deal with frames
 		std::istringstream iss(line);
 		std::string textureName;
 		int topLeftX, topLeftY, offsetX, offsetY, frames;
+		iss >> textureName;
 	}
 }
 
