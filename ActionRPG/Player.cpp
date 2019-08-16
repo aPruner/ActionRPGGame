@@ -10,7 +10,7 @@ Player::Player(TextureMap *textureMap)
 	setCenter(c_initialPosition);
 }
 
-// Update position values based on player state
+// GameObject update method override
 void Player::update(float timeElapsed)
 {
 	if (m_moveUp_pressed)
@@ -36,6 +36,7 @@ void Player::update(float timeElapsed)
 	setPosition(m_center);
 }
 
+// GameObject draw method override
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);

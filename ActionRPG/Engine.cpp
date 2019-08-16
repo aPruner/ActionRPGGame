@@ -7,7 +7,7 @@ Engine::Engine()
 {
 	sf::VideoMode screenResolutionVM = sf::VideoMode::getDesktopMode();
 	m_screenResolution = sf::Vector2f((float) screenResolutionVM.width, (float) screenResolutionVM.height);
-	m_gameWindow = new sf::RenderWindow(screenResolutionVM, "Action RPG");
+	m_gameWindow = new sf::RenderWindow(screenResolutionVM, "Action RPG", sf::Style::Fullscreen);
 
 	m_textureMap = new TextureMap();
 	m_player = new Player(m_textureMap);
