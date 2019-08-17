@@ -11,7 +11,7 @@ private:
 	std::map<std::string, sf::Texture> *m_textureMap;
 
 	// Map of textureNames to textureCoordinates (tuple of 4 Vector2f) - for sprite sheet textures
-	std::map<std::string, std::tuple<sf::Vector2f>> *m_textureCoordsMap;
+	std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>> *m_textureCoordsMap;
 
 	// TODO: Load all textures from the sprite sheet into the above map
 	// and create a separate data structure for indexing textures from the sprite sheet

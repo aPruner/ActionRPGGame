@@ -7,6 +7,7 @@
 TextureMap::TextureMap()
 {
 	m_textureMap = new std::map<std::string, sf::Texture>();
+	m_textureCoordsMap = new std::map<std::string, std::tuple<sf::Vector2f>>();
 	loadTexturesFromTileList(c_tileListFilename);
 }
 
@@ -23,11 +24,38 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 	std::string line;
 	while (std::getline(tileListFile, line))
 	{
-		// TODO split the line properly, and deal with frames
-		std::istringstream iss(line);
+
+		// Split the string and deal with it accordingly
+		std::istringstream lineStream(line);
+		std::vector<std::string> splitLine((std::istream_iterator<std::string>(lineStream)), std::istream_iterator<std::string>());
+
 		std::string textureName;
 		int topLeftX, topLeftY, offsetX, offsetY, frames;
-		iss >> textureName;
+
+		if (splitLine[0] != "#" && splitLine.size() == 5)
+		{
+			// Not an animation
+			textureName = splitLine[0];
+			topLeftX = std::stoi(splitLine[1]);
+			topLeftY = std::stoi(splitLine[2]);
+			offsetX = std::stoi(splitLine[3]);
+			offsetY = std::stoi(splitLine[4]);
+			
+			sf::Vector2f topLeftCoords(topLeftX, topLeftY);
+			sf::Vector2f topRightCoords(topLeftX + offsetX, topLeftY);
+			sf::Vector2f bottomRightCoords(topLeftX + offsetX, topLeftY + offsetY);
+			sf::Vector2f bottomLeftCoords(topLeftX, topLeftY + offsetY);
+
+			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> textureCoords(
+				topLeftCoords, topRightCoords, bottomRightCoords, bottomLeftCoords
+			);
+
+		}
+		else if (splitLine[0] != "#" && splitLine.size() == 6)
+		{
+			// Animation (frames column exists)
+			// TODO: loop through and add each frame of the animation to m_textureCoordsMap
+		}
 	}
 }
 
