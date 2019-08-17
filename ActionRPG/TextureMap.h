@@ -29,4 +29,6 @@ public:
 
 	// Fetch a texture from m_spriteSheetTextureMap
 	sf::Texture& getSpriteSheetTextureFromTextureName(std::string const& textureName);
+
+	sf::Texture& getSpriteSheet();
 };

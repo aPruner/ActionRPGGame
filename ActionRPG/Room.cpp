@@ -2,8 +2,7 @@
 
 Room::Room(TextureMap* textureMap)
 {
-	m_textureMap = textureMap;
-	m_spriteSheet = m_textureMap->getTextureFromFilename(c_spriteSheetFilename);
+	m_floor_1Texture = textureMap->getSpriteSheetTextureFromTextureName("floor_1");
 }
 
 // Populate the VA
@@ -42,7 +41,7 @@ sf::VertexArray& Room::getRoomVA()
 	return m_roomVA;
 }
 
-sf::Texture *Room::getSpriteSheet()
+sf::Texture *Room::getFloorTexture()
 {
-	return &m_spriteSheet;
+	return &m_floor_1Texture;
 }

@@ -87,3 +87,8 @@ sf::Texture& TextureMap::getSpriteSheetTextureFromTextureName(std::string const&
 	sf::Texture *texture = new sf::Texture();
 	return *texture;
 }
+
+sf::Texture& TextureMap::getSpriteSheet()
+{
+	return m_spriteSheet;
+}

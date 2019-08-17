@@ -16,16 +16,11 @@ private:
 	const static int c_vertsInQuad = 4;
 	const static size_t c_roomVASize = c_maxRoomWidthPixels * c_maxRoomHeightTiles * c_vertsInQuad;
 
-	const std::string c_spriteSheetFilename = "sprites/sprite_sheets/all_sprites.png";
-
 	// VertexArray representing the room
 	sf::VertexArray m_roomVA;
 
-	// Instance of the textureMap
-	TextureMap *m_textureMap;
-
-	// Sprite sheet for all of the game sprites/textures
-	sf::Texture m_spriteSheet;
+	// Floor texture
+	sf::Texture m_floor_1Texture;
 
 public:
 	Room(TextureMap *textureMap);
@@ -36,5 +31,5 @@ public:
 	// Getter for the VA, which will need to be drawn by the Engine
 	sf::VertexArray& getRoomVA();
 
-	sf::Texture *getSpriteSheet();
+	sf::Texture *getFloorTexture();
 };

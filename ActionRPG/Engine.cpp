@@ -94,7 +94,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 	m_gameWindow->setView(m_game->getView());
 
 	// Draw the room
-	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), m_game->getRoom()->getSpriteSheet());
+	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), &m_textureMap->getSpriteSheet());
 
 	// Draw the gameObjects
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
