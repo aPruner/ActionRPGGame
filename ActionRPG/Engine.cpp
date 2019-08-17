@@ -4,16 +4,29 @@
 
 Engine::Engine()
 {
+	// Create the game window
 	sf::VideoMode screenResolutionVM = sf::VideoMode::getDesktopMode();
 	m_screenResolution = sf::Vector2f((float) screenResolutionVM.width, (float) screenResolutionVM.height);
 	m_gameWindow = new sf::RenderWindow(screenResolutionVM, "Action RPG", sf::Style::Fullscreen);
 
+	// Initialize the fps counter
+	initFpsCounter();
+
+	// Initialize the game
 	m_textureMap = new TextureMap();
 	m_player = new Player(m_textureMap);
 	m_game = new Game(m_textureMap, m_player, m_screenResolution);
+}
 
-	// TODO: Maybe it'd be better to load all the sprites and textures (into respective map data structures)
-	// before running the game loop, not sure where the code to do this should reside
+// Initialize the fps counter
+void Engine::initFpsCounter()
+{
+	m_fpsCounterFont.loadFromFile(c_fpsCounterFontFilename);
+	m_fpsCounter.setString(c_fpsCounterInitString);
+	m_fpsCounter.setFont(m_fpsCounterFont);
+	m_fpsCounter.setCharacterSize(c_fpsCounterFontSize);
+	m_fpsCounter.setFillColor(c_fpsCounterTextColor);
+	m_fpsCounter.setPosition(c_fpsCounterPosition);
 }
 
 // Handle input
@@ -80,6 +93,9 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 {
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
+	m_fps = 1.f / dtSeconds;
+	m_fpsCounter.setString(c_fpsCounterInitString + std::to_string(m_fps));
+
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
 		(*it)->update(dtSeconds);
@@ -101,6 +117,10 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 	{
 		m_gameWindow->draw(**it);
 	}
+
+	m_gameWindow->draw(m_fpsCounter);
+
+	// Display the new frame
 	m_gameWindow->display();
 }
 
