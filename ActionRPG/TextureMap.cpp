@@ -7,7 +7,8 @@
 TextureMap::TextureMap()
 {
 	m_textureMap = new std::map<std::string, sf::Texture>();
-	m_textureCoordsMap = new std::map<std::string, std::tuple<sf::Vector2f>>();
+	m_spriteSheetTextureMap = new std::map<std::string, sf::Texture>();
+	m_spriteSheet.loadFromFile(c_spriteSheetFilename);
 	loadTexturesFromTileList(c_tileListFilename);
 }
 
@@ -24,37 +25,35 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 	std::string line;
 	while (std::getline(tileListFile, line))
 	{
-
-		// Split the string and deal with it accordingly
 		std::istringstream lineStream(line);
 		std::vector<std::string> splitLine((std::istream_iterator<std::string>(lineStream)), std::istream_iterator<std::string>());
 
 		std::string textureName;
-		int topLeftX, topLeftY, offsetX, offsetY, frames;
+		int topLeftX, topLeftY, width, height;
+		// TODO: deal with frames and size == 6 case
+		// int frames;
 
 		if (splitLine[0] != "#" && splitLine.size() == 5)
 		{
-			// Not an animation
+			// Not an animation (there is no frames column)
 			textureName = splitLine[0];
 			topLeftX = std::stoi(splitLine[1]);
 			topLeftY = std::stoi(splitLine[2]);
-			offsetX = std::stoi(splitLine[3]);
-			offsetY = std::stoi(splitLine[4]);
-			
-			sf::Vector2f topLeftCoords(topLeftX, topLeftY);
-			sf::Vector2f topRightCoords(topLeftX + offsetX, topLeftY);
-			sf::Vector2f bottomRightCoords(topLeftX + offsetX, topLeftY + offsetY);
-			sf::Vector2f bottomLeftCoords(topLeftX, topLeftY + offsetY);
+			width = std::stoi(splitLine[3]);
+			height = std::stoi(splitLine[4]);
 
-			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> textureCoords(
-				topLeftCoords, topRightCoords, bottomRightCoords, bottomLeftCoords
-			);
+			// A bit of a hack: since there is no way to create a texture via IntRect slicing of a sprite sheet,
+			// create an intermediate sprite and grab the texture from that sprite to stick in the map
+			sf::Sprite sprite(m_spriteSheet, sf::IntRect(topLeftX, topLeftY, width, height));
+			sf::Texture newTexture(*sprite.getTexture());
+			m_spriteSheetTextureMap->insert(std::pair<std::string, sf::Texture>(textureName, newTexture));
 
 		}
 		else if (splitLine[0] != "#" && splitLine.size() == 6)
 		{
 			// Animation (frames column exists)
 			// TODO: loop through and add each frame of the animation to m_textureCoordsMap
+			continue;
 		}
 	}
 }
@@ -75,4 +74,16 @@ sf::Texture& TextureMap::getTextureFromFilename(std::string const& filename)
 	}
 }
 
-// TODO: Maybe add a batch loadAllTextures method to load all textures at once in the future
+// Assumes textureName exists in the map, otherwise returns a new dummy texture
+sf::Texture& TextureMap::getSpriteSheetTextureFromTextureName(std::string const& textureName)
+{
+	auto it = m_spriteSheetTextureMap->find(textureName);
+	if (it != m_spriteSheetTextureMap->end())
+	{
+		return it->second;
+	}
+
+	// If textureName doesn't exist in the map, return a new dummy texture
+	sf::Texture *texture = new sf::Texture();
+	return *texture;
+}
