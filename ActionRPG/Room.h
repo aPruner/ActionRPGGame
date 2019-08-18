@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureMap.h"
+#include "Tile.h"
 
 class Room
 {
@@ -14,16 +15,29 @@ private:
 	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
 	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
 	const static int c_vertsInQuad = 4;
-	const static size_t c_roomVASize = c_maxRoomWidthPixels * c_maxRoomHeightTiles * c_vertsInQuad;
+	const static int c_roomScalingFactor = 2;
+	const static int c_roomTileMapSize = c_maxRoomWidthTiles * c_maxRoomHeightTiles;
+	const static size_t c_roomVASize = c_roomTileMapSize * c_vertsInQuad;
 
-	// VertexArray representing the room
+	// Tile map (logically represents the room)
+	Tile *m_roomTileMap[c_roomTileMapSize];
+
+	// VertexArray representing the roomTileMap (this is drawn)
 	sf::VertexArray m_roomVA;
 
 	// Floor texture
 	sf::Texture m_floor_1Texture;
 
+	// Map of ints to tileTypes to easily represent the room with an int array
+	std::map<int, TileType> *m_tileTypeMap;
+
+	// Populate m_tileTypeMap
+	void populateTileTypeMap();
+
 public:
+
 	Room(TextureMap *textureMap);
+	~Room();
 
 	// Write to the VA to create the room (so it can be drawn)
 	void createRoom();
