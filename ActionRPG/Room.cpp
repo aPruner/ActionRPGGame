@@ -4,20 +4,18 @@ Room::Room(TextureMap* textureMap)
 {
 	m_floor_1Texture = textureMap->getSpriteSheetTextureFromTextureName("floor_1");
 	m_tileTypeMap = new std::map<int, TileType>();
-	
-	// TODO: Figure out how the tileMap is going to work
-	for (int i = 0; i < c_maxRoomHeightTiles; i++)
-	{
-		for (int j = 0; j < c_maxRoomWidthTiles; j++)
-		{
-			m_roomTileMap[i * c_maxRoomWidthTiles + j] = new Tile (FLOOR_1);
-		}
-	}
 }
 
 Room::~Room()
 {
 	delete m_tileTypeMap;
+	for (int i = 0; i < c_maxRoomHeightTiles; i++)
+	{
+		for (int j = 0; j < c_maxRoomWidthTiles; j++)
+		{
+			delete m_roomTileMap[i * c_maxRoomWidthTiles + j];
+		}
+	}
 }
 
 // Populate m_tileTypeMap
@@ -29,6 +27,16 @@ void Room::populateTileTypeMap()
 // Populate the VA
 void Room::createRoom()
 {
+
+	// Initialize the tile map
+	for (int i = 0; i < c_maxRoomHeightTiles; i++)
+	{
+		for (int j = 0; j < c_maxRoomWidthTiles; j++)
+		{
+			m_roomTileMap[i * c_maxRoomWidthTiles + j] = new Tile(FLOOR_1);
+		}
+	}
+
 	// Configure the VA
 	m_roomVA.setPrimitiveType(sf::PrimitiveType::Quads);
 	m_roomVA.resize(c_roomVASize);
