@@ -19,14 +19,17 @@ private:
 	const static int c_roomTileMapSize = c_maxRoomWidthTiles * c_maxRoomHeightTiles;
 	const static size_t c_roomVASize = c_roomTileMapSize * c_vertsInQuad;
 
+	// TODO: Map TileType enum to tileType strings
+	const std::string c_floor1TextureName = "floor_1";
+
 	// Tile map (logically represents the room)
 	Tile *m_roomTileMap[c_roomTileMapSize];
 
+	// Instance of the textureMap
+	TextureMap *m_textureMap;
+
 	// VertexArray representing the roomTileMap (this is drawn)
 	sf::VertexArray m_roomVA;
-
-	// Floor texture
-	sf::Texture m_floor_1Texture;
 
 	// Map of ints to tileTypes to easily represent the room with an int array
 	std::map<int, TileType> *m_tileTypeMap;
@@ -44,6 +47,4 @@ public:
 
 	// Getter for the VA, which will need to be drawn by the Engine
 	sf::VertexArray& getRoomVA();
-
-	sf::Texture *getFloorTexture();
 };

@@ -7,7 +7,7 @@
 TextureMap::TextureMap()
 {
 	m_textureMap = new std::map<std::string, sf::Texture>();
-	m_spriteSheetTextureMap = new std::map<std::string, sf::Texture>();
+	m_spriteSheetTextureMap = new std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>>();
 	m_spriteSheet.loadFromFile(c_spriteSheetFilename);
 	loadTexturesFromTileList(c_tileListFilename);
 }
@@ -42,11 +42,12 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 			width = std::stoi(splitLine[3]);
 			height = std::stoi(splitLine[4]);
 
-			// A bit of a hack: since there is no way to create a texture via IntRect slicing of a sprite sheet,
-			// create an intermediate sprite and grab the texture from that sprite to stick in the map
-			sf::Sprite sprite(m_spriteSheet, sf::IntRect(topLeftX, topLeftY, width, height));
-			sf::Texture newTexture(*sprite.getTexture());
-			m_spriteSheetTextureMap->insert(std::pair<std::string, sf::Texture>(textureName, newTexture));
+			sf::Vector2f topLeftVec((float) topLeftX, (float) topLeftY); 
+			sf::Vector2f topRightVec((float) (topLeftX + width), (float) topLeftY);
+			sf::Vector2f bottomRightVec((float) (topLeftX + width), (float) (topLeftY + height));
+			sf::Vector2f bottomLeftVec((float) topLeftX, (float) (topLeftY + height));
+			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple(topLeftVec, topRightVec, bottomRightVec, bottomLeftVec);
+			m_spriteSheetTextureMap->insert(std::pair<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>>(textureName, vecTuple));
 
 		}
 		else if (splitLine[0] != "#" && splitLine.size() == 6)
@@ -75,7 +76,7 @@ sf::Texture& TextureMap::getTextureFromFilename(std::string const& filename)
 }
 
 // Assumes textureName exists in the map, otherwise returns a new dummy texture
-sf::Texture& TextureMap::getSpriteSheetTextureFromTextureName(std::string const& textureName)
+std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>& TextureMap::getSpriteSheetVecTuple(std::string const& textureName)
 {
 	auto it = m_spriteSheetTextureMap->find(textureName);
 	if (it != m_spriteSheetTextureMap->end())
@@ -83,9 +84,11 @@ sf::Texture& TextureMap::getSpriteSheetTextureFromTextureName(std::string const&
 		return it->second;
 	}
 
-	// If textureName doesn't exist in the map, return a new dummy texture
-	sf::Texture *texture = new sf::Texture();
-	return *texture;
+	// If textureName doesn't exist in the map, return a new dummy tuple (all values are -1, -1)
+	sf::Vector2f dummy(-1, -1);
+	std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> *dummyTuple;
+	dummyTuple = new std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>(dummy, dummy, dummy, dummy);
+	return *dummyTuple;
 }
 
 sf::Texture& TextureMap::getSpriteSheet()
