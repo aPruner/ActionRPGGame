@@ -28,15 +28,6 @@ void Room::populateTileTypeMap()
 void Room::createRoom()
 {
 
-	// Initialize the tile map
-	for (int i = 0; i < c_maxRoomHeightTiles; i++)
-	{
-		for (int j = 0; j < c_maxRoomWidthTiles; j++)
-		{
-			m_roomTileMap[i * c_maxRoomWidthTiles + j] = new Tile(FLOOR_1);
-		}
-	}
-
 	// Configure the VA
 	m_roomVA.setPrimitiveType(sf::PrimitiveType::Quads);
 	m_roomVA.resize(c_roomVASize);
@@ -65,8 +56,32 @@ void Room::createRoom()
 				(float) ((i + 1) * c_tileSideLengthPixels * c_roomScalingFactor)
 			);
 
-			// Now fill the VA texture coordinates (floor_1 for now)
-			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple = m_textureMap->getSpriteSheetVecTuple(c_floor1TextureName);
+			// Create a new tile in the tile map
+			m_roomTileMap[i * c_maxRoomWidthTiles + j] = new Tile(FLOOR_1);
+
+			// Now fill the VA texture coordinates
+			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple;
+			if (i == 0)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallTopMidTextureName);
+			}
+			else if (j == 0)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallSideMidLeftTextureName);
+			}
+			else if (i == c_maxRoomHeightTiles - 1)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallTopMidTextureName);
+			}
+			else if (j == c_maxRoomWidthTiles - 1)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallSideMidLeftTextureName);
+			}
+			else
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_floor1TextureName);
+			}
+
 			m_roomVA[currentTile].texCoords = sf::Vector2f(std::get<0>(vecTuple));
 			m_roomVA[currentTile + 1].texCoords = sf::Vector2f(std::get<1>(vecTuple));
 			m_roomVA[currentTile + 2].texCoords = sf::Vector2f(std::get<2>(vecTuple));
