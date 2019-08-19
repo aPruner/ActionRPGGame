@@ -21,8 +21,12 @@ private:
 
 	// TODO: Map TileType enum to tileType strings
 	const std::string c_floor1TextureName = "floor_1";
+	const std::string c_wallSideTopLeftTextureName = "wall_side_top_left";
+	const std::string c_wallCornerLeftTextureName = "wall_corner_left";
 	const std::string c_wallTopMidTextureName = "wall_top_mid";
+	const std::string c_wallMidTextureName = "wall_mid";
 	const std::string c_wallSideMidLeftTextureName = "wall_side_mid_left";
+	const std::string c_wallSideMidRightTextureName = "wall_side_mid_right";
 
 	// Tile map (logically represents the room)
 	Tile *m_roomTileMap[c_roomTileMapSize];

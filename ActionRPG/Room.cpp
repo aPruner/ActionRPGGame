@@ -61,21 +61,38 @@ void Room::createRoom()
 
 			// Now fill the VA texture coordinates
 			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple;
-			if (i == 0)
+		
+			if (i == 0 && j == 0)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallSideTopLeftTextureName);
+			}
+			else if (i == 0)
 			{
 				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallTopMidTextureName);
+			}
+			else if (i == 1 && j == 0)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallCornerLeftTextureName);
+			}
+			else if (i == 1)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallMidTextureName);
+			}
+			else if (i == c_maxRoomHeightTiles - 2)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallTopMidTextureName);
+			}
+			else if (i == c_maxRoomHeightTiles - 1)
+			{
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallMidTextureName);
 			}
 			else if (j == 0)
 			{
 				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallSideMidLeftTextureName);
 			}
-			else if (i == c_maxRoomHeightTiles - 1)
-			{
-				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallTopMidTextureName);
-			}
 			else if (j == c_maxRoomWidthTiles - 1)
 			{
-				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallSideMidLeftTextureName);
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_wallSideMidRightTextureName);
 			}
 			else
 			{

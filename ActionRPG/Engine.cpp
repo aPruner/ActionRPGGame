@@ -91,6 +91,8 @@ void Engine::input()
 // Update the game state
 void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 {
+	// TODO: Figure out how to center the view on the player
+
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
 	m_fps = 1.f / dtSeconds;
