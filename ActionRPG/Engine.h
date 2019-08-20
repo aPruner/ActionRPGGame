@@ -7,13 +7,15 @@
 class Engine
 {
 private:
-	const std::string c_fpsCounterFontFilename = "fonts/MiddleEarth.ttf";
+	const std::string c_defaultFontFilename = "fonts/MiddleEarth.ttf";
 	const std::string c_fpsCounterInitString = "FPS: ";
+	const std::string c_playerDebugTextInitString = "X: %d, Y: %d";
 	// TODO: Change the position of the fpsCounter to be related to resolution
 	const sf::Vector2f c_fpsCounterPosition = sf::Vector2f(-950, -550);
-	const sf::Color c_fpsCounterTextColor = sf::Color::White;
+	const sf::Vector2f c_playerDebugTextPosition = sf::Vector2f(500, 400);
+	const sf::Color c_defaultFontColor = sf::Color::White;
 	// TODO: Change the font size of the fpsCounter to be related to resolution
-	const static int c_fpsCounterFontSize = 50;
+	const static int c_defaultFontSize = 50;
 
 	// SFML Game Window
 	sf::RenderWindow *m_gameWindow;
@@ -36,11 +38,20 @@ private:
 	// FPS counter font
 	sf::Font m_fpsCounterFont;
 
+	// Player debug text
+	sf::Text m_playerDebugText;
+
+	// Player debug text font
+	sf::Font m_playerDebugTextFont;
+
 	// Current FPS value
 	float m_fps;
 
 	// Initialize the fps counter
 	void initFpsCounter();
+
+	// Initialize the player debug text
+	void initPlayerDebugText();
 
 	// Handle game input
 	void input();

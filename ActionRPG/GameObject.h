@@ -6,6 +6,10 @@
 class GameObject : public sf::Drawable
 {
 protected:
+	// TODO: reduce duplicate code
+	const static int c_tileSideLengthPixels = 16;
+	const static int c_roomScalingFactor = 2;
+
 	// GameObject constants
 	const float c_initialPositionX = 0;
 	const float c_initialPositionY = 0;
@@ -46,4 +50,8 @@ public:
 	// Getter/Setter for the center of the GameObject
 	sf::Vector2f getCenter();
 	void setCenter(sf::Vector2f position);
+
+	// Return x or y position of center
+	int getXPositionInTileMap();
+	int getYPositionInTileMap();
 };

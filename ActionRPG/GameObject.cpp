@@ -31,3 +31,13 @@ sf::Vector2f GameObject::getCenter()
 {
 	return m_center;
 }
+
+int GameObject::getXPositionInTileMap()
+{
+	return (int) m_center.x / c_roomScalingFactor / c_tileSideLengthPixels;
+}
+
+int GameObject::getYPositionInTileMap()
+{
+	return (int) m_center.y / c_roomScalingFactor / c_tileSideLengthPixels;
+}

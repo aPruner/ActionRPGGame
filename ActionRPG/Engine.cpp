@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <stdio.h>
 #include "Engine.h"
 #include "Player.h"
 
@@ -12,6 +13,9 @@ Engine::Engine()
 	// Initialize the fps counter
 	initFpsCounter();
 
+	// Initializie the player debug text
+	initPlayerDebugText();
+
 	// Initialize the game
 	m_textureMap = new TextureMap();
 	m_game = new Game(m_textureMap, m_screenResolution);
@@ -20,12 +24,22 @@ Engine::Engine()
 // Initialize the fps counter
 void Engine::initFpsCounter()
 {
-	m_fpsCounterFont.loadFromFile(c_fpsCounterFontFilename);
+	m_fpsCounterFont.loadFromFile(c_defaultFontFilename);
 	m_fpsCounter.setString(c_fpsCounterInitString);
 	m_fpsCounter.setFont(m_fpsCounterFont);
-	m_fpsCounter.setCharacterSize(c_fpsCounterFontSize);
-	m_fpsCounter.setFillColor(c_fpsCounterTextColor);
+	m_fpsCounter.setCharacterSize(c_defaultFontSize);
+	m_fpsCounter.setFillColor(c_defaultFontColor);
 	m_fpsCounter.setPosition(c_fpsCounterPosition);
+}
+
+void Engine::initPlayerDebugText()
+{
+	m_playerDebugTextFont.loadFromFile(c_defaultFontFilename);
+	m_playerDebugText.setString(c_playerDebugTextInitString);
+	m_playerDebugText.setFont(m_playerDebugTextFont);
+	m_playerDebugText.setCharacterSize(c_defaultFontSize);
+	m_playerDebugText.setFillColor(c_defaultFontColor);
+	m_playerDebugText.setPosition(c_playerDebugTextPosition);
 }
 
 // Handle input
@@ -103,6 +117,11 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 	{
 		(*it)->update(dtSeconds);
 	}
+
+	// Set the player debug text info after updating all GameObjects
+	char playerDebugTextBuffer[50];
+	sprintf_s(playerDebugTextBuffer, c_playerDebugTextInitString.c_str(), m_game->getPlayer()->getXPositionInTileMap(), m_game->getPlayer()->getYPositionInTileMap());
+	m_playerDebugText.setString(std::string(playerDebugTextBuffer));
 }
 
 // Draw the screen
@@ -121,6 +140,8 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 		m_gameWindow->draw(**it);
 	}
 
+
+	m_gameWindow->draw(m_playerDebugText);
 	m_gameWindow->draw(m_fpsCounter);
 
 	// Display the new frame
