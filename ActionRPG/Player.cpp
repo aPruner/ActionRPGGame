@@ -5,6 +5,7 @@ Player::Player(TextureMap *textureMap)
 	m_textureMap = textureMap;
 	m_sprite = sf::Sprite(textureMap->getTextureFromFilename(c_playerTextureFilename));
 	setSprite(m_sprite);
+	m_sprite.scale((float) c_playerScalingFactor, (float) c_playerScalingFactor);
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
 	setCenter(c_initialPosition);
