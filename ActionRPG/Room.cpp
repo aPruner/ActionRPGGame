@@ -75,3 +75,8 @@ sf::VertexArray& Room::getRoomVA()
 {
 	return m_roomVA;
 }
+
+Tile *Room::getTile(int x, int y)
+{
+	return m_roomTileMap[y * c_maxRoomWidthPixels + x];
+}

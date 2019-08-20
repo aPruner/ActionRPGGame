@@ -8,8 +8,6 @@ private:
 	// Room constants
 	const static int c_maxRoomWidthPixels = 256;
 	const static int c_maxRoomHeightPixels = 256;
-	// Tiles are 16x16 in the sprite sheet
-	// TODO: Scale these up a bit
 	const static int c_tileSideLengthPixels = 16;
 	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
 	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
@@ -30,6 +28,8 @@ private:
 	// VertexArray representing the roomTileMap (this is drawn)
 	sf::VertexArray m_roomVA;
 
+	// TODO: Add a data structure that represents a room read in from a file
+
 public:
 
 	Room(TextureMap *textureMap);
@@ -40,4 +40,7 @@ public:
 
 	// Getter for the VA, which will need to be drawn by the Engine
 	sf::VertexArray& getRoomVA();
+
+	// Get a tile from the tile map at logical position x, y
+	Tile *getTile(int x, int y);
 };
