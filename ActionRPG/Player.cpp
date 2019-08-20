@@ -10,6 +10,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
 	setCenter(c_initialPosition);
+	setDebugRect();
 }
 
 // GameObject update method override
@@ -34,6 +35,9 @@ void Player::update(float timeElapsed)
 	{
 		m_center.x += timeElapsed * m_speed;
 	}
+
+	// Move the debug rect as well as the player
+	m_debugRect.setPosition(m_center);
 
 	setPosition(m_center);
 }

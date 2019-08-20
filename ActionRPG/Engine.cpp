@@ -137,10 +137,15 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 	// Draw the gameObjects
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
-		m_gameWindow->draw(**it);
+		GameObject *gameObject = *it;
+		m_gameWindow->draw(*gameObject);
+		if (gameObject->getDebugStatus())
+		{
+			m_gameWindow->draw(gameObject->getDebugRectangleShape());
+		}
 	}
 
-
+	// Draw the text overlays
 	m_gameWindow->draw(m_playerDebugText);
 	m_gameWindow->draw(m_fpsCounter);
 

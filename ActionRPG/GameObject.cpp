@@ -41,3 +41,23 @@ int GameObject::getYPositionInTileMap()
 {
 	return (int) m_center.y / c_roomScalingFactor / c_tileSideLengthPixels;
 }
+
+void GameObject::setDebugRect()
+{
+	m_debugRect = sf::RectangleShape(sf::Vector2f(getPosition().width, getPosition().height));
+	m_debugRect.setPosition(getCenter());
+	m_debugRect.setFillColor(sf::Color::Transparent);
+	m_debugRect.setOutlineColor(sf::Color::Red);
+	m_debugRect.setOutlineThickness((float)1);
+	m_drawDebugRect = true;
+}
+
+bool GameObject::getDebugStatus()
+{
+	return m_drawDebugRect;
+}
+
+sf::RectangleShape GameObject::getDebugRectangleShape()
+{
+	return m_debugRect;
+}
