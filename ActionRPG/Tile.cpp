@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(TileType type)
+Tile::Tile(std::string const& tileTextureName)
 {
-	m_type = type;
+	m_tileTextureName = tileTextureName;
 }

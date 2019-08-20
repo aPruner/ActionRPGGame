@@ -3,12 +3,10 @@
 Room::Room(TextureMap* textureMap)
 {
 	m_textureMap = textureMap;
-	m_tileTypeMap = new std::map<int, TileType>();
 }
 
 Room::~Room()
 {
-	delete m_tileTypeMap;
 	for (int i = 0; i < c_maxRoomHeightTiles; i++)
 	{
 		for (int j = 0; j < c_maxRoomWidthTiles; j++)
@@ -16,12 +14,6 @@ Room::~Room()
 			delete m_roomTileMap[i * c_maxRoomWidthTiles + j];
 		}
 	}
-}
-
-// Populate m_tileTypeMap
-void Room::populateTileTypeMap()
-{
-	m_tileTypeMap->insert(std::pair<int, TileType>(25, FLOOR_1));
 }
 
 // Populate the VA
@@ -57,7 +49,7 @@ void Room::createRoom()
 			);
 
 			// Create a new tile in the tile map
-			Tile *tile = new Tile(FLOOR_1);
+			Tile *tile = new Tile(c_floor1TextureName);
 			m_roomTileMap[i * c_maxRoomWidthTiles + j] = tile;
 
 			// Now fill the VA texture coordinates

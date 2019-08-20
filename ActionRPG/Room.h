@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureMap.h"
-#include "Tile.h"
 
 class Room
 {
@@ -30,12 +29,6 @@ private:
 
 	// VertexArray representing the roomTileMap (this is drawn)
 	sf::VertexArray m_roomVA;
-
-	// Map of ints to tileTypes to easily represent the room with an int array
-	std::map<int, TileType> *m_tileTypeMap;
-
-	// Populate m_tileTypeMap
-	void populateTileTypeMap();
 
 public:
 
