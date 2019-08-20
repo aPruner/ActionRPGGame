@@ -28,7 +28,7 @@ private:
 	Room *m_room;
 
 public:
-	Game(TextureMap *textureMap, Player *player, sf::Vector2f screenResolution);
+	Game(TextureMap *textureMap, sf::Vector2f screenResolution);
 	~Game();
 
 	sf::View getView();

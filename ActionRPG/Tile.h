@@ -7,6 +7,8 @@ private:
 	// TODO: See if I can reduce duplicate code, as this constant is already defined in Room.h
 	const static int c_vertsInQuad = 4;
 
+	bool m_isSolid;
+
 	// Type of tile, represented by a string
 	std::string m_tileTextureName;
 
@@ -15,5 +17,5 @@ private:
 
 public:
 
-	Tile(std::string const& tileTextureName);
+	Tile(std::string const& tileTextureName, bool isSolid);
 };

@@ -24,9 +24,6 @@ private:
 	// Game instance
 	Game *m_game;
 
-	// Player instance
-	Player *m_player;
-
 	// Clock instance
 	sf::Clock clock;
 

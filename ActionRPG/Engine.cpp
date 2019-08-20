@@ -14,8 +14,7 @@ Engine::Engine()
 
 	// Initialize the game
 	m_textureMap = new TextureMap();
-	m_player = new Player(m_textureMap);
-	m_game = new Game(m_textureMap, m_player, m_screenResolution);
+	m_game = new Game(m_textureMap, m_screenResolution);
 }
 
 // Initialize the fps counter
@@ -48,41 +47,43 @@ void Engine::input()
 			}
 		}
 
+		Player *player = m_game->getPlayer();
+
 		// Handle movement
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
-			m_player->move(GameObject::Direction::UP);
+			player->move(GameObject::Direction::UP);
 		}
 		else
 		{
-			m_player->stopMove(GameObject::Direction::UP);
+			player->stopMove(GameObject::Direction::UP);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			m_player->move(GameObject::Direction::DOWN);
+			player->move(GameObject::Direction::DOWN);
 		}
 		else
 		{
-			m_player->stopMove(GameObject::Direction::DOWN);
+			player->stopMove(GameObject::Direction::DOWN);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			m_player->move(GameObject::Direction::LEFT);
+			player->move(GameObject::Direction::LEFT);
 		}
 		else
 		{
-			m_player->stopMove(GameObject::Direction::LEFT);
+			player->stopMove(GameObject::Direction::LEFT);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			m_player->move(GameObject::Direction::RIGHT);
+			player->move(GameObject::Direction::RIGHT);
 		}
 		else
 		{
-			m_player->stopMove(GameObject::Direction::RIGHT);
+			player->stopMove(GameObject::Direction::RIGHT);
 		}
 
 	}

@@ -49,7 +49,12 @@ void Room::createRoom()
 			);
 
 			// Create a new tile in the tile map
-			Tile *tile = new Tile(c_floor1TextureName);
+			bool isSolid = false;
+			if (i == 0 || i == c_maxRoomHeightTiles - 1 || j == 0 || j == c_maxRoomWidthTiles - 1)
+			{
+				isSolid = true;
+			}
+			Tile *tile = new Tile(c_floor1TextureName, isSolid);
 			m_roomTileMap[i * c_maxRoomWidthTiles + j] = tile;
 
 			// Now fill the VA texture coordinates

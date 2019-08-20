@@ -1,7 +1,8 @@
 #include "Player.h"
 
-Player::Player(TextureMap *textureMap)
+Player::Player(TextureMap *textureMap, Room *room)
 {
+	m_room = room;
 	m_textureMap = textureMap;
 	m_sprite = sf::Sprite(textureMap->getTextureFromFilename(c_playerTextureFilename));
 	setSprite(m_sprite);

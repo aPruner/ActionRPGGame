@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Room.h"
 
 class Player : virtual public GameObject
 {
@@ -22,8 +23,11 @@ private:
 	bool m_moveLeft_pressed;
 	bool m_moveRight_pressed;
 
+	// Instance of the room
+	Room *m_room;
+
 public:
-	Player(TextureMap *textureMap);
+	Player(TextureMap *textureMapm, Room *room);
 
 	// Override for GameObject::update
 	void update(float timeElapsed) override;
