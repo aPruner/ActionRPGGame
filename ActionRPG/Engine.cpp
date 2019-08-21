@@ -134,6 +134,22 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 	// Draw the room
 	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), &m_textureMap->getSpriteSheet());
 
+	// Draw debug rects for tiles
+	Tile **roomTileMap = m_game->getRoom()->getRoomTileMap();
+	int yRoomTileMapSize = m_game->getRoom()->getMaxRoomHeightTiles();
+	int xRoomTileMapSize = m_game->getRoom()->getMaxRoomWidthTiles();
+	for (int i = 0; i < yRoomTileMapSize; i++)
+	{
+		for (int j = 0; j < xRoomTileMapSize; j++)
+		{
+			Tile *tile = roomTileMap[i * yRoomTileMapSize + j];
+			if (tile->getDebugStatus())
+			{
+				m_gameWindow->draw(tile->getDebugRectangleShape());
+			}
+		}
+	}
+
 	// Draw the gameObjects
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{

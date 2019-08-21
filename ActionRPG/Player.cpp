@@ -10,7 +10,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
 	setCenter(c_initialPosition);
-	setDebugRect();
+	initDebugRect();
 }
 
 // GameObject update method override

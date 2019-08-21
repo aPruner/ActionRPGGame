@@ -31,7 +31,6 @@ private:
 	// TODO: Add a data structure that represents a room read in from a file
 
 public:
-
 	Room(TextureMap *textureMap);
 	~Room();
 
@@ -43,4 +42,10 @@ public:
 
 	// Get a tile from the tile map at logical position x, y
 	Tile *getTile(int x, int y);
+
+	// Get the tilemap
+	Tile **getRoomTileMap();
+
+	int getMaxRoomWidthTiles();
+	int getMaxRoomHeightTiles();
 };

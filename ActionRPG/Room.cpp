@@ -80,3 +80,18 @@ Tile *Room::getTile(int x, int y)
 {
 	return m_roomTileMap[y * c_maxRoomWidthPixels + x];
 }
+
+Tile **Room::getRoomTileMap()
+{
+	return m_roomTileMap;
+}
+
+int Room::getMaxRoomWidthTiles()
+{
+	return c_maxRoomWidthTiles;
+}
+
+int Room::getMaxRoomHeightTiles()
+{
+	return c_maxRoomHeightTiles;
+}

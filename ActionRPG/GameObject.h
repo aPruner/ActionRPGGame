@@ -21,17 +21,17 @@ protected:
 	// Sprite for the GameObject
 	sf::Sprite m_sprite;
 
-	// Rectangular bounds for debugging
+	// Rectangle drawable for debugging
 	sf::RectangleShape m_debugRect;
 
 	bool m_drawDebugRect;
 
+	// Set and color the debugging rect
+	void initDebugRect();
+
 	// Center (position) of the GameObject
 	// TODO: Clarify if this should be called center or position
 	sf::Vector2f m_center;
-
-	// Set and color the debugging rect
-	void setDebugRect();
 
 public:
 	// Direction enum

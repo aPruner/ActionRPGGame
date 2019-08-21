@@ -42,7 +42,7 @@ int GameObject::getYPositionInTileMap()
 	return (int) m_center.y / c_roomScalingFactor / c_tileSideLengthPixels;
 }
 
-void GameObject::setDebugRect()
+void GameObject::initDebugRect()
 {
 	m_debugRect = sf::RectangleShape(sf::Vector2f(getPosition().width, getPosition().height));
 	m_debugRect.setPosition(getCenter());
