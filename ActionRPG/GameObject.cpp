@@ -32,13 +32,23 @@ sf::Vector2f GameObject::getOrigin()
 	return m_origin;
 }
 
+// Returns -1 if outside
 int GameObject::getXPositionInTileMap()
 {
+	if (m_origin.x < 0)
+	{
+		return -1;
+	}
 	return (int) m_origin.x / c_roomScalingFactor / c_tileSideLengthPixels;
 }
 
+// Returns -1 if outside
 int GameObject::getYPositionInTileMap()
 {
+	if (m_origin.y < 0)
+	{
+		return -1;
+	}
 	return (int) m_origin.y / c_roomScalingFactor / c_tileSideLengthPixels;
 }
 
