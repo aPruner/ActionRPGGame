@@ -21,17 +21,17 @@ protected:
 	// Sprite for the GameObject
 	sf::Sprite m_sprite;
 
-	// Rectangle drawable for debugging
-	sf::RectangleShape m_debugRect;
+	// Rectangle drawables for debugging 
+	sf::RectangleShape m_debugRectOutline; // (outline of GameObject)
+	sf::RectangleShape m_debugRectOrigin; // (origin of GameObject)
 
-	bool m_drawDebugRect;
+	bool m_drawDebugRects;
 
 	// Set and color the debugging rect
 	void initDebugRect();
 
-	// Center (position) of the GameObject
-	// TODO: Clarify if this should be called center or position
-	sf::Vector2f m_center;
+	// Origin (position) of the GameObject
+	sf::Vector2f m_origin;
 
 public:
 	// Direction enum
@@ -55,15 +55,16 @@ public:
 	sf::FloatRect getPosition();
 	void setPosition(sf::Vector2f);
 
-	// Getter/Setter for the center of the GameObject
-	sf::Vector2f getCenter();
-	void setCenter(sf::Vector2f position);
+	// Getter/Setter for the origin of the GameObject
+	sf::Vector2f getOrigin();
+	void setOrigin(sf::Vector2f position);
 
-	// Return x or y position of center
+	// Return x or y position of this GameObject in the tile map
 	int getXPositionInTileMap();
 	int getYPositionInTileMap();
 	
 	// Debug helper methods
 	bool getDebugStatus();
-	sf::RectangleShape getDebugRectangleShape();
+	sf::RectangleShape getDebugRectOutline();
+	sf::RectangleShape getDebugRectOrigin();
 };

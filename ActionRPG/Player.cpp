@@ -9,7 +9,11 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_sprite.scale((float) c_playerScalingFactor, (float) c_playerScalingFactor);
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
-	setCenter(c_initialPosition);
+	sf::Vector2f initialPosition(
+		(float) (c_initialPosition.x + m_sprite.getGlobalBounds().width / 2),
+		(float) (c_initialPosition.y + m_sprite.getGlobalBounds().height / 2)
+	);
+	setOrigin(initialPosition);
 	initDebugRect();
 }
 
@@ -18,34 +22,35 @@ void Player::update(float timeElapsed)
 {
 	if (m_moveUp_pressed)
 	{
-		m_center.y -= timeElapsed * m_speed;
+		m_origin.y -= timeElapsed * m_speed;
 	}
 
 	if (m_moveDown_pressed)
 	{
-		m_center.y += timeElapsed * m_speed;
+		m_origin.y += timeElapsed * m_speed;
 	}
 
 	if (m_moveLeft_pressed)
 	{
-		m_center.x -= timeElapsed * m_speed;
+		m_origin.x -= timeElapsed * m_speed;
 	}
 
 	if (m_moveRight_pressed)
 	{
-		m_center.x += timeElapsed * m_speed;
+		m_origin.x += timeElapsed * m_speed;
 	}
 
 	// Move the debug rect as well as the player
-	m_debugRect.setPosition(m_center);
+	m_debugRectOutline.setPosition(m_origin);
+	m_debugRectOrigin.setPosition(m_origin);
 
-	setPosition(m_center);
+	setPosition(m_origin);
 }
 
 // GameObject draw method override
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(m_sprite, states);
+	// target.draw(m_sprite, states);
 }
 
 // Set the movement input flags to true based on input directions (pressed)

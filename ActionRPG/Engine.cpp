@@ -157,7 +157,8 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 		m_gameWindow->draw(*gameObject);
 		if (gameObject->getDebugStatus())
 		{
-			m_gameWindow->draw(gameObject->getDebugRectangleShape());
+			m_gameWindow->draw(gameObject->getDebugRectOutline());
+			m_gameWindow->draw(gameObject->getDebugRectOrigin());
 		}
 	}
 

@@ -17,47 +17,61 @@ sf::FloatRect GameObject::getPosition()
 
 void GameObject::setPosition(sf::Vector2f position)
 {
-	m_center = position;
+	m_origin = position;
 	m_sprite.setPosition(position);
 }
 
-void GameObject::setCenter(sf::Vector2f position)
+void GameObject::setOrigin(sf::Vector2f position)
 {
-	m_center = position;
+	m_origin = position;
 	m_sprite.setOrigin(position);
 }
 
-sf::Vector2f GameObject::getCenter()
+sf::Vector2f GameObject::getOrigin()
 {
-	return m_center;
+	return m_origin;
 }
 
 int GameObject::getXPositionInTileMap()
 {
-	return (int) m_center.x / c_roomScalingFactor / c_tileSideLengthPixels;
+	return (int) m_origin.x / c_roomScalingFactor / c_tileSideLengthPixels;
 }
 
 int GameObject::getYPositionInTileMap()
 {
-	return (int) m_center.y / c_roomScalingFactor / c_tileSideLengthPixels;
+	return (int) m_origin.y / c_roomScalingFactor / c_tileSideLengthPixels;
 }
 
 void GameObject::initDebugRect()
 {
-	m_debugRect = sf::RectangleShape(sf::Vector2f(getPosition().width, getPosition().height));
-	m_debugRect.setPosition(getCenter());
-	m_debugRect.setFillColor(sf::Color::Transparent);
-	m_debugRect.setOutlineColor(sf::Color::Red);
-	m_debugRect.setOutlineThickness((float)1);
-	m_drawDebugRect = true;
+	// Init outline rect
+	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(getPosition().width, getPosition().height));
+	m_debugRectOutline.setPosition(getOrigin());
+	m_debugRectOutline.setFillColor(sf::Color::Transparent);
+	m_debugRectOutline.setOutlineColor(sf::Color::Red);
+	m_debugRectOutline.setOutlineThickness((float)1);
+
+	// Init Origin rect
+	m_debugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
+	m_debugRectOrigin.setPosition(getOrigin());
+	m_debugRectOrigin.setFillColor(sf::Color::Green);
+	m_debugRectOrigin.setOutlineColor(sf::Color::Green);
+	m_debugRectOrigin.setOutlineThickness((float)1);
+
+	m_drawDebugRects = true;
 }
 
 bool GameObject::getDebugStatus()
 {
-	return m_drawDebugRect;
+	return m_drawDebugRects;
 }
 
-sf::RectangleShape GameObject::getDebugRectangleShape()
+sf::RectangleShape GameObject::getDebugRectOutline()
 {
-	return m_debugRect;
+	return m_debugRectOutline;
+}
+
+sf::RectangleShape GameObject::getDebugRectOrigin()
+{
+	return m_debugRectOrigin;
 }
