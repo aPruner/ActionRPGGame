@@ -122,6 +122,9 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 	char playerDebugTextBuffer[50];
 	sprintf_s(playerDebugTextBuffer, c_playerDebugTextInitString.c_str(), m_game->getPlayer()->getXPositionInTileMap(), m_game->getPlayer()->getYPositionInTileMap());
 	m_playerDebugText.setString(std::string(playerDebugTextBuffer));
+
+	// Update the GameView's center point to be the player
+	m_game->centerGameViewOnPlayer();
 }
 
 // Draw the screen
@@ -129,7 +132,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 {
 	// Draw everything in the gameView
 	m_gameWindow->clear();
-	m_gameWindow->setView(m_game->getView());
+	m_gameWindow->setView(m_game->getGameView());
 
 	// Draw the room
 	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), &m_textureMap->getSpriteSheet());

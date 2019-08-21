@@ -28,9 +28,19 @@ Room *Game::getRoom()
 	return m_room;
 }
 
-sf::View Game::getView()
+sf::View Game::getGameView()
 {
 	return m_gameView;
+}
+
+sf::View Game::getHudView()
+{
+	return m_hudView;
+}
+
+sf::View Game::getDebugView()
+{
+	return m_debugView;
 }
 
 std::vector<GameObject *> *Game::getGameObjects()
@@ -41,4 +51,9 @@ std::vector<GameObject *> *Game::getGameObjects()
 void Game::addGameObject(GameObject *gameObject)
 {
 	m_gameObjects->push_back(gameObject);
+}
+
+void Game::centerGameViewOnPlayer()
+{
+	m_gameView.setCenter(m_player->getOrigin());
 }

@@ -11,6 +11,12 @@ private:
 	// The game camera view
 	sf::View m_gameView;
 
+	// The hud view for text and other info
+	sf::View m_hudView;
+
+	// The view for debugging info
+	sf::View m_debugView;
+
 	// Array of all GameObjects that exist in the Game
 	// TODO: Maybe a static array is better (more performant?)
 	std::vector<GameObject *> *m_gameObjects;
@@ -31,7 +37,11 @@ public:
 	Game(TextureMap *textureMap, sf::Vector2f screenResolution);
 	~Game();
 
-	sf::View getView();
+	sf::View getGameView();
+	sf::View getHudView();
+	sf::View getDebugView();
+
+	void centerGameViewOnPlayer();
 
 	Player *getPlayer();
 
