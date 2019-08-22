@@ -7,7 +7,11 @@ class GameObject : public sf::Drawable
 {
 protected:
 	// TODO: reduce duplicate code
+	const static int c_maxRoomWidthPixels = 256;
+	const static int c_maxRoomHeightPixels = 256;
 	const static int c_tileSideLengthPixels = 16;
+	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
+	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
 	const static int c_roomScalingFactor = 2;
 
 	// GameObject constants
