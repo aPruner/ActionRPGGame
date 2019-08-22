@@ -166,6 +166,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 	}
 
 	// Draw the text overlays
+	m_gameWindow->setView(m_game->getDebugView());
 	m_gameWindow->draw(m_playerDebugText);
 	m_gameWindow->draw(m_fpsCounter);
 

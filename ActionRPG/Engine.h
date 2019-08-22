@@ -11,11 +11,11 @@ private:
 	const std::string c_fpsCounterInitString = "FPS: ";
 	const std::string c_playerDebugTextInitString = "X: %d, Y: %d";
 	// TODO: Change the position of the fpsCounter to be related to resolution
-	const sf::Vector2f c_fpsCounterPosition = sf::Vector2f(-950, -550);
-	const sf::Vector2f c_playerDebugTextPosition = sf::Vector2f(500, 400);
+	const sf::Vector2f c_fpsCounterPosition = sf::Vector2f(25, 25);
+	const sf::Vector2f c_playerDebugTextPosition = sf::Vector2f(800, 900);
 	const sf::Color c_defaultFontColor = sf::Color::White;
 	// TODO: Change the font size of the fpsCounter to be related to resolution
-	const static int c_defaultFontSize = 50;
+	const static int c_defaultFontSize = 30;
 
 	// SFML Game Window
 	sf::RenderWindow *m_gameWindow;
