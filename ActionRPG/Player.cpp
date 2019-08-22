@@ -9,11 +9,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_sprite.scale((float) c_playerScalingFactor, (float) c_playerScalingFactor);
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
-	sf::Vector2f initialPosition(
-		(float) (c_initialPosition.x + m_sprite.getGlobalBounds().width / 2),
-		(float) (c_initialPosition.y + m_sprite.getGlobalBounds().height / 2)
-	);
-	setOrigin(initialPosition);
+	setOrigin(c_initialPosition);
 	initDebugRect();
 }
 
@@ -98,7 +94,7 @@ void Player::update(float timeElapsed)
 // GameObject draw method override
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	// target.draw(m_sprite, states);
+	target.draw(m_sprite, states);
 }
 
 // Set the movement input flags to true based on input directions (pressed)
