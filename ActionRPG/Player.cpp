@@ -40,7 +40,8 @@ void Player::update(float timeElapsed)
 	m_debugRectOutline.setPosition(m_origin);
 	m_debugRectOrigin.setPosition(m_origin);
 
-	// Collision detection
+	// TODO: Proper collision detection, with any walls and other GameObjects
+	// Collision detection - outer walls only
 
 	// Get the position in the TileMap, and check all 8 positions around the player for intersections
 	int xPositionInTileMap = getXPositionInTileMap();

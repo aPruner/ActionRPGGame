@@ -25,6 +25,7 @@ protected:
 	// Sprite for the GameObject
 	sf::Sprite m_sprite;
 
+	// TODO: Refactor m_debugRectOutline to be a hurtbox
 	// Rectangle drawables for debugging 
 	sf::RectangleShape m_debugRectOutline; // (outline of GameObject)
 	sf::RectangleShape m_debugRectOrigin; // (origin of GameObject)
