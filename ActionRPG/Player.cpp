@@ -53,17 +53,29 @@ void Player::update(float timeElapsed)
 	// Get the global bounds of the debugRect
 	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
 
-	// Top left
-	if (xPositionInTileMap - 1 >= 0 && yPositionInTileMap - 1 >= 0)
+	// Check left
+	if (xPositionInTileMap - 1 < 0)
 	{
 		if (boundsRect.left < 0)
 		{
-			m_origin.x += boundsRect.width;
+			m_origin.x += timeElapsed * m_speed;
 		}
+	}
 
+	// Check up
+	if (yPositionInTileMap - 1 < 0)
+	{
 		if (boundsRect.top < 0)
 		{
-			m_origin.y += boundsRect.height;
+			m_origin.y += timeElapsed * m_speed;
+		}
+	}
+
+	if (xPositionInTileMap >= c_maxRoomWidthTiles)
+	{
+		if (boundsRect.left + boundsRect.width >= c_maxRoomWidthPixels)
+		{
+			m_origin.x -= timeElapsed * m_speed;
 		}
 	}
 
