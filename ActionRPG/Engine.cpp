@@ -121,6 +121,7 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 	// Set the player debug text info after updating all GameObjects
 	char playerDebugTextBuffer[50];
 	sprintf_s(playerDebugTextBuffer, c_playerDebugTextInitString.c_str(), m_game->getPlayer()->getXPositionInTileMap(), m_game->getPlayer()->getYPositionInTileMap());
+	// sprintf_s(playerDebugTextBuffer, c_playerDebugTextInitString.c_str(), (int) m_game->getPlayer()->getOrigin().x, (int) m_game->getPlayer()->getOrigin().y);
 	m_playerDebugText.setString(std::string(playerDebugTextBuffer));
 
 	// Update the GameView's center point to be the player

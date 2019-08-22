@@ -53,7 +53,7 @@ void Player::update(float timeElapsed)
 	// Get the global bounds of the debugRect
 	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
 
-	// Check left
+	// Check left boundary
 	if (xPositionInTileMap - 1 < 0)
 	{
 		if (boundsRect.left < 0)
@@ -62,7 +62,7 @@ void Player::update(float timeElapsed)
 		}
 	}
 
-	// Check up
+	// Check top boundary
 	if (yPositionInTileMap - 1 < 0)
 	{
 		if (boundsRect.top < 0)
@@ -71,13 +71,26 @@ void Player::update(float timeElapsed)
 		}
 	}
 
-	if (xPositionInTileMap >= c_maxRoomWidthTiles)
+	// Check right boundary
+	if (xPositionInTileMap + 1 == c_maxRoomWidthTiles)
 	{
-		if (boundsRect.left + boundsRect.width >= c_maxRoomWidthPixels)
+		if (boundsRect.left + boundsRect.width >= c_maxRoomWidthPixels * c_roomScalingFactor)
 		{
 			m_origin.x -= timeElapsed * m_speed;
 		}
 	}
+
+	// Check bottom boundary
+	if (yPositionInTileMap + 1 == c_maxRoomHeightTiles)
+	{
+		if (boundsRect.top + boundsRect.height >= c_maxRoomHeightPixels * c_roomScalingFactor)
+		{
+			m_origin.y -= timeElapsed * m_speed;
+		}
+	}
+
+	m_debugRectOutline.setPosition(m_origin);
+	m_debugRectOrigin.setPosition(m_origin);
 
 	setPosition(m_origin);
 }
