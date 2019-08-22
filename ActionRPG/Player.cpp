@@ -44,6 +44,29 @@ void Player::update(float timeElapsed)
 	m_debugRectOutline.setPosition(m_origin);
 	m_debugRectOrigin.setPosition(m_origin);
 
+	// Collision detection
+
+	// Get the position in the TileMap, and check all 8 positions around the player for intersections
+	int xPositionInTileMap = getXPositionInTileMap();
+	int yPositionInTileMap = getYPositionInTileMap();
+
+	// Get the global bounds of the debugRect
+	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
+
+	// Top left
+	if (xPositionInTileMap - 1 >= 0 && yPositionInTileMap - 1 >= 0)
+	{
+		if (boundsRect.left < 0)
+		{
+			m_origin.x += boundsRect.width;
+		}
+
+		if (boundsRect.top < 0)
+		{
+			m_origin.y += boundsRect.height;
+		}
+	}
+
 	setPosition(m_origin);
 }
 
