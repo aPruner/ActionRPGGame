@@ -5,6 +5,9 @@
 class Animation
 {
 private:
+	// TODO: reduce duplicate code
+	const static int c_animScalingFactor = 2;
+
 	// Represents the current frame of the animation in the sprite sheet
 	sf::IntRect m_animSpriteSheetBounds;
 
@@ -24,7 +27,7 @@ private:
 	std::string m_animName;
 
 	// Sprite to be drawn on the current frame
-	sf::Sprite m_sprite;
+	sf::Sprite *m_sprite;
 
 	// Bool marking whether animation is happening
 	bool m_isAnimating;
@@ -41,16 +44,20 @@ private:
 	// Adds the animation frames to m_animFrames vector
 	void initAnimFrames();
 
-	// Run the animation
-	void animate();
-
 	// Update the frame
 	void updateAnimationFrame();
 public:
 	Animation(TextureMap *textureMap, std::string const& animName);
 
+	// Get the sprite of the current frame
+	sf::Sprite *getFrameSprite();
+
 	bool isAnimating();
 
+	// Run the animation
+	void animate();
+
+	// Set the isAnimating flag
 	void startAnimation();
 	void stopAnimation();
 };

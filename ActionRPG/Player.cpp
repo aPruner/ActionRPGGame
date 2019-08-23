@@ -4,9 +4,12 @@ Player::Player(TextureMap *textureMap, Room *room)
 {
 	m_room = room;
 	m_textureMap = textureMap;
-	m_sprite = sf::Sprite(textureMap->getTextureFromFilename(c_playerTextureFilename));
-	setSprite(m_sprite);
-	m_sprite.scale((float) c_playerScalingFactor, (float) c_playerScalingFactor);
+	// m_sprite = sf::Sprite(textureMap->getTextureFromFilename(c_playerTextureFilename));
+	// setSprite(m_sprite);
+	// m_sprite.scale((float) c_playerScalingFactor, (float) c_playerScalingFactor);
+	m_idleAnimation = new Animation(textureMap, c_playerIdleAnimName);
+	m_sprite = *m_idleAnimation->getFrameSprite();
+	m_idleAnimation->startAnimation();
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
 	setOrigin(c_initialPosition);
@@ -16,6 +19,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 // GameObject update method override
 void Player::update(float timeElapsed)
 {
+
 	if (m_moveUp_pressed)
 	{
 		m_origin.y -= timeElapsed * m_speed;
@@ -78,6 +82,13 @@ void Player::update(float timeElapsed)
 	m_debugRectOrigin.setPosition(m_origin);
 
 	setPosition(m_origin);
+
+	// where does this go? Does it matter?
+	if (m_idleAnimation->isAnimating())
+	{
+		m_idleAnimation->animate();
+		setSprite(*m_idleAnimation->getFrameSprite());
+	}
 }
 
 // GameObject draw method override

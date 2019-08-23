@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Room.h"
+#include "Animation.h"
 
 class Player : virtual public GameObject
 {
@@ -9,7 +10,8 @@ private:
 	const static int c_startingHealth = 100;
 	const static int c_startingSpeed = 200;
 	const static int c_playerScalingFactor = 2;
-	const std::string c_playerTextureFilename = "sprites/player.png";
+	// const std::string c_playerTextureFilename = "sprites/player.png";
+	const std::string c_playerIdleAnimName = "elf_f_idle_anim";
 
 	// Player health
 	int m_health;
@@ -25,6 +27,9 @@ private:
 
 	// Instance of the room
 	Room *m_room;
+
+	// Player idle animation
+	Animation *m_idleAnimation;
 
 public:
 	Player(TextureMap *textureMapm, Room *room);
