@@ -10,8 +10,7 @@ private:
 	const static int c_startingHealth = 100;
 	const static int c_startingSpeed = 200;
 	const static int c_playerScalingFactor = 2;
-	// const std::string c_playerTextureFilename = "sprites/player.png";
-	const std::string c_playerIdleAnimName = "elf_f_idle_anim";
+	const std::string c_playerIdleAnimName = "wizzard_f_run_anim";
 
 	// Player health
 	int m_health;
