@@ -11,7 +11,14 @@ private:
 	// Sprite to be drawn
 	sf::Sprite m_sprite;
 
+	// Clock instance
+	sf::Clock *m_clock;
+
+	// TextureMap instance
 	TextureMap *m_textureMap;
 public:
 	Animation(TextureMap *textureMap);
+
+	void startAnimation();
+	void stopAnimation();
 };
