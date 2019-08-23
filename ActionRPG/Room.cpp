@@ -61,10 +61,10 @@ void Room::createRoom()
 			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple;
 			vecTuple = m_textureMap->getSpriteSheetVecTuple(c_floor1TextureName);
 
-			m_roomVA[currentTile].texCoords = sf::Vector2f(std::get<0>(vecTuple));
-			m_roomVA[currentTile + 1].texCoords = sf::Vector2f(std::get<1>(vecTuple));
-			m_roomVA[currentTile + 2].texCoords = sf::Vector2f(std::get<2>(vecTuple));
-			m_roomVA[currentTile + 3].texCoords = sf::Vector2f(std::get<3>(vecTuple));
+			m_roomVA[currentTile].texCoords = std::get<0>(vecTuple);
+			m_roomVA[currentTile + 1].texCoords = std::get<1>(vecTuple);
+			m_roomVA[currentTile + 2].texCoords = std::get<2>(vecTuple);
+			m_roomVA[currentTile + 3].texCoords = std::get<3>(vecTuple);
 
 			currentTile += c_vertsInQuad;
 		}

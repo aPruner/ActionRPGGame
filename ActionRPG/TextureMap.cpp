@@ -8,7 +8,7 @@ TextureMap::TextureMap()
 {
 	m_textureMap = new std::map<std::string, sf::Texture>();
 	m_spriteSheetTextureMap = new std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>>();
-	m_spriteSheetAnimTextureMap = new std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f, int>>();
+	m_spriteSheetAnimTextureMap = new std::map<std::string, std::tuple<int, int, int, int, int>>();
 	m_spriteSheet.loadFromFile(c_spriteSheetFilename);
 	loadTexturesFromTileList(c_tileListFilename);
 }
@@ -41,6 +41,7 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 			width = std::stoi(splitLine[3]);
 			height = std::stoi(splitLine[4]);
 
+			// TODO: Maybe just make m_spriteSheetTextureMap store tuples of ints instead of vector2fs and let the room deal with it
 			sf::Vector2f topLeftVec((float) topLeftX, (float) topLeftY); 
 			sf::Vector2f topRightVec((float) (topLeftX + width), (float) topLeftY);
 			sf::Vector2f bottomRightVec((float) (topLeftX + width), (float) (topLeftY + height));
@@ -59,13 +60,8 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 			height = std::stoi(splitLine[4]);
 			frames = std::stoi(splitLine[5]);
 
-			// TODO: loop through and add each frame of the animation to m_textureCoordsMap
-			sf::Vector2f topLeftVec((float)topLeftX, (float)topLeftY);
-			sf::Vector2f topRightVec((float)(topLeftX + width), (float)topLeftY);
-			sf::Vector2f bottomRightVec((float)(topLeftX + width), (float)(topLeftY + height));
-			sf::Vector2f bottomLeftVec((float)topLeftX, (float)(topLeftY + height));
-			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f, int> vecTuple(topLeftVec, topRightVec, bottomRightVec, bottomLeftVec, frames);
-			m_spriteSheetAnimTextureMap->insert(std::pair<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f, int>>(textureName, vecTuple));
+			std::tuple<int, int, int, int, int> animTuple(topLeftX, topLeftY, width, height, frames);
+			m_spriteSheetAnimTextureMap->insert(std::pair<std::string, std::tuple<int, int, int, int, int>>(textureName, animTuple));
 		}
 	}
 }
@@ -100,6 +96,18 @@ std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>& TextureMap::
 	std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> *dummyTuple;
 	dummyTuple = new std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>(dummy, dummy, dummy, dummy);
 	return *dummyTuple;
+}
+
+std::tuple<int, int, int, int, int>& TextureMap::getSpriteSheetAnimVecTuple(std::string const& animName)
+{
+	auto it = m_spriteSheetAnimTextureMap->find(animName);
+	if (it != m_spriteSheetAnimTextureMap->end())
+	{
+		return it->second;
+	}
+
+	// If animName doesn't exist in the map, return a new dummy tuple (all values are -1)
+	return *(new std::tuple<int, int, int, int, int>(-1, -1, -1, -1, -1));
 }
 
 sf::Texture& TextureMap::getSpriteSheet()

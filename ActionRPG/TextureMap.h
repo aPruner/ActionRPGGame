@@ -17,7 +17,7 @@ private:
 	// Map of pre-defined texture names to vertex tuples - for textures from sprite sheet
 	std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>> *m_spriteSheetTextureMap;
 
-	std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f, int>> *m_spriteSheetAnimTextureMap;
+	std::map<std::string, std::tuple<int, int, int, int, int>> *m_spriteSheetAnimTextureMap;
 
 	// Whole sprite sheet
 	sf::Texture m_spriteSheet;
@@ -34,6 +34,9 @@ public:
 
 	// Fetch a vector tuple from m_spriteSheetTextureMap
 	std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>& getSpriteSheetVecTuple(std::string const& textureName);
+
+	// Fetch a vector tuple with frames from m_spriteSheetAnimTextureMap
+	std::tuple<int, int, int, int, int>& getSpriteSheetAnimVecTuple(std::string const& animName);
 
 	sf::Texture& getSpriteSheet();
 };
