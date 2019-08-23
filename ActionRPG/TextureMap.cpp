@@ -8,6 +8,7 @@ TextureMap::TextureMap()
 {
 	m_textureMap = new std::map<std::string, sf::Texture>();
 	m_spriteSheetTextureMap = new std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>>();
+	m_spriteSheetAnimTextureMap = new std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f, int>>();
 	m_spriteSheet.loadFromFile(c_spriteSheetFilename);
 	loadTexturesFromTileList(c_tileListFilename);
 }
@@ -29,9 +30,7 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 		std::vector<std::string> splitLine((std::istream_iterator<std::string>(lineStream)), std::istream_iterator<std::string>());
 
 		std::string textureName;
-		int topLeftX, topLeftY, width, height;
-		// TODO: deal with frames and size == 6 case
-		// int frames;
+		int topLeftX, topLeftY, width, height, frames;
 
 		if (splitLine[0] != "#" && splitLine.size() == 5)
 		{
@@ -53,8 +52,20 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 		else if (splitLine[0] != "#" && splitLine.size() == 6)
 		{
 			// Animation (frames column exists)
+			textureName = splitLine[0];
+			topLeftX = std::stoi(splitLine[1]);
+			topLeftY = std::stoi(splitLine[2]);
+			width = std::stoi(splitLine[3]);
+			height = std::stoi(splitLine[4]);
+			frames = std::stoi(splitLine[5]);
+
 			// TODO: loop through and add each frame of the animation to m_textureCoordsMap
-			continue;
+			sf::Vector2f topLeftVec((float)topLeftX, (float)topLeftY);
+			sf::Vector2f topRightVec((float)(topLeftX + width), (float)topLeftY);
+			sf::Vector2f bottomRightVec((float)(topLeftX + width), (float)(topLeftY + height));
+			sf::Vector2f bottomLeftVec((float)topLeftX, (float)(topLeftY + height));
+			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f, int> vecTuple(topLeftVec, topRightVec, bottomRightVec, bottomLeftVec, frames);
+			m_spriteSheetAnimTextureMap->insert(std::pair<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f, int>>(textureName, vecTuple));
 		}
 	}
 }
