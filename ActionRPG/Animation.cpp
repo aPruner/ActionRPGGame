@@ -19,7 +19,7 @@ void Animation::initAnimFrames()
 	m_firstFrameTopLeft = sf::Vector2f((float)std::get<0>(animTuple), (float)std::get<1>(animTuple));
 	m_width = std::get<2>(animTuple);
 	m_height = std::get<3>(animTuple);
-	m_frames = std::get<4>(animTuple);
+	m_frames = std::get<4>(animTuple) - 1;
 	m_animSpriteSheetBounds = sf::IntRect((int)m_firstFrameTopLeft.x, (int)m_firstFrameTopLeft.y, m_width, m_height);
 	m_animIndex = 0;
 }
@@ -44,7 +44,7 @@ void Animation::updateAnimationFrame()
 void Animation::animate()
 {
 	float dtSeconds = m_clock->getElapsedTime().asSeconds();
-	if (dtSeconds > 0.2f)
+	if (dtSeconds > 0.1f)
 	{
 		updateAnimationFrame();
 		m_clock->restart();
