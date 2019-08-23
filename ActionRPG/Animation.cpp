@@ -44,9 +44,10 @@ void Animation::updateAnimationFrame()
 void Animation::animate()
 {
 	float dtSeconds = m_clock->getElapsedTime().asSeconds();
-	if (dtSeconds > 1.0f)
+	if (dtSeconds > 0.2f)
 	{
 		updateAnimationFrame();
+		m_clock->restart();
 	}
 }
 
