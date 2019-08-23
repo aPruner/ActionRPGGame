@@ -78,17 +78,17 @@ void Player::update(float timeElapsed)
 		m_origin.y -= timeElapsed * m_speed;
 	}
 
-	m_debugRectOutline.setPosition(m_origin);
-	m_debugRectOrigin.setPosition(m_origin);
-
-	setPosition(m_origin);
-
 	// where does this go? Does it matter?
 	if (m_idleAnimation->isAnimating())
 	{
 		m_idleAnimation->animate();
 		setSprite(*m_idleAnimation->getFrameSprite());
 	}
+
+	m_debugRectOutline.setPosition(m_origin);
+	m_debugRectOrigin.setPosition(m_origin);
+
+	setPosition(m_origin);
 }
 
 // GameObject draw method override
