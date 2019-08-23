@@ -4,12 +4,14 @@ Player::Player(TextureMap *textureMap, Room *room)
 {
 	m_room = room;
 	m_textureMap = textureMap;
-	// m_sprite = sf::Sprite(textureMap->getTextureFromFilename(c_playerTextureFilename));
-	// setSprite(m_sprite);
-	// m_sprite.scale((float) c_playerScalingFactor, (float) c_playerScalingFactor);
+	// Initialize animations
 	m_idleAnimation = new Animation(textureMap, c_playerIdleAnimName);
+	m_runAnimation = new Animation(textureMap, c_playerRunAnimName);
+
+	// By default, the player will be idle
 	m_sprite = *m_idleAnimation->getFrameSprite();
 	m_idleAnimation->startAnimation();
+
 	m_health = c_startingHealth;
 	m_speed = c_startingSpeed;
 	setOrigin(c_initialPosition);
@@ -20,22 +22,22 @@ Player::Player(TextureMap *textureMap, Room *room)
 void Player::update(float timeElapsed)
 {
 
-	if (m_moveUp_pressed)
+	if (m_moveUpPressed)
 	{
 		m_origin.y -= timeElapsed * m_speed;
 	}
 
-	if (m_moveDown_pressed)
+	if (m_moveDownPressed)
 	{
 		m_origin.y += timeElapsed * m_speed;
 	}
 
-	if (m_moveLeft_pressed)
+	if (m_moveLeftPressed)
 	{
 		m_origin.x -= timeElapsed * m_speed;
 	}
 
-	if (m_moveRight_pressed)
+	if (m_moveRightPressed)
 	{
 		m_origin.x += timeElapsed * m_speed;
 	}
@@ -78,11 +80,16 @@ void Player::update(float timeElapsed)
 		m_origin.y -= timeElapsed * m_speed;
 	}
 
-	// where does this go? Does it matter?
+	// Handle animation, only one animation should animate at a time
 	if (m_idleAnimation->isAnimating())
 	{
 		m_idleAnimation->animate();
 		setSprite(*m_idleAnimation->getFrameSprite());
+	}
+	else if (m_runAnimation->isAnimating())
+	{
+		m_runAnimation->animate();
+		setSprite(*m_runAnimation->getFrameSprite());
 	}
 
 	m_debugRectOutline.setPosition(m_origin);
@@ -102,23 +109,25 @@ void Player::move(Direction direction)
 {
 	if (direction == Direction::UP)
 	{
-		m_moveUp_pressed = true;
+		m_moveUpPressed = true;
 	}
 
 	if (direction == Direction::DOWN)
 	{
-		m_moveDown_pressed = true;
+		m_moveDownPressed = true;
 	}
 
 	if (direction == Direction::LEFT)
 	{
-		m_moveLeft_pressed = true;
+		m_moveLeftPressed = true;
 	}
 
 	if (direction == Direction::RIGHT)
 	{
-		m_moveRight_pressed = true;
+		m_moveRightPressed = true;
 	}
+	m_idleAnimation->stopAnimation();
+	m_runAnimation->startAnimation();
 }
 
 // Set the movement input flags to false based on input directions (unpressed)
@@ -126,21 +135,27 @@ void Player::stopMove(Direction direction)
 {
 	if (direction == Direction::UP)
 	{
-		m_moveUp_pressed = false;
+		m_moveUpPressed = false;
 	}
 
 	if (direction == Direction::DOWN)
 	{
-		m_moveDown_pressed = false;
+		m_moveDownPressed = false;
 	}
 
 	if (direction == Direction::LEFT)
 	{
-		m_moveLeft_pressed = false;
+		m_moveLeftPressed = false;
 	}
 
 	if (direction == Direction::RIGHT)
 	{
-		m_moveRight_pressed = false;
+		m_moveRightPressed = false;
+	}
+
+	if (!m_moveDownPressed && !m_moveUpPressed && !m_moveLeftPressed && !m_moveRightPressed)
+	{
+		m_runAnimation->stopAnimation();
+		m_idleAnimation->startAnimation();
 	}
 }

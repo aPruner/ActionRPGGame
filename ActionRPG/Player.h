@@ -10,7 +10,8 @@ private:
 	const static int c_startingHealth = 100;
 	const static int c_startingSpeed = 200;
 	const static int c_playerScalingFactor = 2;
-	const std::string c_playerIdleAnimName = "wizzard_f_run_anim";
+	const std::string c_playerIdleAnimName = "knight_f_idle_anim";
+	const std::string c_playerRunAnimName = "knight_f_run_anim";
 
 	// Player health
 	int m_health;
@@ -19,16 +20,17 @@ private:
 	int m_speed;
 
 	// Player movement input flags
-	bool m_moveUp_pressed;
-	bool m_moveDown_pressed;
-	bool m_moveLeft_pressed;
-	bool m_moveRight_pressed;
+	bool m_moveUpPressed;
+	bool m_moveDownPressed;
+	bool m_moveLeftPressed;
+	bool m_moveRightPressed;
 
 	// Instance of the room
 	Room *m_room;
 
-	// Player idle animation
+	// Player animations
 	Animation *m_idleAnimation;
+	Animation *m_runAnimation;
 
 public:
 	Player(TextureMap *textureMapm, Room *room);
