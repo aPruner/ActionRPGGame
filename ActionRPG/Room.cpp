@@ -48,6 +48,7 @@ void Room::createRoom()
 				(float) ((i + 1) * c_tileSideLengthPixels * c_roomScalingFactor)
 			);
 
+			// TODO: Implement system where text files (containing rows of chars representing tiles) are read in and converted into rooms
 			// Create a new tile in the tile map
 			bool isSolid = false;
 			if (i == 0 || i == c_maxRoomHeightTiles - 1 || j == 0 || j == c_maxRoomWidthTiles - 1)
