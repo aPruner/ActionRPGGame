@@ -35,7 +35,7 @@ sf::Vector2f GameObject::getOrigin()
 // Returns -1 if outside
 int GameObject::getXPositionInTileMap()
 {
-	int xPositionInTileMap = (int) m_origin.x / c_roomScalingFactor / c_tileSideLengthPixels;
+	int xPositionInTileMap = (int) m_origin.x / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
 	if (m_origin.x < 0)
 	{
 		return -1;
@@ -46,7 +46,7 @@ int GameObject::getXPositionInTileMap()
 // Returns -1 if outside
 int GameObject::getYPositionInTileMap()
 {
-	int yPositionInTileMap = (int) m_origin.y / c_roomScalingFactor / c_tileSideLengthPixels;
+	int yPositionInTileMap = (int) m_origin.y / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
 	if (m_origin.y < 0)
 	{
 		return -1;

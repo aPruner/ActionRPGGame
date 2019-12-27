@@ -5,6 +5,9 @@
 
 Engine::Engine()
 {
+	// Initialize constants object
+	m_engineConstants = new EngineConstants();
+
 	// Create the game window
 	sf::VideoMode screenResolutionVM = sf::VideoMode::getDesktopMode();
 	m_screenResolution = sf::Vector2f((float) screenResolutionVM.width, (float) screenResolutionVM.height);
@@ -24,22 +27,22 @@ Engine::Engine()
 // Initialize the fps counter
 void Engine::initFpsCounter()
 {
-	m_fpsCounterFont.loadFromFile(c_defaultFontFilename);
-	m_fpsCounter.setString(c_fpsCounterInitString);
+	m_fpsCounterFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
+	m_fpsCounter.setString(m_engineConstants->c_fpsCounterInitString);
 	m_fpsCounter.setFont(m_fpsCounterFont);
-	m_fpsCounter.setCharacterSize(c_defaultFontSize);
-	m_fpsCounter.setFillColor(c_defaultFontColor);
-	m_fpsCounter.setPosition(c_fpsCounterPosition);
+	m_fpsCounter.setCharacterSize(m_engineConstants->c_defaultFontSize);
+	m_fpsCounter.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_fpsCounter.setPosition(m_engineConstants->c_fpsCounterPosition);
 }
 
 void Engine::initPlayerDebugText()
 {
-	m_playerDebugTextFont.loadFromFile(c_defaultFontFilename);
-	m_playerDebugText.setString(c_playerDebugTextInitString);
+	m_playerDebugTextFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
+	m_playerDebugText.setString(m_engineConstants->c_playerDebugTextInitString);
 	m_playerDebugText.setFont(m_playerDebugTextFont);
-	m_playerDebugText.setCharacterSize(c_defaultFontSize);
-	m_playerDebugText.setFillColor(c_defaultFontColor);
-	m_playerDebugText.setPosition(c_playerDebugTextPosition);
+	m_playerDebugText.setCharacterSize(m_engineConstants->c_defaultFontSize);
+	m_playerDebugText.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_playerDebugText.setPosition(m_engineConstants->c_playerDebugTextPosition);
 }
 
 // Handle input
@@ -111,7 +114,7 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
 	m_fps = 1.f / dtSeconds;
-	m_fpsCounter.setString(c_fpsCounterInitString + std::to_string(m_fps));
+	m_fpsCounter.setString(m_engineConstants->c_fpsCounterInitString + std::to_string(m_fps));
 
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
@@ -120,7 +123,7 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 
 	// Set the player debug text info after updating all GameObjects
 	char playerDebugTextBuffer[50];
-	sprintf_s(playerDebugTextBuffer, c_playerDebugTextInitString.c_str(), m_game->getPlayer()->getXPositionInTileMap(), m_game->getPlayer()->getYPositionInTileMap());
+	sprintf_s(playerDebugTextBuffer, m_engineConstants->c_playerDebugTextInitString.c_str(), m_game->getPlayer()->getXPositionInTileMap(), m_game->getPlayer()->getYPositionInTileMap());
 	// sprintf_s(playerDebugTextBuffer, c_playerDebugTextInitString.c_str(), (int) m_game->getPlayer()->getOrigin().x, (int) m_game->getPlayer()->getOrigin().y);
 	m_playerDebugText.setString(std::string(playerDebugTextBuffer));
 

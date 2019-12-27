@@ -2,16 +2,13 @@
 #include "GameObject.h"
 #include "Room.h"
 #include "Animation.h"
+#include "PlayerConstants.h"
 
 class Player : virtual public GameObject
 {
 private:
-	// Player constants
-	const static int c_startingHealth = 100;
-	const static int c_startingSpeed = 200;
-	const static int c_playerScalingFactor = 2;
-	const std::string c_playerIdleAnimName = "knight_f_idle_anim";
-	const std::string c_playerRunAnimName = "knight_f_run_anim";
+	// Player Constants object
+	PlayerConstants *m_playerConstants;
 
 	// Player health
 	int m_health;

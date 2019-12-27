@@ -2,18 +2,21 @@
 
 Player::Player(TextureMap *textureMap, Room *room)
 {
+	// Initialize constants object
+	m_playerConstants = new PlayerConstants();
+
 	m_room = room;
 	m_textureMap = textureMap;
 	// Initialize animations
-	m_idleAnimation = new Animation(textureMap, c_playerIdleAnimName);
-	m_runAnimation = new Animation(textureMap, c_playerRunAnimName);
+	m_idleAnimation = new Animation(textureMap, m_playerConstants->c_idleAnimName);
+	m_runAnimation = new Animation(textureMap, m_playerConstants->c_runAnimName);
 
 	// By default, the player will be idle
 	m_sprite = *m_idleAnimation->getFrameSprite();
 	m_idleAnimation->startAnimation();
 
-	m_health = c_startingHealth;
-	m_speed = c_startingSpeed;
+	m_health = m_playerConstants->c_startingHealth;
+	m_speed = m_playerConstants->c_startingSpeed;
 	setOrigin(c_initialPosition);
 	initDebugRect();
 }
@@ -69,13 +72,13 @@ void Player::update(float timeElapsed)
 	}
 
 	// Check right boundary
-	if (boundsRect.left + boundsRect.width >= c_maxRoomWidthPixels * c_roomScalingFactor)
+	if (boundsRect.left + boundsRect.width >= RoomConstants::c_maxRoomWidthPixels * RoomConstants::c_roomScalingFactor)
 	{
 		m_origin.x -= timeElapsed * m_speed;
 	}
 
 	// Check bottom boundary
-	if (boundsRect.top + boundsRect.height >= c_maxRoomHeightPixels * c_roomScalingFactor)
+	if (boundsRect.top + boundsRect.height >= RoomConstants::c_maxRoomHeightPixels * RoomConstants::c_roomScalingFactor)
 	{
 		m_origin.y -= timeElapsed * m_speed;
 	}

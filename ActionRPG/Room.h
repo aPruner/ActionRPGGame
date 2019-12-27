@@ -1,26 +1,18 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureMap.h"
+#include "RoomConstants.h"
 
 class Room
 {
 private:
-	// Room constants
-	const static int c_maxRoomWidthPixels = 256;
-	const static int c_maxRoomHeightPixels = 256;
-	const static int c_tileSideLengthPixels = 16;
-	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
-	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
-	const static int c_vertsInQuad = 4;
-	const static int c_roomScalingFactor = 2;
-	const static int c_roomTileMapSize = c_maxRoomWidthTiles * c_maxRoomHeightTiles;
-	const static size_t c_roomVASize = c_roomTileMapSize * c_vertsInQuad;
+	// Room constants are all static values, so no need for constants object
 
 	// TODO: Map TileType enum to tileType strings
 	const std::string c_floor1TextureName = "floor_1";
 
 	// Tile map (logically represents the room)
-	Tile *m_roomTileMap[c_roomTileMapSize];
+	Tile *m_roomTileMap[RoomConstants::c_roomTileMapSize];
 
 	// Instance of the textureMap
 	TextureMap *m_textureMap;

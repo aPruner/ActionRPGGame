@@ -2,14 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include "Tile.h"
+#include "RoomConstants.h"
 
 class TextureMap
 {
 private:
+	// TextureMap Constants (not many so no need for constants object)
 	const std::string c_tileListFilename = "sprites/tiles_list_v1.txt";
 	const std::string c_spriteSheetFilename = "sprites/sprite_sheets/all_sprites.png";
-	// TODO: Reduce duplicate code
-	const static int c_vertsInQuad = 4;
 
 	// Map of filenames to textures - for external single file texturese
 	std::map<std::string, sf::Texture> *m_textureMap;

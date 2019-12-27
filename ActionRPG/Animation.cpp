@@ -8,7 +8,7 @@ Animation::Animation(TextureMap *textureMap, std::string const& animName)
 	initAnimFrames();
 	// Create the sprite from the first frame of the animation
 	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheet(), m_animSpriteSheetBounds);
-	m_sprite->scale((float)c_animScalingFactor, (float)c_animScalingFactor);
+	m_sprite->scale((float)AnimationConstants::c_scalingFactor, (float)AnimationConstants::c_scalingFactor);
 	m_isAnimating = false;
 }
 

@@ -1,13 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureMap.h"
+#include "AnimationConstants.h"
 
 class Animation
 {
 private:
-	// TODO: reduce duplicate code
-	const static int c_animScalingFactor = 2;
-
 	// Represents the current frame of the animation in the sprite sheet
 	sf::IntRect m_animSpriteSheetBounds;
 

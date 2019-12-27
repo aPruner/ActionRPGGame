@@ -1,20 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureMap.h"
+#include "RoomConstants.h"
 
 // Abstract class from which to derive GameObject classes
 class GameObject : public sf::Drawable
 {
 protected:
-	// TODO: reduce duplicate code
-	const static int c_maxRoomWidthPixels = 256;
-	const static int c_maxRoomHeightPixels = 256;
-	const static int c_tileSideLengthPixels = 16;
-	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
-	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
-	const static int c_roomScalingFactor = 2;
-
-	// GameObject constants
+	// GameObject specific constants (Abstract classes won't have a constants file)
 	const float c_initialPositionX = 0;
 	const float c_initialPositionY = 0;
 	const sf::Vector2f c_initialPosition = sf::Vector2f(c_initialPositionX, c_initialPositionY);
