@@ -10,6 +10,22 @@ private:
 	// Player Constants object
 	PlayerConstants *m_playerConstants;
 
+	// Player Class - defines abilities
+	PlayerConstants::PlayerClass m_playerClass;
+
+	// Player level
+	int m_level;
+
+	// Player Attributes - effects subject to change
+	// Strength: increases raw melee attack damage, slightly increases health pool
+	int m_strength;
+	// Wisdom: increases spellcasting damage and healing, significantly increases mana pool
+	int m_wisdom;
+	// Conditioning: significantly increases health pool, slightly increases attack speed
+	int m_conditioning;
+	// Agility: Significantly increases attack speed, slightly increases movement speed
+	int m_agility;
+
 	// Player health
 	int m_health;
 
@@ -28,6 +44,9 @@ private:
 	// Player animations
 	Animation *m_idleAnimation;
 	Animation *m_runAnimation;
+	Animation *m_hitAnimation;
+
+	void initializePlayerAttributes();
 
 public:
 	Player(TextureMap *textureMap, Room *room);

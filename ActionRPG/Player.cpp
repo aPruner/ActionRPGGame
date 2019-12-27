@@ -8,17 +8,30 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_room = room;
 	m_textureMap = textureMap;
 	// Initialize animations
-	m_idleAnimation = new Animation(textureMap, m_playerConstants->c_idleAnimName);
-	m_runAnimation = new Animation(textureMap, m_playerConstants->c_runAnimName);
+	m_idleAnimation = new Animation(textureMap, m_playerConstants->getPlayerIdleAnimName(m_playerClass));
+	m_runAnimation = new Animation(textureMap, m_playerConstants->getPlayerRunAnimName(m_playerClass));
+	m_hitAnimation = new Animation(textureMap, m_playerConstants->getPlayerHitAnimName(m_playerClass));
 
 	// By default, the player will be idle
 	m_sprite = *m_idleAnimation->getFrameSprite();
 	m_idleAnimation->startAnimation();
 
-	m_health = m_playerConstants->c_startingHealth;
-	m_speed = m_playerConstants->c_startingSpeed;
+	initializePlayerAttributes();
+
 	setOrigin(c_initialPosition);
 	initDebugRect();
+}
+
+// Initialize the player attributes
+void Player::initializePlayerAttributes()
+{
+	m_playerClass = PlayerConstants::PlayerClass::Knight;
+	m_health = PlayerConstants::c_startingHealth;
+	m_speed = PlayerConstants::c_startingSpeed;
+	m_strength = PlayerConstants::c_startingStrength;
+	m_wisdom = PlayerConstants::c_startingWisdom;
+	m_conditioning = PlayerConstants::c_startingConditioning;
+	m_agility = PlayerConstants::c_startingAgility;
 }
 
 // GameObject update method override

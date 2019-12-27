@@ -134,6 +134,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerConstants.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="TextureMap.cpp" />
     <ClCompile Include="Tile.cpp" />

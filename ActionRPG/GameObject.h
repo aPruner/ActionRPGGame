@@ -33,7 +33,7 @@ protected:
 
 public:
 	// Direction enum
-	const enum Direction { UP, RIGHT, DOWN, LEFT };
+	const enum class Direction { UP, RIGHT, DOWN, LEFT };
 
 	// Pure virtual method for updating the game object
 	// Must be defined in the derived class
