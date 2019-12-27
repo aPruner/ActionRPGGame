@@ -30,7 +30,7 @@ private:
 	Animation *m_runAnimation;
 
 public:
-	Player(TextureMap *textureMapm, Room *room);
+	Player(TextureMap *textureMap, Room *room);
 
 	// Override for GameObject::update
 	void update(float timeElapsed) override;
