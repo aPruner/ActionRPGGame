@@ -24,7 +24,8 @@ Engine::Engine()
 	m_game = new Game(m_textureMap, m_screenResolution);
 
 	// Initialize Guis
-	// Character Gui
+	// Player Gui
+
 }
 
 // Initialize the fps counter
