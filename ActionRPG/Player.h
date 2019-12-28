@@ -29,6 +29,9 @@ private:
 	// Player health
 	int m_health;
 
+	// Player mana
+	int m_mana;
+
 	// Player movement speed
 	int m_speed;
 
@@ -62,5 +65,24 @@ public:
 
 	// Input handler for stopping the player's movement
 	void stopMove(Direction direction);
+
+	// Getters and Setters
+	// Getters
+	int getHealth();
+	int getMana();
+	int getSpeed();
+	int getStrength();
+	int getWisdom();
+	int getConditioning();
+	int getAgility();
+
+	// Setters
+	void setHealth(int health);
+	void setMana(int mana);
+	void setSpeed(int speed);
+	void setStrength(int strength);
+	void setWisdom(int wisdom);
+	void setConditioning(int conditioning);
+	void setAgility(int agility);
 
 };

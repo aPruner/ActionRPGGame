@@ -176,3 +176,74 @@ void Player::stopMove(Direction direction)
 		m_idleAnimation->startAnimation();
 	}
 }
+
+// Getters and Setters
+int Player::getHealth()
+{
+	return m_health;
+}
+
+int Player::getMana()
+{
+	return m_mana;
+}
+
+int Player::getSpeed()
+{
+	return m_speed;
+}
+
+int Player::getStrength()
+{
+	return m_strength;
+}
+
+int Player::getWisdom()
+{
+	return m_wisdom;
+}
+
+int Player::getConditioning()
+{
+	return m_conditioning;
+}
+
+int Player::getAgility()
+{
+	return m_agility;
+}
+
+void Player::setHealth(int health)
+{
+	m_health = health;
+}
+
+void Player::setMana(int mana)
+{
+	m_mana = mana;
+}
+
+void Player::setSpeed(int speed)
+{
+	m_speed = speed;
+}
+
+void Player::setStrength(int strength)
+{
+	m_strength = strength;
+}
+
+void Player::setWisdom(int wisdom)
+{
+	m_wisdom = wisdom;
+}
+
+void Player::setConditioning(int conditioning)
+{
+	m_conditioning = conditioning;
+}
+
+void Player::setAgility(int agility)
+{
+	m_agility = agility;
+}

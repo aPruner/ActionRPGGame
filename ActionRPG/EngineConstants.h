@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 class EngineConstants {
 public:
 	// TODO: Figure out how to define static strings so there is no need to instantiate this class

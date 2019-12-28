@@ -8,5 +8,10 @@ Gui::Gui(sf::RenderWindow gameWindow)
 
 Gui::~Gui()
 {
+	delete m_gui;
+}
 
+void Gui::draw()
+{
+	m_gui->draw();
 }
