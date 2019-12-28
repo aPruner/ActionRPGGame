@@ -3,14 +3,29 @@
 
 // Abstract GUI class that can be extended to create other GUIs
 class Gui {
-private:
+protected:
 	// Instance of the game window
 	sf::RenderWindow *m_gameWindow;
 
+	// FloatRect representing the guiWindow
+	sf::FloatRect m_guiWindow;
+
+	// Gui dimensions
+	float m_height;
+	float m_width;
+
+	// Is the gui visible
+	bool m_isVisible;
 
 public:
-	Gui(sf::RenderWindow gameWindow);
-	~Gui();
+	// Pure virtual method for updating the gui
+	// Must be defined in the derived class
+	virtual void update() const = 0;
 
-	void draw();
+	// Pure virtual method for drawing the gui
+	// Must be defined in the derived class
+	virtual void draw() const = 0;
+
+	// Close the gui
+	// void close();
 };
