@@ -26,6 +26,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 void Player::initializePlayerAttributes()
 {
 	m_playerClass = PlayerConstants::PlayerClass::Knight;
+	m_level = PlayerConstants::c_startingLevel;
 	m_health = PlayerConstants::c_startingHealth;
 	m_speed = PlayerConstants::c_startingSpeed;
 	m_strength = PlayerConstants::c_startingStrength;

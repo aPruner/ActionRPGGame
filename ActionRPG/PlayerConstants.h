@@ -22,7 +22,6 @@ public:
 	const static int c_startingConditioning = 4;
 	const static int c_startingAgility = 4;
 	
-	// TODO: Figure out how to define static strings so there is no need to instantiate this class
 	std::string c_idleAnimName;
 	std::string c_runAnimName;
 	std::string c_hitAnimName;
