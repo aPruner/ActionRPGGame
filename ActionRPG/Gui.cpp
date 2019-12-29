@@ -1,5 +1,6 @@
 #include "Gui.h"
 
+// Recurse through widget tree to set isVisible to true for all widgets
 void Gui::open()
 {
 	m_isVisible = true;
@@ -9,6 +10,7 @@ void Gui::open()
 	}
 }
 
+// Recurse through widget tree to set isVisible to false for all widgets
 void Gui::close()
 {
 	m_isVisible = false;

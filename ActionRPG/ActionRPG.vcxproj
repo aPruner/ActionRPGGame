@@ -143,6 +143,7 @@
     <ClCompile Include="TextGuiWidget.cpp" />
     <ClCompile Include="TextureMap.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="WindowGuiWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />

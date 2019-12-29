@@ -23,7 +23,7 @@ Engine::Engine()
 	m_textureMap = new TextureMap();
 	m_game = new Game(m_textureMap, m_screenResolution);
 
-	// Initialize Guis
+	// TODO: Initialize Guis
 	// Player Gui
 
 }
@@ -41,12 +41,13 @@ void Engine::initFpsCounter()
 
 void Engine::initPlayerDebugText()
 {
+	m_playerDebugTextPosition = sf::Vector2f(m_screenResolution.x - m_engineConstants->c_playerDebugTextOffsetX, m_screenResolution.y - m_engineConstants->c_playerDebugTextOffsetY);
 	m_playerDebugTextFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
 	m_playerDebugText.setString(m_engineConstants->c_playerDebugTextInitString);
 	m_playerDebugText.setFont(m_playerDebugTextFont);
 	m_playerDebugText.setCharacterSize(m_engineConstants->c_defaultFontSize);
 	m_playerDebugText.setFillColor(m_engineConstants->c_defaultFontColor);
-	m_playerDebugText.setPosition(m_engineConstants->c_playerDebugTextPosition);
+	m_playerDebugText.setPosition(m_playerDebugTextPosition);
 }
 
 // Handle input
@@ -113,7 +114,6 @@ void Engine::input()
 // Update the game state
 void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 {
-	// TODO: Figure out how to center the view on the player
 
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();

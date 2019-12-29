@@ -28,15 +28,15 @@ private:
 
 	// FPS counter text element
 	sf::Text m_fpsCounter;
-
 	// FPS counter font
 	sf::Font m_fpsCounterFont;
 
 	// Player debug text
 	sf::Text m_playerDebugText;
-
 	// Player debug text font
 	sf::Font m_playerDebugTextFont;
+	// Player debug text position - dependent on resolution
+	sf::Vector2f m_playerDebugTextPosition;
 
 	// Current FPS value
 	float m_fps;
