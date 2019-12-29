@@ -129,22 +129,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="DisplayGuiWidget.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gui.cpp" />
+    <ClCompile Include="GuiWidget.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerConstants.cpp" />
-    <ClCompile Include="PlayerGui.cpp" />
+    <ClCompile Include="PlayerSummaryGui.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="TextGuiWidget.cpp" />
     <ClCompile Include="TextureMap.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationConstants.h" />
-    <ClInclude Include="PlayerGui.h" />
+    <ClInclude Include="DisplayGuiWidget.h" />
+    <ClInclude Include="PlayerSummaryGui.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConstants.h" />
     <ClInclude Include="Game.h" />
@@ -155,7 +159,10 @@
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomConstants.h" />
     <ClInclude Include="TextureMap.h" />
+    <ClInclude Include="TextGuiWidget.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="GuiWidget.h" />
+    <ClInclude Include="WindowGuiWidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

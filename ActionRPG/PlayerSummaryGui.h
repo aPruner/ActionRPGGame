@@ -2,14 +2,15 @@
 #include "Gui.h"
 #include "Player.h"
 
-class PlayerGui : virtual public Gui {
+class PlayerSummaryGui : virtual public Gui {
 private:
 	Player *m_player;
 
+	// TODO: Figure out what else goes here
 
 public:
-	PlayerGui(Player player);
-	~PlayerGui();
+	PlayerSummaryGui(Player player);
+	~PlayerSummaryGui();
 
 	// Override for Gui::update
 	void update() const override;
