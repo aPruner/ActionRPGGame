@@ -27,6 +27,10 @@ protected:
 	// Is the gui visible
 	bool m_isVisible;
 
+	// Rectangle drawables for debugging 
+	sf::RectangleShape m_debugRectOutline; // (outline of Gui)
+	sf::RectangleShape m_debugRectOrigin; // (origin of GameObject)
+
 public:
 	// Pure virtual method for updating the gui
 	// Must be defined in the derived class
