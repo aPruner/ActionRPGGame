@@ -10,6 +10,9 @@ protected:
 	// FloatRect representing the guiWindow
 	sf::FloatRect m_guiWindow;
 
+	// View to be drawn to
+	sf::View m_view;
+
 	// Gui dimensions
 	float m_height;
 	float m_width;
@@ -26,6 +29,9 @@ public:
 	// Must be defined in the derived class
 	virtual void draw() const = 0;
 
+	// Open the gui
+	void open();
+	
 	// Close the gui
-	// void close();
+	void close();
 };

@@ -5,7 +5,11 @@
 class PlayerGui : virtual public Gui {
 private:
 	Player *m_player;
+
+
 public:
+	PlayerGui(Player player);
+	~PlayerGui();
 
 	// Override for Gui::update
 	void update() const override;

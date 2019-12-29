@@ -1,5 +1,17 @@
 #include "PlayerGui.h"
 
+PlayerGui::PlayerGui(Player player)
+{
+	m_player = &player;
+	m_height = 500;
+	m_width = 500;
+}
+
+PlayerGui::~PlayerGui()
+{
+
+}
+
 void PlayerGui::addPlayerAttributeWidgets()
 {
 
