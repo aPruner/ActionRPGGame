@@ -8,11 +8,18 @@ private:
 	std::string m_string;
 
 	// SFML text representation
-	sf::Text *m_text;
+	sf::Text m_text;
 
 	// TODO: Figure out what else goes here
 
 public:
 	void draw() const override;
 	void update() const override;
+
+	// Getters and Setters
+	// Getters
+	sf::Text getText();
+
+	// Setters
+	void setText(sf::Text text);
 };

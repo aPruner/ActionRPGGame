@@ -1,13 +1,27 @@
-#include "TextGuiWidget.h"
+#include "GuiWidget.h"
 
 // Override of GuiWidget::update
-void TextGuiWidget::update() const
+void GuiWidget::update() const
 {
 
 }
 
 // Override of GuiWidget::draw
-void TextGuiWidget::draw() const
+void GuiWidget::draw() const
 {
 
+}
+
+// Getters and Setters
+
+// Getters
+bool GuiWidget::getIsVisible()
+{
+	return m_isVisible;
+}
+
+// Setters
+void GuiWidget::setIsVisible(bool isVisible)
+{
+	m_isVisible = isVisible;
 }

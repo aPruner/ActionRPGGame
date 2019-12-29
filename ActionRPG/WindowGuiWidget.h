@@ -5,7 +5,8 @@
 class WindowGuiWidget : virtual public GuiWidget {
 private:
 
-	bool m_isMovable;
+	// Rectangle that when clicked on, closes the window
+	sf::RectangleShape m_closeBounds;
 
 	// TODO: Figure out what else goes here
 public:

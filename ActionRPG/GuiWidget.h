@@ -11,6 +11,9 @@ protected:
 	float m_height;
 	float m_width;
 
+	// Is the widget visible
+	bool m_isVisible;
+
 	// Vector position relative to the origin of the parent Gui
 	sf::Vector2f m_position;
 
@@ -26,4 +29,12 @@ protected:
 public:
 	virtual void update() const = 0;
 	virtual void draw() const = 0;
+
+	// Getters and Setters
+
+	// Getters
+	bool getIsVisible();
+
+	// Setters
+	void setIsVisible(bool isVisible);
 };
