@@ -13,7 +13,10 @@ private:
 	// TODO: Figure out what else goes here
 
 public:
-	void draw() const override;
+	TextGuiWidget(std::string string);
+	~TextGuiWidget();
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void update() const override;
 
 	// Getters and Setters

@@ -28,7 +28,7 @@ protected:
 
 public:
 	virtual void update() const = 0;
-	virtual void draw() const = 0;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 	// Getters and Setters
 

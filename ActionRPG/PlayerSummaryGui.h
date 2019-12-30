@@ -16,7 +16,7 @@ public:
 	void update() const override;
 
 	// Override for Gui::update
-	void draw() const override;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	// Add attribute widgets to the gui
 	void addPlayerAttributeWidgets();

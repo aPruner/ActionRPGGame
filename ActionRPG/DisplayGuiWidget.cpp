@@ -5,7 +5,7 @@ void DisplayGuiWidget::update() const
 
 }
 
-void DisplayGuiWidget::draw() const
+void DisplayGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 
 }

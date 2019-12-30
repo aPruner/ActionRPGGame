@@ -1,13 +1,24 @@
 #include "TextGuiWidget.h"
 
+TextGuiWidget::TextGuiWidget(std::string string)
+{
+	m_text = sf::Text();
+	m_text.setString(string);
+}
+
+TextGuiWidget::~TextGuiWidget()
+{
+}
+
 void TextGuiWidget::update() const
 {
 
 }
 
-void TextGuiWidget::draw() const
+void TextGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
+	// TODO: figure out what to draw
+	// target.draw(m_sprite, states);
 }
 
 // Getters and Setters

@@ -38,7 +38,7 @@ public:
 
 	// Pure virtual method for drawing the gui
 	// Must be defined in the derived class
-	virtual void draw() const = 0;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 	// Open the gui
 	void open();

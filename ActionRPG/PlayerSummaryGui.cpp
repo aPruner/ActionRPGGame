@@ -18,9 +18,10 @@ void PlayerSummaryGui::addPlayerAttributeWidgets()
 }
 
 // Override for Gui::draw
-void PlayerSummaryGui::draw() const
+void PlayerSummaryGui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
+	// TODO: figure out what to draw
+	// target.draw(m_sprite, states);
 }
 
 // Override for Gui::update
