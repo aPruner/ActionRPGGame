@@ -1,5 +1,6 @@
 #pragma once
 #include "GuiWidget.h"
+#include "TextGuiWidget.h"
 
 class DisplayGuiWidget : virtual public GuiWidget {
 private:
@@ -10,8 +11,14 @@ private:
 	int m_displaySpriteScalingFactor;
 
 	// TODO: Figure out what else goes here
-
 public:
+
+	DisplayGuiWidget(sf::Vector2f position);
+	~DisplayGuiWidget();
+
+	// TODO: make a new sub type of GuiWidget in the class hierarchy tree so that this isn't duplicate code in WindowGuiWidget
+	void addChildTextWidget(TextGuiWidget newChildTextWidget);
+	void addChildDisplayWidget(DisplayGuiWidget newChildDisplayWidget);
 
 	void update() const override;
 

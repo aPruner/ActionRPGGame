@@ -3,8 +3,9 @@
 PlayerSummaryGui::PlayerSummaryGui(Player player)
 {
 	m_player = &player;
-	m_height = 500;
-	m_width = 500;
+	m_height = 800;
+	m_width = 800;
+	m_windowWidget = new WindowGuiWidget(sf::Vector2f(200, 200));
 }
 
 PlayerSummaryGui::~PlayerSummaryGui()

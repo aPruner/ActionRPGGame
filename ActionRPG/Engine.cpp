@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Engine.h"
 #include "Player.h"
+#include "PlayerSummaryGui.h"
 
 Engine::Engine()
 {
@@ -25,7 +26,7 @@ Engine::Engine()
 
 	// TODO: Initialize Guis
 	// Player Gui
-
+	
 }
 
 // Initialize the fps counter

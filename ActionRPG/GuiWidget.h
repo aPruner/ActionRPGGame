@@ -14,15 +14,15 @@ protected:
 	// Is the widget visible
 	bool m_isVisible;
 
-	// Vector position relative to the origin of the parent Gui
+	// Vector position relative to the origin of the parent Gui/GuiWidget
 	sf::Vector2f m_position;
+
+	// Child widgets rendered inside of this widget
+	std::vector<GuiWidget>* m_childWidgets;
 
 	// Rectangle drawables for debugging 
 	sf::RectangleShape m_debugRectOutline; // (outline of GuiWidget)
 	sf::RectangleShape m_debugRectOrigin; // (origin of GuiWidget)
-
-	// Child widgets rendered on top of this widget, if this vector is empty, this is a leaf widget
-	std::vector<GuiWidget> *m_childWidgets;
 
 	// TODO: Figure out what else goes here
 
