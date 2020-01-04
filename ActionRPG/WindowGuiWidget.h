@@ -7,8 +7,14 @@
 class WindowGuiWidget : virtual public GuiWidget {
 private:
 
+	// NOTE: For now, a WindowGuiWidget can only be a root widget
+
+	// TODO: Make this a DisplayGuiWidget instead to display some cool texture in the background
+	// Background of the Window
+	sf::RectangleShape m_backgroundRect;
+
 	// Rectangle that when clicked on, closes the window
-	sf::RectangleShape m_closeButton;
+	sf::RectangleShape m_closeButtonRect;
 
 	// TODO: Figure out what else goes here
 public:

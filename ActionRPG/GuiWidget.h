@@ -18,7 +18,7 @@ protected:
 	sf::Vector2f m_position;
 
 	// Child widgets rendered inside of this widget
-	std::vector<GuiWidget>* m_childWidgets;
+	std::vector<GuiWidget *>* m_childWidgets;
 
 	// Rectangle drawables for debugging 
 	sf::RectangleShape m_debugRectOutline; // (outline of GuiWidget)
