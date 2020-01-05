@@ -5,6 +5,7 @@
 #include "Gui.h"
 #include "TextureMap.h"
 #include "EngineConstants.h"
+#include "PlayerSummaryGui.h"
 
 class Engine
 {
@@ -21,7 +22,11 @@ private:
 	// Game instance
 	Game *m_game;
 
-	// Vector of gui instances
+	// PlayerSummaryGui instance
+	PlayerSummaryGui *m_playerSummaryGui;
+
+	// TODO: decide if this is necessary, may be easier to just draw each gui one at a time
+	// Vector of all gui instances
 	std::vector<Gui*>* m_guiInstances;
 
 	// Clock instance

@@ -41,6 +41,7 @@ public:
 	// Getters and Setters
 	// Getters
 	GuiWidget *getRootWidget();
+	bool getIsVisible();
 
 	// Setters
 	void setRootWidget(GuiWidget *newRootWidget);

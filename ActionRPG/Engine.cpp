@@ -27,10 +27,10 @@ Engine::Engine()
 	m_guiInstances = new std::vector<Gui *>();
 
 	// Initialize Player Gui
-	PlayerSummaryGui* playerSummaryGui = new PlayerSummaryGui(m_game->getPlayer());
+	m_playerSummaryGui = new PlayerSummaryGui(m_game->getPlayer());
 
 	// Add gui instances to vector (for drawing later)
-	m_guiInstances->push_back(playerSummaryGui);
+	m_guiInstances->push_back(m_playerSummaryGui);
 }
 
 // Initialize the fps counter
@@ -71,6 +71,19 @@ void Engine::input()
 			if (event.key.code == sf::Keyboard::Escape)
 			{
 				m_gameWindow->close();
+			}
+
+			// Open or close the PlayerSummaryGui
+			if (event.key.code == sf::Keyboard::C)
+			{
+				if (m_playerSummaryGui->getIsVisible())
+				{
+					m_playerSummaryGui->close();
+				}
+				else
+				{
+					m_playerSummaryGui->open();
+				}
 			}
 		}
 

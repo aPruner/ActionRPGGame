@@ -9,7 +9,7 @@ TextGuiWidget::TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition,
 	m_text.setString(string);
 	m_text.setFont(m_font);
 	// TODO: Make constants
-	m_text.setColor(sf::Color::White);
+	m_text.setFillColor(sf::Color::White);
 	m_text.setCharacterSize(30);
 
 	// Set the absolute position of the text
@@ -28,7 +28,6 @@ TextGuiWidget::~TextGuiWidget()
 // Override of GuiWidget::update
 void TextGuiWidget::update() const
 {
-
 }
 
 // Override of GuiWidget::draw

@@ -4,14 +4,14 @@
 void Gui::open()
 {
 	m_isVisible = true;
-	// TODO: write this
+	m_rootWidget->setIsVisible(true);
 }
 
 // Recurse through widget tree to set isVisible to false for all widgets
 void Gui::close()
 {
 	m_isVisible = false;
-	// TODO: write this
+	m_rootWidget->setIsVisible(false);
 }
 
 // Getters and Setters
@@ -19,6 +19,11 @@ void Gui::close()
 GuiWidget* Gui::getRootWidget()
 {
 	return m_rootWidget;
+}
+
+bool Gui::getIsVisible()
+{
+	return m_isVisible;
 }
 
 // Setters
