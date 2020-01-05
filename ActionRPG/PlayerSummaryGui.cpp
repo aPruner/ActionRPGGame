@@ -10,9 +10,9 @@ PlayerSummaryGui::PlayerSummaryGui(Player *player)
 	// TODO: Create constants for PlayerSummaryGui, place them in PlayerConstants.h (or maybe create a new class)
 	// TODO: Tune all these values so that they make sense
 	// TODO: After tuning, base these values on screen resolution
-	sf::Vector2f rootPosition = sf::Vector2f(800, 600);
-	float rootHeight = 800;
-	float rootWidth = 600;
+	sf::Vector2f rootPosition = sf::Vector2f(350, 150);
+	float rootHeight = 600;
+	float rootWidth = 400;
 	m_rootWidget = new WindowGuiWidget(rootPosition, rootHeight, rootWidth);
 
 	sf::Vector2f firstChildPosition = sf::Vector2f(10, 10);

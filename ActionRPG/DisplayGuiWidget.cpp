@@ -8,7 +8,7 @@ DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPos
 	m_width = width;
 
 	// Initialize debug rect
-	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(height, width));
+	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(width, height));
 	m_debugRectOutline.setFillColor(sf::Color::Cyan);
 	m_debugRectOutline.setOutlineColor(sf::Color::Magenta);
 
