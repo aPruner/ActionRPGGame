@@ -29,23 +29,23 @@ PlayerSummaryGui::PlayerSummaryGui(Player *player)
 	// Create a stringstream for text widget initialization
 	std::stringstream attributeSS;
 
-	sf::Vector2f strengthPosition = sf::Vector2f(3, 25);
+	sf::Vector2f strengthPosition = sf::Vector2f(5, 5);
 	attributeSS << playerConstants->c_strengthLabel << std::to_string(player->getStrength());
 	m_strengthTextWidget = new TextGuiWidget(strengthPosition, firstChildAbsolutePosition, attributeSS.str(), playerSummaryGuiFontFileName);
 	// Clear the stringstream
 	attributeSS.str(std::string());
 
-	sf::Vector2f wisdomPosition = sf::Vector2f(3, 50);
+	sf::Vector2f wisdomPosition = sf::Vector2f(5, 30);
 	attributeSS << playerConstants->c_wisdomLabel << std::to_string(player->getWisdom());
 	m_wisdomTextWidget = new TextGuiWidget(wisdomPosition, firstChildAbsolutePosition, attributeSS.str(), playerSummaryGuiFontFileName);
 	attributeSS.str(std::string());
 
-	sf::Vector2f conditioningPosition = sf::Vector2f(3, 75);
+	sf::Vector2f conditioningPosition = sf::Vector2f(5, 55);
 	attributeSS << playerConstants->c_conditioningLabel << std::to_string(player->getConditioning());
 	m_conditioningTextWidget = new TextGuiWidget(conditioningPosition, firstChildAbsolutePosition, attributeSS.str(), playerSummaryGuiFontFileName);
 	attributeSS.str(std::string());
 
-	sf::Vector2f agilityPosition = sf::Vector2f(3, 100);
+	sf::Vector2f agilityPosition = sf::Vector2f(5, 80);
 	attributeSS << playerConstants->c_agilityLabel << std::to_string(player->getAgility());
 	m_agilityTextWidget = new TextGuiWidget(agilityPosition, firstChildAbsolutePosition, attributeSS.str(), playerSummaryGuiFontFileName);
 
