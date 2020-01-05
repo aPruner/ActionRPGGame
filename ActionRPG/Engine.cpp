@@ -24,9 +24,13 @@ Engine::Engine()
 	m_textureMap = new TextureMap();
 	m_game = new Game(m_textureMap, m_screenResolution);
 
-	// TODO: Initialize Guis
-	// Player Gui
-	
+	m_guiInstances = new std::vector<Gui *>();
+
+	// Initialize Player Gui
+	PlayerSummaryGui* playerSummaryGui = new PlayerSummaryGui(m_game->getPlayer());
+
+	// Add gui instances to vector (for drawing later)
+	m_guiInstances->push_back(playerSummaryGui);
 }
 
 // Initialize the fps counter
@@ -174,7 +178,17 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 		}
 	}
 
-	// Draw the text overlays
+	// Draw the guis
+	// TODO: Uncomment this code when necessary
+	// m_gameWindow->setView(m_game->getGuiView());
+
+	//for (auto it = m_guiInstances->begin(); it != m_guiInstances->end(); it++)
+	//{
+	//	Gui *guiInstance = *it;
+	//	m_gameWindow->draw(*guiInstance->getRootWidget());
+	//}
+
+	// Draw the debug text overlays
 	m_gameWindow->setView(m_game->getDebugView());
 	m_gameWindow->draw(m_playerDebugText);
 	m_gameWindow->draw(m_fpsCounter);

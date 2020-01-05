@@ -18,7 +18,7 @@ private:
 
 	// TODO: Figure out what else goes here
 public:
-	WindowGuiWidget(sf::Vector2f position);
+	WindowGuiWidget(sf::Vector2f position, float height, float width);
 	~WindowGuiWidget();
 
 	// TODO: make a new sub type of GuiWidget in the class hierarchy tree so that this isn't duplicate code in DisplayGuiWidget

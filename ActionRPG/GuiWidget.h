@@ -27,7 +27,13 @@ protected:
 	// TODO: Figure out what else goes here
 
 public:
+
+	// Pure virtual method for updating the gui widget
+	// Must be defined in the derived class
 	virtual void update() const = 0;
+
+	// Pure virtual method for drawing the gui widget
+	// Must be defined in the derived class
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 	// Getters and Setters

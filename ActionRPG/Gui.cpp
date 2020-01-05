@@ -4,18 +4,25 @@
 void Gui::open()
 {
 	m_isVisible = true;
-	for (auto it = m_widgets->begin(); it != m_widgets->end(); it++)
-	{
-		it->setIsVisible(true);
-	}
+	// TODO: write this
 }
 
 // Recurse through widget tree to set isVisible to false for all widgets
 void Gui::close()
 {
 	m_isVisible = false;
-	for (auto it = m_widgets->begin(); it != m_widgets->end(); it++)
-	{
-		it->setIsVisible(false);
-	}
+	// TODO: write this
+}
+
+// Getters and Setters
+// Getters
+GuiWidget* Gui::getRootWidget()
+{
+	return m_rootWidget;
+}
+
+// Setters
+void Gui::setRootWidget(GuiWidget* newRootWidget)
+{
+	m_rootWidget = newRootWidget;
 }

@@ -30,5 +30,8 @@ void DisplayGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) c
 {
 	// target.draw(m_displaySprite, states);
 
-	target.draw(m_debugRectOutline, states);
+	if (m_isVisible)
+	{
+		target.draw(m_debugRectOutline, states);
+	}
 }

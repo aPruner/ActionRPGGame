@@ -1,7 +1,13 @@
 #include "WindowGuiWidget.h"
 
-WindowGuiWidget::WindowGuiWidget(sf::Vector2f position)
+WindowGuiWidget::WindowGuiWidget(sf::Vector2f position, float height, float width)
 {
+	m_position = position;
+	m_height = height;
+	m_width = width;
+	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(height, width));
+	m_debugRectOutline.setFillColor(sf::Color::Yellow);
+	m_debugRectOutline.setOutlineColor(sf::Color::White);
 	m_childWidgets = new std::vector<GuiWidget *>();
 }
 
@@ -27,9 +33,14 @@ void WindowGuiWidget::update() const
 }
 
 // Override of GuiWidget::draw
+// Draw's the WindowGuiWidgets debug rect (later on non debug stuff)
+// and then recurses through the widget tree, drawing each widget node
 void WindowGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// target.draw(m_backgroundRect, states);
 
-	target.draw(m_debugRectOutline, states);
+	if (m_isVisible)
+	{
+		target.draw(m_debugRectOutline, states);
+	}
 }

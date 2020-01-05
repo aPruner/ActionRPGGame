@@ -17,8 +17,8 @@ protected:
 	// View to be drawn to
 	sf::View m_view;
 
-	// Vector of widgets to be drawn
-	std::vector<GuiWidget> *m_widgets;
+	// Root widget (drawing this draws its whole widget tree)
+	GuiWidget *m_rootWidget;
 
 	// Gui dimensions
 	float m_height;
@@ -32,17 +32,16 @@ protected:
 	sf::RectangleShape m_debugRectOrigin; // (origin of GameObject)
 
 public:
-	// Pure virtual method for updating the gui
-	// Must be defined in the derived class
-	virtual void update() const = 0;
-
-	// Pure virtual method for drawing the gui
-	// Must be defined in the derived class
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-
 	// Open the gui
 	void open();
 	
 	// Close the gui
 	void close();
+
+	// Getters and Setters
+	// Getters
+	GuiWidget *getRootWidget();
+
+	// Setters
+	void setRootWidget(GuiWidget *newRootWidget);
 };

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Game.h"
+#include "Gui.h"
 #include "TextureMap.h"
 #include "EngineConstants.h"
 
@@ -19,6 +20,9 @@ private:
 
 	// Game instance
 	Game *m_game;
+
+	// Vector of gui instances
+	std::vector<Gui*>* m_guiInstances;
 
 	// Clock instance
 	sf::Clock clock;

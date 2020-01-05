@@ -22,9 +22,12 @@ void TextGuiWidget::update() const
 // Override of GuiWidget::draw
 void TextGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(m_text, states);
 
-	target.draw(m_debugRectOutline, states);
+	if (m_isVisible)
+	{
+		target.draw(m_text, states);
+		// target.draw(m_debugRectOutline, states);
+	}
 }
 
 // Getters and Setters

@@ -43,6 +43,11 @@ sf::View Game::getHudView()
 	return m_hudView;
 }
 
+sf::View Game::getGuiView()
+{
+	return m_guiView;
+}
+
 sf::View Game::getDebugView()
 {
 	return m_debugView;

@@ -19,14 +19,8 @@ private:
 	// TODO: Figure out what else goes here
 
 public:
-	PlayerSummaryGui(Player player);
+	PlayerSummaryGui(Player *player);
 	~PlayerSummaryGui();
-
-	// Override for Gui::update
-	void update() const override;
-
-	// Override for Gui::update
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	// Add attribute widgets to the gui
 	void addPlayerAttributeWidgets();

@@ -47,6 +47,7 @@ public:
 	// Getters
 	sf::View getGameView();
 	sf::View getHudView();
+	sf::View getGuiView();
 	sf::View getDebugView();
 	Player *getPlayer();
 	Room *getRoom();
