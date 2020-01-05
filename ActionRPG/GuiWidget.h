@@ -14,8 +14,12 @@ protected:
 	// Is the widget visible
 	bool m_isVisible;
 
-	// Vector position relative to the origin of the parent Gui/GuiWidget
+	// Vector position relative to the origin of the parent GuiWidget
 	sf::Vector2f m_position;
+
+	// Vector position of the parent GuiWidget
+	// If this widget is a root, this will be set to 0, 0
+	sf::Vector2f m_parentPosition;
 
 	// Child widgets rendered inside of this widget
 	std::vector<GuiWidget *>* m_childWidgets;

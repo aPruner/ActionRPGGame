@@ -1,7 +1,11 @@
 #include "DisplayGuiWidget.h"
 
-DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position)
+DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, float height, float width)
 {
+	m_position = position;
+	m_parentPosition = parentPosition;
+	m_height = height;
+	m_width = width;
 	m_childWidgets = new std::vector<GuiWidget *>();
 }
 

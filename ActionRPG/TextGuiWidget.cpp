@@ -1,6 +1,6 @@
 #include "TextGuiWidget.h"
 
-TextGuiWidget::TextGuiWidget(std::string string)
+TextGuiWidget::TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string)
 {
 	m_text = sf::Text();
 	m_text.setString(string);

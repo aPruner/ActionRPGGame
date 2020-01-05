@@ -9,8 +9,9 @@ class PlayerSummaryGui : virtual public Gui {
 private:
 	Player *m_player;
 
-	WindowGuiWidget *m_windowWidget;
-	DisplayGuiWidget *m_rootDisplayWidget;
+	DisplayGuiWidget *m_firstChildDisplayWidget;
+	// TODO: add more DisplayGuiWidgets, one for each attribute
+
 	TextGuiWidget *m_strengthTextWidget;
 	TextGuiWidget *m_wisdomTextWidget;
 	TextGuiWidget *m_conditioningTextWidget;

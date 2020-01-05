@@ -3,6 +3,8 @@
 WindowGuiWidget::WindowGuiWidget(sf::Vector2f position, float height, float width)
 {
 	m_position = position;
+	// WindowGuiWidgets will always be root, so they have a parentPosition of 0, 0 by default
+	m_parentPosition = sf::Vector2f(0, 0);
 	m_height = height;
 	m_width = width;
 	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(height, width));

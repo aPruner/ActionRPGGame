@@ -13,7 +13,7 @@ private:
 	// TODO: Figure out what else goes here
 public:
 
-	DisplayGuiWidget(sf::Vector2f position);
+	DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, float height, float width);
 	~DisplayGuiWidget();
 
 	// TODO: make a new sub type of GuiWidget in the class hierarchy tree so that this isn't duplicate code in WindowGuiWidget

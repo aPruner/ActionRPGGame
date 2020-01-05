@@ -179,14 +179,12 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 	}
 
 	// Draw the guis
-	// TODO: Uncomment this code when necessary
-	// m_gameWindow->setView(m_game->getGuiView());
-
-	//for (auto it = m_guiInstances->begin(); it != m_guiInstances->end(); it++)
-	//{
-	//	Gui *guiInstance = *it;
-	//	m_gameWindow->draw(*guiInstance->getRootWidget());
-	//}
+	m_gameWindow->setView(m_game->getGuiView());
+	for (auto it = m_guiInstances->begin(); it != m_guiInstances->end(); it++)
+	{
+		Gui *guiInstance = *it;
+		m_gameWindow->draw(*guiInstance->getRootWidget());
+	}
 
 	// Draw the debug text overlays
 	m_gameWindow->setView(m_game->getDebugView());
