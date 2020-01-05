@@ -2,11 +2,20 @@
 
 TextGuiWidget::TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string, std::string fontFileName)
 {
-	m_text = sf::Text();
-	m_text.setString(string);
-
 	m_font = sf::Font();
 	m_font.loadFromFile(fontFileName);
+
+	m_text = sf::Text();
+	m_text.setString(string);
+	m_text.setFont(m_font);
+	// TODO: Make constants
+	m_text.setColor(sf::Color::White);
+	m_text.setCharacterSize(30);
+
+	// Set the absolute position of the text
+	sf::Vector2f absolutePosition = sf::Vector2f(parentPosition.x + position.x, parentPosition.y + position.y);
+	m_text.setPosition(absolutePosition);
+
 	// NOTE: a TextGuiWidget will never have any children (it will always be a leaf)
 	// so this vector will always be empty
 	m_childWidgets = new std::vector<GuiWidget *>();

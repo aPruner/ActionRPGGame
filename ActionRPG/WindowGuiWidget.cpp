@@ -7,6 +7,7 @@ WindowGuiWidget::WindowGuiWidget(sf::Vector2f position, float height, float widt
 	m_parentPosition = sf::Vector2f(0, 0);
 	m_height = height;
 	m_width = width;
+	// Initialize debug rect
 	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(height, width));
 	m_debugRectOutline.setFillColor(sf::Color::Yellow);
 	m_debugRectOutline.setOutlineColor(sf::Color::White);
