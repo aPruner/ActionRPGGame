@@ -13,7 +13,8 @@ PlayerSummaryGui::PlayerSummaryGui(Player *player)
 	sf::Vector2f rootPosition = sf::Vector2f(350, 150);
 	float rootHeight = 600;
 	float rootWidth = 400;
-	m_rootWidget = new WindowGuiWidget(rootPosition, rootHeight, rootWidth);
+	m_rootWindowWidget = new WindowGuiWidget(rootPosition, rootHeight, rootWidth);
+	m_rootWidget = m_rootWindowWidget;
 
 	sf::Vector2f firstChildPosition = sf::Vector2f(10, 10);
 	float firstChildHeight = 580;
@@ -47,17 +48,18 @@ PlayerSummaryGui::PlayerSummaryGui(Player *player)
 	attributeSS << playerConstants->c_agilityLabel << std::to_string(player->getAgility());
 	m_agilityTextWidget = new TextGuiWidget(agilityPosition, firstChildPosition, attributeSS.str(), playerSummaryGuiFontFileName);
 
-	addPlayerAttributeWidgets();
+	buildWidgetTree();
 }
 
 PlayerSummaryGui::~PlayerSummaryGui()
 {
 }
 
-void PlayerSummaryGui::addPlayerAttributeWidgets()
+void PlayerSummaryGui::buildWidgetTree()
 {
 	m_firstChildDisplayWidget->addChildTextWidget(m_strengthTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_wisdomTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_conditioningTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_agilityTextWidget);
+	m_rootWindowWidget->addChildDisplayWidget(m_firstChildDisplayWidget);
 }

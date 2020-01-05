@@ -9,6 +9,7 @@ class PlayerSummaryGui : virtual public Gui {
 private:
 	Player *m_player;
 
+	WindowGuiWidget* m_rootWindowWidget;
 	DisplayGuiWidget *m_firstChildDisplayWidget;
 	// TODO: add more DisplayGuiWidgets, one for each attribute
 
@@ -17,8 +18,8 @@ private:
 	TextGuiWidget *m_conditioningTextWidget;
 	TextGuiWidget *m_agilityTextWidget;
 
-	// Add attribute widgets to the gui
-	void addPlayerAttributeWidgets();
+	// Construct the widget tree
+	void buildWidgetTree();
 
 public:
 	PlayerSummaryGui(Player *player);
