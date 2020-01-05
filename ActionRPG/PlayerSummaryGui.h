@@ -17,12 +17,10 @@ private:
 	TextGuiWidget *m_conditioningTextWidget;
 	TextGuiWidget *m_agilityTextWidget;
 
-	// TODO: Figure out what else goes here
+	// Add attribute widgets to the gui
+	void addPlayerAttributeWidgets();
 
 public:
 	PlayerSummaryGui(Player *player);
 	~PlayerSummaryGui();
-
-	// Add attribute widgets to the gui
-	void addPlayerAttributeWidgets();
 };

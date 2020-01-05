@@ -178,6 +178,11 @@ void Player::stopMove(Direction direction)
 }
 
 // Getters and Setters
+PlayerConstants* Player::getPlayerConstants()
+{
+	return m_playerConstants;
+}
+
 int Player::getHealth()
 {
 	return m_health;

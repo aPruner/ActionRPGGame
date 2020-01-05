@@ -68,6 +68,7 @@ public:
 
 	// Getters and Setters
 	// Getters
+	PlayerConstants *getPlayerConstants();
 	int getHealth();
 	int getMana();
 	int getSpeed();

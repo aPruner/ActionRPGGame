@@ -10,10 +10,13 @@ private:
 	// SFML text representation
 	sf::Text m_text;
 
+	// Font for the TextGuiWidget
+	sf::Font m_font;
+
 	// TODO: Figure out what else goes here
 
 public:
-	TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string);
+	TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string, std::string fontFileName);
 	~TextGuiWidget();
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

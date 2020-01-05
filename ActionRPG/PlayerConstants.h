@@ -22,6 +22,11 @@ public:
 	const static int c_startingWisdom = 5;
 	const static int c_startingConditioning = 6;
 	const static int c_startingAgility = 7;
+
+	const std::string c_strengthLabel = "Strength: ";
+	const std::string c_wisdomLabel = "Wisdom: ";
+	const std::string c_conditioningLabel = "Conditioning: ";
+	const std::string c_agilityLabel = "Agility: ";
 	
 	std::string c_idleAnimName;
 	std::string c_runAnimName;
@@ -30,4 +35,6 @@ public:
 	const std::string& getPlayerIdleAnimName(PlayerClass playerClass);
 	const std::string& getPlayerRunAnimName(PlayerClass playerClass);
 	const std::string& getPlayerHitAnimName(PlayerClass playerClass);
+
+	const std::string c_playerSummaryGuiFontFileName = "fonts/dpcomic.ttf";
 };

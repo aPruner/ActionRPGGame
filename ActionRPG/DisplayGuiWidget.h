@@ -17,8 +17,8 @@ public:
 	~DisplayGuiWidget();
 
 	// TODO: make a new sub type of GuiWidget in the class hierarchy tree so that this isn't duplicate code in WindowGuiWidget
-	void addChildTextWidget(TextGuiWidget newChildTextWidget);
-	void addChildDisplayWidget(DisplayGuiWidget newChildDisplayWidget);
+	void addChildTextWidget(TextGuiWidget *newChildTextWidget);
+	void addChildDisplayWidget(DisplayGuiWidget *newChildDisplayWidget);
 
 	void update() const override;
 

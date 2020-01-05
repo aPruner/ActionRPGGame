@@ -14,14 +14,14 @@ DisplayGuiWidget::~DisplayGuiWidget()
 
 }
 
-void DisplayGuiWidget::addChildTextWidget(TextGuiWidget newChildTextWidget)
+void DisplayGuiWidget::addChildTextWidget(TextGuiWidget *newChildTextWidget)
 {
-	m_childWidgets->push_back(&newChildTextWidget);
+	m_childWidgets->push_back(newChildTextWidget);
 }
 
-void DisplayGuiWidget::addChildDisplayWidget(DisplayGuiWidget newChildDisplayWidget)
+void DisplayGuiWidget::addChildDisplayWidget(DisplayGuiWidget *newChildDisplayWidget)
 {
-	m_childWidgets->push_back(&newChildDisplayWidget);
+	m_childWidgets->push_back(newChildDisplayWidget);
 }
 // Override of GuiWidget::update
 void DisplayGuiWidget::update() const

@@ -18,14 +18,14 @@ WindowGuiWidget::~WindowGuiWidget()
 
 }
 
-void WindowGuiWidget::addChildTextWidget(TextGuiWidget newChildTextWidget)
+void WindowGuiWidget::addChildTextWidget(TextGuiWidget *newChildTextWidget)
 {
-	m_childWidgets->push_back(&newChildTextWidget);
+	m_childWidgets->push_back(newChildTextWidget);
 }
 
-void WindowGuiWidget::addChildDisplayWidget(DisplayGuiWidget newChildDisplayWidget)
+void WindowGuiWidget::addChildDisplayWidget(DisplayGuiWidget *newChildDisplayWidget)
 {
-	m_childWidgets->push_back(&newChildDisplayWidget);
+	m_childWidgets->push_back(newChildDisplayWidget);
 }
 
 // Override of GuiWidget::update

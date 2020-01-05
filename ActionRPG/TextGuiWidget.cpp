@@ -1,9 +1,12 @@
 #include "TextGuiWidget.h"
 
-TextGuiWidget::TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string)
+TextGuiWidget::TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string, std::string fontFileName)
 {
 	m_text = sf::Text();
 	m_text.setString(string);
+
+	m_font = sf::Font();
+	m_font.loadFromFile(fontFileName);
 	// NOTE: a TextGuiWidget will never have any children (it will always be a leaf)
 	// so this vector will always be empty
 	m_childWidgets = new std::vector<GuiWidget *>();
