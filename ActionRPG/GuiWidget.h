@@ -22,7 +22,7 @@ protected:
 	sf::Vector2f m_parentPosition;
 
 	// Child widgets rendered inside of this widget
-	std::vector<GuiWidget *>* m_childWidgets;
+	std::vector<GuiWidget *> *m_childWidgets;
 
 	// Rectangle drawables for debugging 
 	sf::RectangleShape m_debugRectOutline; // (outline of GuiWidget)
@@ -40,11 +40,11 @@ public:
 	// Must be defined in the derived class
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
-	// Getters and Setters
+	// Recursively sets isVisible to true for all child widgets
+	void setIsVisible(bool isVisible);
 
+	// Getters and Setters
 	// Getters
 	bool getIsVisible();
 
-	// Setters
-	void setIsVisible(bool isVisible);
 };

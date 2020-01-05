@@ -45,6 +45,17 @@ void WindowGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) co
 
 	if (m_isVisible)
 	{
+		// Draw this widget
 		target.draw(m_debugRectOutline, states);
+		
+		// Recursively draw child widgets
+		for (auto it = m_childWidgets->begin(); it != m_childWidgets->end(); it++)
+		{
+			GuiWidget *guiWidget = *it;
+			if (guiWidget->getIsVisible())
+			{
+				guiWidget->draw(target, states);
+			}
+		}
 	}
 }
