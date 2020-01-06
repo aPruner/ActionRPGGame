@@ -25,6 +25,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 // Initialize the player attributes
 void Player::initializePlayerAttributes()
 {
+	// TODO: name and class selection (much later)
+	m_name = "PlayerNameHere";
 	m_playerClass = PlayerConstants::PlayerClass::Knight;
 	m_level = PlayerConstants::c_startingLevel;
 	m_health = PlayerConstants::c_startingHealth;
@@ -183,6 +185,16 @@ PlayerConstants* Player::getPlayerConstants()
 	return m_playerConstants;
 }
 
+std::string& Player::getName()
+{
+	return m_name;
+}
+
+int Player::getLevel()
+{
+	return m_level;
+}
+
 int Player::getHealth()
 {
 	return m_health;
@@ -216,6 +228,17 @@ int Player::getConditioning()
 int Player::getAgility()
 {
 	return m_agility;
+}
+
+// Setters
+void Player::setName(std::string name)
+{
+	m_name = name;
+}
+
+void Player::setLevel(int level)
+{
+	m_level = level;
 }
 
 void Player::setHealth(int health)

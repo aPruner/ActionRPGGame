@@ -16,6 +16,9 @@ private:
 	// Player level
 	int m_level;
 
+	// Player name
+	std::string m_name;
+
 	// Player Attributes - effects subject to change
 	// Strength: increases raw melee attack damage, slightly increases health pool
 	int m_strength;
@@ -69,6 +72,8 @@ public:
 	// Getters and Setters
 	// Getters
 	PlayerConstants *getPlayerConstants();
+	std::string& getName();
+	int getLevel();
 	int getHealth();
 	int getMana();
 	int getSpeed();
@@ -78,6 +83,8 @@ public:
 	int getAgility();
 
 	// Setters
+	void setName(std::string name);
+	void setLevel(int level);
 	void setHealth(int health);
 	void setMana(int mana);
 	void setSpeed(int speed);

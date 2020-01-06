@@ -20,10 +20,6 @@ protected:
 	// Root widget (drawing this draws its whole widget tree)
 	GuiWidget *m_rootWidget;
 
-	// Gui dimensions
-	float m_height;
-	float m_width;
-
 	// Is the gui visible
 	bool m_isVisible;
 

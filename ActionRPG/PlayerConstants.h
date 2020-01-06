@@ -45,10 +45,17 @@ public:
 		c_rootPosition.y + c_firstChildRelativePosition.y
 	);
 
-	const sf::Vector2f c_strengthPosition = sf::Vector2f(5, 5);
-	const sf::Vector2f c_wisdomPosition = sf::Vector2f(5, 30);
-	const sf::Vector2f c_conditioningPosition = sf::Vector2f(5, 55);
-	const sf::Vector2f c_agilityPosition = sf::Vector2f(5, 80);
+	const sf::Vector2f c_titlePosition = sf::Vector2f(c_firstChildWidth / 2 - 110, 5);
+	const sf::Vector2f c_namePosition = sf::Vector2f(c_firstChildWidth / 2 - 90, 55);
+	const sf::Vector2f c_levelPosition = sf::Vector2f(c_firstChildWidth / 2 - 90, 80);
+
+	const sf::Vector2f c_strengthPosition = sf::Vector2f(15, 125);
+	const sf::Vector2f c_wisdomPosition = sf::Vector2f(15, 150);
+	const sf::Vector2f c_conditioningPosition = sf::Vector2f(15, 175);
+	const sf::Vector2f c_agilityPosition = sf::Vector2f(15, 200);
+
+	const std::string c_titleString = "Character Summary";
+	const std::string c_levelLabel = "Level: ";
 
 	const std::string c_strengthLabel = "Strength: ";
 	const std::string c_wisdomLabel = "Wisdom: ";

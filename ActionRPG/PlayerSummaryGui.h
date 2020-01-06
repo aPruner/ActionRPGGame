@@ -7,12 +7,18 @@
 
 class PlayerSummaryGui : virtual public Gui {
 private:
+	// Instance of the player
 	Player *m_player;
 
-	WindowGuiWidget* m_rootWindowWidget;
+	// Window and Display Widgets
+	WindowGuiWidget *m_rootWindowWidget;
 	DisplayGuiWidget *m_firstChildDisplayWidget;
-	// TODO: add more DisplayGuiWidgets, one for each attribute
+	DisplayGuiWidget *m_titleDisplayWidget;
 
+	// Text Widgets
+	TextGuiWidget *m_titleTextWidget;
+	TextGuiWidget *m_nameTextWidget;
+	TextGuiWidget *m_levelTextWidget;
 	TextGuiWidget *m_strengthTextWidget;
 	TextGuiWidget *m_wisdomTextWidget;
 	TextGuiWidget *m_conditioningTextWidget;
@@ -24,4 +30,6 @@ private:
 public:
 	PlayerSummaryGui(Player *player);
 	~PlayerSummaryGui();
+
+	// TODO: Later on, add complex functionality (things that happen when button widgets are pressed, etc)
 };
