@@ -13,8 +13,6 @@ private:
 	// Font for the TextGuiWidget
 	sf::Font m_font;
 
-	// TODO: Figure out what else goes here
-
 public:
 	TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string, std::string fontFileName);
 	~TextGuiWidget();
