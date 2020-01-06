@@ -2,15 +2,16 @@
 
 TextGuiWidget::TextGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, std::string string, std::string fontFileName)
 {
+	m_guiWidgetConstants = new GuiWidgetConstants();
+
 	m_font = sf::Font();
 	m_font.loadFromFile(fontFileName);
 
 	m_text = sf::Text();
 	m_text.setString(string);
 	m_text.setFont(m_font);
-	// TODO: Make constants
-	m_text.setFillColor(sf::Color::White);
-	m_text.setCharacterSize(30);
+	m_text.setFillColor(m_guiWidgetConstants->c_defaultTextWidgetFillColor);
+	m_text.setCharacterSize(m_guiWidgetConstants->c_defaultTextWidgetFontSize);
 
 	// Set the absolute position of the text
 	sf::Vector2f absolutePosition = sf::Vector2f(parentPosition.x + position.x, parentPosition.y + position.y);

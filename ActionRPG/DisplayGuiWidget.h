@@ -4,6 +4,9 @@
 
 class DisplayGuiWidget : virtual public GuiWidget {
 private:
+	// GuiWidgetConstants object
+	GuiWidgetConstants* m_guiWidgetConstants;
+
 	// Sprite to be displayed
 	sf::Sprite m_displaySprite;
 

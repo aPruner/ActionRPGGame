@@ -2,6 +2,8 @@
 
 DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, float height, float width)
 {
+	m_guiWidgetConstants = new GuiWidgetConstants();
+
 	m_position = position;
 	m_parentPosition = parentPosition;
 	m_height = height;
@@ -10,8 +12,7 @@ DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPos
 	// Initialize debug rect
 	m_drawDebugRects = true;
 	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(width, height));
-	m_debugRectOutline.setFillColor(sf::Color::Cyan);
-	m_debugRectOutline.setOutlineColor(sf::Color::Magenta);
+	m_debugRectOutline.setFillColor(m_guiWidgetConstants->c_defaultDisplayWidgetDebugRectColor);
 
 	// Set the absolute position of the widget
 	sf::Vector2f absolutePosition = sf::Vector2f(parentPosition.x + position.x, parentPosition.y + position.y);

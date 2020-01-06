@@ -6,6 +6,8 @@
 // Class for window gui element - will be the root widget for most guis in the game (aside from menus)
 class WindowGuiWidget : virtual public GuiWidget {
 private:
+	// GuiWidgetConstants object
+	GuiWidgetConstants* m_guiWidgetConstants;
 
 	// NOTE: For now, a WindowGuiWidget can only be a root widget
 

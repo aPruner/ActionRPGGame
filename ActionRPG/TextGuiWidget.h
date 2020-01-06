@@ -1,9 +1,13 @@
 #pragma once
 #include "GuiWidget.h"
+#include "GuiWidgetConstants.h"
 
 // Gui Widget for displaying text within a Gui - to be used within a display widget
 class TextGuiWidget : virtual public GuiWidget {
 private:
+	// GuiWidgetConstants object
+	GuiWidgetConstants* m_guiWidgetConstants;
+
 	// Raw string (what the text widget actually says)
 	std::string m_string;
 

@@ -2,17 +2,19 @@
 
 WindowGuiWidget::WindowGuiWidget(sf::Vector2f position, float height, float width)
 {
-	m_position = position;
+	m_guiWidgetConstants = new GuiWidgetConstants();
+
 	// WindowGuiWidgets will always be root, so they have a parentPosition of 0, 0 by default
-	m_parentPosition = sf::Vector2f(0, 0);
+	m_parentPosition = m_guiWidgetConstants->c_defaultWindowWidgetParentPosition;
+	m_position = position;
 	m_height = height;
 	m_width = width;
+
 	// Initialize debug rect
 	m_drawDebugRects = true;
 	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(width, height));
 	m_debugRectOutline.setPosition(position);
-	m_debugRectOutline.setFillColor(sf::Color::Yellow);
-	m_debugRectOutline.setOutlineColor(sf::Color::White);
+	m_debugRectOutline.setFillColor(m_guiWidgetConstants->c_defaultWindowWidgetDebugRectColor);
 
 	// Create vector of child widgets
 	m_childWidgets = new std::vector<GuiWidget *>();
