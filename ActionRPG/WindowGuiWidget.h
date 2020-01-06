@@ -3,7 +3,7 @@
 #include "DisplayGuiWidget.h"
 #include "TextGuiWidget.h"
 
-// Class for moveable window gui element - will be the root widget for most guis in the game (aside from menus)
+// Class for window gui element - will be the root widget for most guis in the game (aside from menus)
 class WindowGuiWidget : virtual public GuiWidget {
 private:
 
