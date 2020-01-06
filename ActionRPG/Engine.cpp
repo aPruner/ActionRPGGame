@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Engine.h"
 #include "Player.h"
+#include "PlayerSummaryGui.h"
 
 Engine::Engine()
 {
@@ -22,6 +23,14 @@ Engine::Engine()
 	// Initialize the game
 	m_textureMap = new TextureMap();
 	m_game = new Game(m_textureMap, m_screenResolution);
+
+	m_guiInstances = new std::vector<Gui *>();
+
+	// Initialize Player Gui
+	m_playerSummaryGui = new PlayerSummaryGui(m_game->getPlayer());
+
+	// Add gui instances to vector (for drawing later)
+	m_guiInstances->push_back(m_playerSummaryGui);
 }
 
 // Initialize the fps counter
@@ -37,12 +46,13 @@ void Engine::initFpsCounter()
 
 void Engine::initPlayerDebugText()
 {
+	m_playerDebugTextPosition = sf::Vector2f(m_screenResolution.x - m_engineConstants->c_playerDebugTextOffsetX, m_screenResolution.y - m_engineConstants->c_playerDebugTextOffsetY);
 	m_playerDebugTextFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
 	m_playerDebugText.setString(m_engineConstants->c_playerDebugTextInitString);
 	m_playerDebugText.setFont(m_playerDebugTextFont);
 	m_playerDebugText.setCharacterSize(m_engineConstants->c_defaultFontSize);
 	m_playerDebugText.setFillColor(m_engineConstants->c_defaultFontColor);
-	m_playerDebugText.setPosition(m_engineConstants->c_playerDebugTextPosition);
+	m_playerDebugText.setPosition(m_playerDebugTextPosition);
 }
 
 // Handle input
@@ -61,6 +71,19 @@ void Engine::input()
 			if (event.key.code == sf::Keyboard::Escape)
 			{
 				m_gameWindow->close();
+			}
+
+			// Open or close the PlayerSummaryGui
+			if (event.key.code == sf::Keyboard::C)
+			{
+				if (m_playerSummaryGui->getIsVisible())
+				{
+					m_playerSummaryGui->close();
+				}
+				else
+				{
+					m_playerSummaryGui->open();
+				}
 			}
 		}
 
@@ -109,7 +132,6 @@ void Engine::input()
 // Update the game state
 void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 {
-	// TODO: Figure out how to center the view on the player
 
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
@@ -121,6 +143,7 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 		(*it)->update(dtSeconds);
 	}
 
+	// TODO: use a stringstream for this instead, it's much cleaner
 	// Set the player debug text info after updating all GameObjects
 	char playerDebugTextBuffer[50];
 	sprintf_s(playerDebugTextBuffer, m_engineConstants->c_playerDebugTextInitString.c_str(), m_game->getPlayer()->getXPositionInTileMap(), m_game->getPlayer()->getYPositionInTileMap());
@@ -169,7 +192,15 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 		}
 	}
 
-	// Draw the text overlays
+	// Draw the guis
+	m_gameWindow->setView(m_game->getGuiView());
+	for (auto it = m_guiInstances->begin(); it != m_guiInstances->end(); it++)
+	{
+		Gui *guiInstance = *it;
+		m_gameWindow->draw(*guiInstance->getRootWidget());
+	}
+
+	// Draw the debug text overlays
 	m_gameWindow->setView(m_game->getDebugView());
 	m_gameWindow->draw(m_playerDebugText);
 	m_gameWindow->draw(m_fpsCounter);

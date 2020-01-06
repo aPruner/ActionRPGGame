@@ -37,15 +37,15 @@ void Room::createRoom()
 				(float) (j * tileSideLengthPixels * scalingFactor),
 				(float) (i * tileSideLengthPixels * scalingFactor)
 			);
-			m_roomVA[(long)currentTile + 1].position = sf::Vector2f(
+			m_roomVA[currentTile + 1].position = sf::Vector2f(
 				(float) ((j + 1) * tileSideLengthPixels * scalingFactor),
 				(float) (i * tileSideLengthPixels * scalingFactor)
 			);
-			m_roomVA[(long)currentTile + 2].position = sf::Vector2f(
+			m_roomVA[currentTile + 2].position = sf::Vector2f(
 				(float) ((j + 1) * tileSideLengthPixels * scalingFactor),
 				(float) ((i + 1) * tileSideLengthPixels * scalingFactor)
 			);
-			m_roomVA[(long)currentTile + 3].position = sf::Vector2f(
+			m_roomVA[currentTile + 3].position = sf::Vector2f(
 				(float) (j * tileSideLengthPixels * scalingFactor),
 				(float) ((i + 1) * tileSideLengthPixels * scalingFactor)
 			);
@@ -65,9 +65,9 @@ void Room::createRoom()
 			vecTuple = m_textureMap->getSpriteSheetVecTuple(c_floor1TextureName);
 
 			m_roomVA[currentTile].texCoords = std::get<0>(vecTuple);
-			m_roomVA[(long)currentTile + 1].texCoords = std::get<1>(vecTuple);
-			m_roomVA[(long)currentTile + 2].texCoords = std::get<2>(vecTuple);
-			m_roomVA[(long)currentTile + 3].texCoords = std::get<3>(vecTuple);
+			m_roomVA[currentTile + 1].texCoords = std::get<1>(vecTuple);
+			m_roomVA[currentTile + 2].texCoords = std::get<2>(vecTuple);
+			m_roomVA[currentTile + 3].texCoords = std::get<3>(vecTuple);
 
 			currentTile += RoomConstants::c_vertsInQuad;
 		}

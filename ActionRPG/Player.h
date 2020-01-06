@@ -10,8 +10,30 @@ private:
 	// Player Constants object
 	PlayerConstants *m_playerConstants;
 
+	// Player Class - defines abilities
+	PlayerConstants::PlayerClass m_playerClass;
+
+	// Player level
+	int m_level;
+
+	// Player name
+	std::string m_name;
+
+	// Player Attributes - effects subject to change
+	// Strength: increases raw melee attack damage, slightly increases health pool
+	int m_strength;
+	// Wisdom: increases spellcasting damage and healing, significantly increases mana pool
+	int m_wisdom;
+	// Conditioning: significantly increases health pool, slightly increases attack speed
+	int m_conditioning;
+	// Agility: Significantly increases attack speed, slightly increases movement speed
+	int m_agility;
+
 	// Player health
 	int m_health;
+
+	// Player mana
+	int m_mana;
 
 	// Player movement speed
 	int m_speed;
@@ -28,9 +50,12 @@ private:
 	// Player animations
 	Animation *m_idleAnimation;
 	Animation *m_runAnimation;
+	Animation *m_hitAnimation;
+
+	void initializePlayerAttributes();
 
 public:
-	Player(TextureMap *textureMapm, Room *room);
+	Player(TextureMap *textureMap, Room *room);
 
 	// Override for GameObject::update
 	void update(float timeElapsed) override;
@@ -43,5 +68,29 @@ public:
 
 	// Input handler for stopping the player's movement
 	void stopMove(Direction direction);
+
+	// Getters and Setters
+	// Getters
+	PlayerConstants *getPlayerConstants();
+	std::string& getName();
+	int getLevel();
+	int getHealth();
+	int getMana();
+	int getSpeed();
+	int getStrength();
+	int getWisdom();
+	int getConditioning();
+	int getAgility();
+
+	// Setters
+	void setName(std::string name);
+	void setLevel(int level);
+	void setHealth(int health);
+	void setMana(int mana);
+	void setSpeed(int speed);
+	void setStrength(int strength);
+	void setWisdom(int wisdom);
+	void setConditioning(int conditioning);
+	void setAgility(int agility);
 
 };

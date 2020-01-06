@@ -8,17 +8,33 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_room = room;
 	m_textureMap = textureMap;
 	// Initialize animations
-	m_idleAnimation = new Animation(textureMap, m_playerConstants->c_idleAnimName);
-	m_runAnimation = new Animation(textureMap, m_playerConstants->c_runAnimName);
+	m_idleAnimation = new Animation(textureMap, m_playerConstants->getPlayerIdleAnimName(m_playerClass));
+	m_runAnimation = new Animation(textureMap, m_playerConstants->getPlayerRunAnimName(m_playerClass));
+	m_hitAnimation = new Animation(textureMap, m_playerConstants->getPlayerHitAnimName(m_playerClass));
 
 	// By default, the player will be idle
 	m_sprite = *m_idleAnimation->getFrameSprite();
 	m_idleAnimation->startAnimation();
 
-	m_health = m_playerConstants->c_startingHealth;
-	m_speed = m_playerConstants->c_startingSpeed;
+	initializePlayerAttributes();
+
 	setOrigin(c_initialPosition);
 	initDebugRect();
+}
+
+// Initialize the player attributes
+void Player::initializePlayerAttributes()
+{
+	// TODO: name and class selection (much later)
+	m_name = "PlayerNameHere";
+	m_playerClass = PlayerConstants::PlayerClass::Knight;
+	m_level = PlayerConstants::c_startingLevel;
+	m_health = PlayerConstants::c_startingHealth;
+	m_speed = PlayerConstants::c_startingSpeed;
+	m_strength = PlayerConstants::c_startingStrength;
+	m_wisdom = PlayerConstants::c_startingWisdom;
+	m_conditioning = PlayerConstants::c_startingConditioning;
+	m_agility = PlayerConstants::c_startingAgility;
 }
 
 // GameObject update method override
@@ -161,4 +177,101 @@ void Player::stopMove(Direction direction)
 		m_runAnimation->stopAnimation();
 		m_idleAnimation->startAnimation();
 	}
+}
+
+// Getters and Setters
+PlayerConstants* Player::getPlayerConstants()
+{
+	return m_playerConstants;
+}
+
+std::string& Player::getName()
+{
+	return m_name;
+}
+
+int Player::getLevel()
+{
+	return m_level;
+}
+
+int Player::getHealth()
+{
+	return m_health;
+}
+
+int Player::getMana()
+{
+	return m_mana;
+}
+
+int Player::getSpeed()
+{
+	return m_speed;
+}
+
+int Player::getStrength()
+{
+	return m_strength;
+}
+
+int Player::getWisdom()
+{
+	return m_wisdom;
+}
+
+int Player::getConditioning()
+{
+	return m_conditioning;
+}
+
+int Player::getAgility()
+{
+	return m_agility;
+}
+
+// Setters
+void Player::setName(std::string name)
+{
+	m_name = name;
+}
+
+void Player::setLevel(int level)
+{
+	m_level = level;
+}
+
+void Player::setHealth(int health)
+{
+	m_health = health;
+}
+
+void Player::setMana(int mana)
+{
+	m_mana = mana;
+}
+
+void Player::setSpeed(int speed)
+{
+	m_speed = speed;
+}
+
+void Player::setStrength(int strength)
+{
+	m_strength = strength;
+}
+
+void Player::setWisdom(int wisdom)
+{
+	m_wisdom = wisdom;
+}
+
+void Player::setConditioning(int conditioning)
+{
+	m_conditioning = conditioning;
+}
+
+void Player::setAgility(int agility)
+{
+	m_agility = agility;
 }

@@ -19,7 +19,6 @@ private:
 
 	// Rectangle drawable for debugging
 	sf::RectangleShape m_debugRect;
-
 	bool m_drawDebugRect;
 
 	// Set and color the debugging rect

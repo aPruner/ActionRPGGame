@@ -23,6 +23,7 @@ protected:
 	sf::RectangleShape m_debugRectOutline; // (outline of GameObject)
 	sf::RectangleShape m_debugRectOrigin; // (origin of GameObject)
 
+	// Flag for whether or not to draw debug rectangles
 	bool m_drawDebugRects;
 
 	// Set and color the debugging rect
@@ -33,7 +34,7 @@ protected:
 
 public:
 	// Direction enum
-	const enum Direction { UP, RIGHT, DOWN, LEFT };
+	const enum class Direction { UP, RIGHT, DOWN, LEFT };
 
 	// Pure virtual method for updating the game object
 	// Must be defined in the derived class

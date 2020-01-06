@@ -11,8 +11,11 @@ private:
 	// The game camera view
 	sf::View m_gameView;
 
-	// The hud view for text and other info
+	// The hud view for static hud elements
 	sf::View m_hudView;
+
+	// The view for gui elements (such as PlayerSummaryGui, InventoryGui)
+	sf::View m_guiView;
 
 	// The view for debugging info
 	sf::View m_debugView;
@@ -37,16 +40,16 @@ public:
 	Game(TextureMap *textureMap, sf::Vector2f screenResolution);
 	~Game();
 
+	void centerGameViewOnPlayer();
+	void addGameObject(GameObject *gameObject);
+
+	// Getters and Setters
+	// Getters
 	sf::View getGameView();
 	sf::View getHudView();
+	sf::View getGuiView();
 	sf::View getDebugView();
-
-	void centerGameViewOnPlayer();
-
 	Player *getPlayer();
-
 	Room *getRoom();
-
-	std::vector<GameObject *> *getGameObjects();
-	void addGameObject(GameObject *gameObject);
+	std::vector<GameObject*> *getGameObjects();
 };

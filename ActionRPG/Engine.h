@@ -2,8 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Game.h"
+#include "Gui.h"
 #include "TextureMap.h"
 #include "EngineConstants.h"
+#include "PlayerSummaryGui.h"
 
 class Engine
 {
@@ -20,6 +22,13 @@ private:
 	// Game instance
 	Game *m_game;
 
+	// PlayerSummaryGui instance
+	PlayerSummaryGui *m_playerSummaryGui;
+
+	// TODO: decide if this is necessary, may be easier to just draw each gui one at a time
+	// Vector of all gui instances
+	std::vector<Gui*>* m_guiInstances;
+
 	// Clock instance
 	sf::Clock clock;
 
@@ -28,15 +37,15 @@ private:
 
 	// FPS counter text element
 	sf::Text m_fpsCounter;
-
 	// FPS counter font
 	sf::Font m_fpsCounterFont;
 
 	// Player debug text
 	sf::Text m_playerDebugText;
-
 	// Player debug text font
 	sf::Font m_playerDebugTextFont;
+	// Player debug text position - dependent on resolution
+	sf::Vector2f m_playerDebugTextPosition;
 
 	// Current FPS value
 	float m_fps;

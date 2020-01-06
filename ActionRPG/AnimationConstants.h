@@ -1,4 +1,5 @@
 #pragma once
+
 class AnimationConstants {
 public:
 	// Animation Constants
