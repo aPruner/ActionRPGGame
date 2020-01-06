@@ -24,11 +24,12 @@ protected:
 	// Child widgets rendered inside of this widget
 	std::vector<GuiWidget *> *m_childWidgets;
 
+	// Flag for whether or not to draw debug rectangles
+	bool m_drawDebugRects;
+
 	// Rectangle drawables for debugging 
 	sf::RectangleShape m_debugRectOutline; // (outline of GuiWidget)
 	sf::RectangleShape m_debugRectOrigin; // (origin of GuiWidget)
-
-	// TODO: Figure out what else goes here
 
 public:
 
@@ -46,5 +47,6 @@ public:
 	// Getters and Setters
 	// Getters
 	bool getIsVisible();
+	bool getDebugStatus();
 
 };

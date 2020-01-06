@@ -16,7 +16,6 @@ private:
 	// Rectangle that when clicked on, closes the window
 	sf::RectangleShape m_closeButtonRect;
 
-	// TODO: Figure out what else goes here
 public:
 	WindowGuiWidget(sf::Vector2f position, float height, float width);
 	~WindowGuiWidget();

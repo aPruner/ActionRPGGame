@@ -19,6 +19,7 @@ private:
 	TextGuiWidget *m_titleTextWidget;
 	TextGuiWidget *m_nameTextWidget;
 	TextGuiWidget *m_levelTextWidget;
+	TextGuiWidget *m_attributesTitleTextWidget;
 	TextGuiWidget *m_strengthTextWidget;
 	TextGuiWidget *m_wisdomTextWidget;
 	TextGuiWidget *m_conditioningTextWidget;

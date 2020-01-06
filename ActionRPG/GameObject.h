@@ -23,6 +23,7 @@ protected:
 	sf::RectangleShape m_debugRectOutline; // (outline of GameObject)
 	sf::RectangleShape m_debugRectOrigin; // (origin of GameObject)
 
+	// Flag for whether or not to draw debug rectangles
 	bool m_drawDebugRects;
 
 	// Set and color the debugging rect

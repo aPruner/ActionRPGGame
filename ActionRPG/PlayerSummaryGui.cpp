@@ -51,6 +51,15 @@ PlayerSummaryGui::PlayerSummaryGui(Player *player)
 	);
 	textWidgetSS.str(std::string());
 
+	textWidgetSS << playerConstants->c_attributesTitleString;
+	m_attributesTitleTextWidget = new TextGuiWidget(
+		playerConstants->c_attributesTitlePosition,
+		playerConstants->c_firstChildAbsolutePosition,
+		textWidgetSS.str(),
+		playerConstants->c_playerSummaryGuiFontFileName
+	);
+	textWidgetSS.str(std::string());
+
 	textWidgetSS << playerConstants->c_strengthLabel << std::to_string(player->getStrength());
 	m_strengthTextWidget = new TextGuiWidget(
 		playerConstants->c_strengthPosition,
@@ -99,6 +108,7 @@ void PlayerSummaryGui::buildWidgetTree()
 	m_firstChildDisplayWidget->addChildTextWidget(m_titleTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_nameTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_levelTextWidget);
+	m_firstChildDisplayWidget->addChildTextWidget(m_attributesTitleTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_strengthTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_wisdomTextWidget);
 	m_firstChildDisplayWidget->addChildTextWidget(m_conditioningTextWidget);

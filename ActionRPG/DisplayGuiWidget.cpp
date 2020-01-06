@@ -8,6 +8,7 @@ DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPos
 	m_width = width;
 
 	// Initialize debug rect
+	m_drawDebugRects = true;
 	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(width, height));
 	m_debugRectOutline.setFillColor(sf::Color::Cyan);
 	m_debugRectOutline.setOutlineColor(sf::Color::Magenta);
@@ -15,6 +16,8 @@ DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPos
 	// Set the absolute position of the widget
 	sf::Vector2f absolutePosition = sf::Vector2f(parentPosition.x + position.x, parentPosition.y + position.y);
 	m_debugRectOutline.setPosition(absolutePosition);
+
+	// Create vector of child widgets
 	m_childWidgets = new std::vector<GuiWidget *>();
 }
 
@@ -39,12 +42,15 @@ void DisplayGuiWidget::update() const
 // Override of GuiWidget::draw
 void DisplayGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	// TODO: Uncomment when sprites in display widgets are implemented
-	// target.draw(m_displaySprite, states);
-
 	if (m_isVisible)
 	{
-		target.draw(m_debugRectOutline, states);
+		if (m_drawDebugRects)
+		{
+			target.draw(m_debugRectOutline, states);
+		}
+
+		// TODO: Uncomment when sprites in display widgets are implemented
+		// target.draw(m_displaySprite, states);
 
 		// Recursively draw child widgets
 		for (auto it = m_childWidgets->begin(); it != m_childWidgets->end(); it++)

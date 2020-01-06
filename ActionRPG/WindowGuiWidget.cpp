@@ -8,16 +8,18 @@ WindowGuiWidget::WindowGuiWidget(sf::Vector2f position, float height, float widt
 	m_height = height;
 	m_width = width;
 	// Initialize debug rect
+	m_drawDebugRects = true;
 	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(width, height));
 	m_debugRectOutline.setPosition(position);
 	m_debugRectOutline.setFillColor(sf::Color::Yellow);
 	m_debugRectOutline.setOutlineColor(sf::Color::White);
+
+	// Create vector of child widgets
 	m_childWidgets = new std::vector<GuiWidget *>();
 }
 
 WindowGuiWidget::~WindowGuiWidget()
 {
-
 }
 
 void WindowGuiWidget::addChildTextWidget(TextGuiWidget *newChildTextWidget)
@@ -33,7 +35,6 @@ void WindowGuiWidget::addChildDisplayWidget(DisplayGuiWidget *newChildDisplayWid
 // Override of GuiWidget::update
 void WindowGuiWidget::update() const
 {
-
 }
 
 // Override of GuiWidget::draw
@@ -41,12 +42,15 @@ void WindowGuiWidget::update() const
 // and then recurses through the widget tree, drawing each widget node
 void WindowGuiWidget::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	// target.draw(m_backgroundRect, states);
 
 	if (m_isVisible)
 	{
 		// Draw this widget
-		target.draw(m_debugRectOutline, states);
+		// target.draw(m_backgroundRect, states);
+		if (m_drawDebugRects)
+		{
+			target.draw(m_debugRectOutline, states);
+		}
 		
 		// Recursively draw child widgets
 		for (auto it = m_childWidgets->begin(); it != m_childWidgets->end(); it++)

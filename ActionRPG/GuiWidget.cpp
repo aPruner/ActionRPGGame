@@ -16,3 +16,8 @@ void GuiWidget::setIsVisible(bool isVisible)
 		(*it)->setIsVisible(isVisible);
 	}
 }
+
+bool GuiWidget::getDebugStatus()
+{
+	return m_drawDebugRects;
+}

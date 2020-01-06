@@ -17,11 +17,10 @@ public:
 	const static int c_startingSpeed = 200;
 
 	// Starting base attributes
-	// TODO: Change these back to all 4, changed them for debugging purposes
 	const static int c_startingStrength = 4;
-	const static int c_startingWisdom = 5;
-	const static int c_startingConditioning = 6;
-	const static int c_startingAgility = 7;
+	const static int c_startingWisdom = 4;
+	const static int c_startingConditioning = 4;
+	const static int c_startingAgility = 4;
 	
 	std::string c_idleAnimName;
 	std::string c_runAnimName;
@@ -45,18 +44,25 @@ public:
 		c_rootPosition.y + c_firstChildRelativePosition.y
 	);
 
-	const sf::Vector2f c_titlePosition = sf::Vector2f(c_firstChildWidth / 2 - 110, 5);
-	const sf::Vector2f c_namePosition = sf::Vector2f(c_firstChildWidth / 2 - 90, 55);
-	const sf::Vector2f c_levelPosition = sf::Vector2f(c_firstChildWidth / 2 - 90, 80);
+	const float c_midPos = c_firstChildWidth / 2;
+	const float c_topPadding = 5;
+	const float c_leftPadding = 25;
+	const float c_textLineSeparationPadding = 25;
 
-	const sf::Vector2f c_strengthPosition = sf::Vector2f(15, 125);
-	const sf::Vector2f c_wisdomPosition = sf::Vector2f(15, 150);
-	const sf::Vector2f c_conditioningPosition = sf::Vector2f(15, 175);
-	const sf::Vector2f c_agilityPosition = sf::Vector2f(15, 200);
+	const sf::Vector2f c_titlePosition = sf::Vector2f(c_midPos - 110, c_topPadding);
+	const sf::Vector2f c_namePosition = sf::Vector2f(c_midPos - 90, c_topPadding + 2 * c_textLineSeparationPadding);
+	const sf::Vector2f c_levelPosition = sf::Vector2f(c_midPos - 90, c_topPadding + 3 * c_textLineSeparationPadding);
+	const sf::Vector2f c_attributesTitlePosition = sf::Vector2f(c_midPos - 60, c_topPadding + 5 * c_textLineSeparationPadding);
+
+	const sf::Vector2f c_strengthPosition = sf::Vector2f(c_leftPadding, c_topPadding + 7 * c_textLineSeparationPadding);
+	const sf::Vector2f c_wisdomPosition = sf::Vector2f(c_leftPadding, c_topPadding + 8 * c_textLineSeparationPadding);
+	const sf::Vector2f c_conditioningPosition = sf::Vector2f(c_leftPadding, c_topPadding + 9 * c_textLineSeparationPadding);
+	const sf::Vector2f c_agilityPosition = sf::Vector2f(c_leftPadding, c_topPadding + 10 * c_textLineSeparationPadding);
 
 	const std::string c_titleString = "Character Summary";
-	const std::string c_levelLabel = "Level: ";
+	const std::string c_levelLabel = "Level ";
 
+	const std::string c_attributesTitleString = "Attributes";
 	const std::string c_strengthLabel = "Strength: ";
 	const std::string c_wisdomLabel = "Wisdom: ";
 	const std::string c_conditioningLabel = "Conditioning: ";
