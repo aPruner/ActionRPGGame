@@ -9,8 +9,6 @@ private:
 
 	// Scaling factor (by default, set this to 1)
 	int m_displaySpriteScalingFactor;
-
-	// TODO: Figure out what else goes here
 public:
 
 	DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPosition, float height, float width);
