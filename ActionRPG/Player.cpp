@@ -16,14 +16,14 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_sprite = *m_idleAnimation->getFrameSprite();
 	m_idleAnimation->startAnimation();
 
-	initializePlayerAttributes();
+	initializePlayer();
 
 	setOrigin(c_initialPosition);
 	initDebugRect();
 }
 
 // Initialize the player attributes
-void Player::initializePlayerAttributes()
+void Player::initializePlayer()
 {
 	// TODO: name and class selection (much later)
 	m_name = "PlayerNameHere";
@@ -35,6 +35,11 @@ void Player::initializePlayerAttributes()
 	m_wisdom = PlayerConstants::c_startingWisdom;
 	m_conditioning = PlayerConstants::c_startingConditioning;
 	m_agility = PlayerConstants::c_startingAgility;
+
+	// Weapon stuff
+	m_weaponTexture = m_textureMap->getTextureFromFilename("sprites/individual_sprites/weapon_knife.png"); // TODO: Make string constant
+	m_weaponSprite.setTexture(m_weaponTexture);
+	m_weaponSprite.setScale(2, 2); //TODO: constants
 }
 
 // GameObject update method override
@@ -111,16 +116,30 @@ void Player::update(float timeElapsed)
 		setSprite(*m_runAnimation->getFrameSprite());
 	}
 
+
+	// TODO: uncomment this when it makes sense
+	/*else if (m_attackAnimation->isAnimating())
+	{
+		m_attackAnimation->animate();
+		setSprite(*m_attackAnimation->getFrameSprite());
+	}*/
+
 	m_debugRectOutline.setPosition(m_origin);
 	m_debugRectOrigin.setPosition(m_origin);
 
 	setPosition(m_origin);
+
+	// Set weapon position
+
+	// TODO: constants where necessary
+	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + 30, m_origin.y + 10));
 }
 
 // GameObject draw method override
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);
+	target.draw(m_weaponSprite, states);
 }
 
 // Set the movement input flags to true based on input directions (pressed)

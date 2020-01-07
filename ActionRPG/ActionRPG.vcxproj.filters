@@ -92,9 +92,6 @@
     <ClInclude Include="PlayerConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationConstants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EngineConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -120,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GuiWidgetConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

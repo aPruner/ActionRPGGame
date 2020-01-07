@@ -52,7 +52,14 @@ private:
 	Animation *m_runAnimation;
 	Animation *m_hitAnimation;
 
-	void initializePlayerAttributes();
+	// TODO: figure out how to implement this, will be complicated because it's not built into the sprite sheet
+	Animation *m_attackAnimation;
+
+	//TODO: Write a weapon class to that will hold extra data about the weapon, but for now, just a sprite will do
+	sf::Sprite m_weaponSprite;
+	sf::Texture m_weaponTexture;
+
+	void initializePlayer();
 
 public:
 	Player(TextureMap *textureMap, Room *room);
