@@ -11,7 +11,8 @@ TextureMap::TextureMap()
 	m_spriteSheetAnimTextureMap = new std::map<std::string, std::tuple<int, int, int, int, int>>();
 	m_spriteSheetNonAnimTextureMap = new std::map <std::string, std::tuple<int, int, int, int>>();
 	m_spriteSheet.loadFromFile(c_spriteSheetFilename);
-	loadTexturesFromTileList(c_tileListFilename);
+	loadTexturesFromTileList(c_spriteSheetListFilename);
+	loadTexturesFromTileList(c_weaponAnimSpriteSheetFileName);
 }
 
 TextureMap::~TextureMap()
@@ -19,13 +20,13 @@ TextureMap::~TextureMap()
 	delete m_textureMap;
 }
 
-void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
+void TextureMap::loadTexturesFromTileList(std::string const& spriteSheetListFilename)
 {
-	std::ifstream tileListFile;
-	tileListFile.open(tileListFilename);
+	std::ifstream spriteSheetListFile;
+	spriteSheetListFile.open(spriteSheetListFilename);
 
 	std::string line;
-	while (std::getline(tileListFile, line))
+	while (std::getline(spriteSheetListFile, line))
 	{
 		std::istringstream lineStream(line);
 		std::vector<std::string> splitLine((std::istream_iterator<std::string>(lineStream)), std::istream_iterator<std::string>());
@@ -68,6 +69,8 @@ void TextureMap::loadTexturesFromTileList(std::string const& tileListFilename)
 			m_spriteSheetAnimTextureMap->insert(std::pair<std::string, std::tuple<int, int, int, int, int>>(textureName, animTuple));
 		}
 	}
+
+	spriteSheetListFile.close();
 }
 
 // Gets a texture from a filename
@@ -101,6 +104,11 @@ std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>& TextureMap::
 	std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> *dummyTuple;
 	dummyTuple = new std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>(dummy, dummy, dummy, dummy);
 	return *dummyTuple;
+}
+
+std::tuple<int, int, int, int, int>& TextureMap::getFilenameAnimVecTuple(std::string const& animFileName)
+{
+	return *(new std::tuple<int, int, int, int, int>(1, 1, 1, 1, 1));
 }
 
 std::tuple<int, int, int, int, int>& TextureMap::getSpriteSheetAnimVecTuple(std::string const& animName)

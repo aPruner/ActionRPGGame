@@ -1,0 +1,2 @@
+knife_swing_anim 0 0 32 32 8
+knife_idle_anim 0 0 32 32 1

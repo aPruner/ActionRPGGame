@@ -22,6 +22,7 @@ public:
 	const static int c_startingConditioning = 4;
 	const static int c_startingAgility = 4;
 	
+	// Player anim stuff
 	std::string c_idleAnimName;
 	std::string c_runAnimName;
 	std::string c_hitAnimName;
@@ -29,6 +30,11 @@ public:
 	const std::string& getPlayerIdleAnimName(PlayerClass playerClass);
 	const std::string& getPlayerRunAnimName(PlayerClass playerClass);
 	const std::string& getPlayerHitAnimName(PlayerClass playerClass);
+
+	// Player weapon anim stuff
+	// TODO: Not only for knife, but for all weapons
+	std::string c_weaponIdleAnimName = "knife_idle_anim";
+	std::string c_weaponSwingAnimName = "knife_swing_anim";
 
 	// PlayerSummaryGui Constants
 	const sf::Vector2f c_rootPosition = sf::Vector2f(350, 150);

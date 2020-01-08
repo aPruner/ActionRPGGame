@@ -5,17 +5,27 @@ Player::Player(TextureMap *textureMap, Room *room)
 	// Initialize constants object
 	m_playerConstants = new PlayerConstants();
 
+	// Initialize the room and textureMap
 	m_room = room;
 	m_textureMap = textureMap;
+
 	// Initialize animations
 	m_idleAnimation = new Animation(textureMap, m_playerConstants->getPlayerIdleAnimName(m_playerClass));
 	m_runAnimation = new Animation(textureMap, m_playerConstants->getPlayerRunAnimName(m_playerClass));
 	m_hitAnimation = new Animation(textureMap, m_playerConstants->getPlayerHitAnimName(m_playerClass));
 
+	m_weaponIdleAnimation = new Animation(textureMap, m_playerConstants->c_weaponIdleAnimName);
+	m_weaponSwingAnimation = new Animation(textureMap, m_playerConstants->c_weaponSwingAnimName);
+
 	// By default, the player will be idle
 	m_sprite = *m_idleAnimation->getFrameSprite();
 	m_idleAnimation->startAnimation();
 
+	// Weapon stuff
+	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
+	m_weaponIdleAnimation->startAnimation();
+
+	// Initialize player stats
 	initializePlayer();
 
 	setOrigin(c_initialPosition);
@@ -35,17 +45,13 @@ void Player::initializePlayer()
 	m_wisdom = PlayerConstants::c_startingWisdom;
 	m_conditioning = PlayerConstants::c_startingConditioning;
 	m_agility = PlayerConstants::c_startingAgility;
-
-	// Weapon stuff
-	m_weaponTexture = m_textureMap->getTextureFromFilename("sprites/individual_sprites/weapon_knife.png"); // TODO: Make string constant
-	m_weaponSprite.setTexture(m_weaponTexture);
-	m_weaponSprite.setScale(2, 2); //TODO: constants
 }
 
 // GameObject update method override
 void Player::update(float timeElapsed)
 {
 
+	// Move the Player if necessary
 	if (m_moveUpPressed)
 	{
 		m_origin.y -= timeElapsed * m_speed;
@@ -64,6 +70,12 @@ void Player::update(float timeElapsed)
 	if (m_moveRightPressed)
 	{
 		m_origin.x += timeElapsed * m_speed;
+	}
+
+	if (m_attackPressed)
+	{
+		m_weaponIdleAnimation->stopAnimation();
+		m_weaponSwingAnimation->startAnimation();
 	}
 
 	// Move the debug rect as well as the player
@@ -116,13 +128,17 @@ void Player::update(float timeElapsed)
 		setSprite(*m_runAnimation->getFrameSprite());
 	}
 
-
-	// TODO: uncomment this when it makes sense
-	/*else if (m_attackAnimation->isAnimating())
+	// Player can move and attack at the same time
+	if (m_weaponIdleAnimation->isAnimating())
 	{
-		m_attackAnimation->animate();
-		setSprite(*m_attackAnimation->getFrameSprite());
-	}*/
+		m_weaponIdleAnimation->animate();
+		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
+	}
+	else if (m_weaponSwingAnimation->isAnimating())
+	{
+		m_weaponSwingAnimation->animate();
+		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
+	}
 
 	m_debugRectOutline.setPosition(m_origin);
 	m_debugRectOrigin.setPosition(m_origin);
@@ -130,9 +146,8 @@ void Player::update(float timeElapsed)
 	setPosition(m_origin);
 
 	// Set weapon position
-
 	// TODO: constants where necessary
-	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + 30, m_origin.y + 10));
+	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + 30, m_origin.y + 16));
 }
 
 // GameObject draw method override
@@ -198,6 +213,16 @@ void Player::stopMove(Direction direction)
 	}
 }
 
+void Player::attack()
+{
+	m_isAttacking = true;
+}
+
+void Player::stopAttack()
+{
+	m_isAttacking = false;
+}
+
 // Getters and Setters
 PlayerConstants* Player::getPlayerConstants()
 {
@@ -249,6 +274,11 @@ int Player::getAgility()
 	return m_agility;
 }
 
+sf::Sprite Player::getWeaponSprite()
+{
+	return m_weaponSprite;
+}
+
 // Setters
 void Player::setName(std::string name)
 {
@@ -293,4 +323,9 @@ void Player::setConditioning(int conditioning)
 void Player::setAgility(int agility)
 {
 	m_agility = agility;
+}
+
+void Player::setWeaponSprite(sf::Sprite weaponSprite)
+{
+	m_weaponSprite = weaponSprite;
 }

@@ -8,7 +8,20 @@ Animation::Animation(TextureMap *textureMap, std::string const& animName)
 	initAnimFrames();
 	// Create the sprite from the first frame of the animation
 	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheet(), m_animSpriteSheetBounds);
-	m_sprite->scale((float)AnimationConstants::c_scalingFactor, (float)AnimationConstants::c_scalingFactor);
+	m_sprite->scale((float)AnimationConstants::c_defaultScalingFactor, (float)AnimationConstants::c_defaultScalingFactor);
+	m_isAnimating = false;
+}
+
+// TODO: Maybe I can reduce duplicate code for these constructors?
+Animation::Animation(TextureMap* textureMap, std::string const& animName, int scalingFactor)
+{
+	m_textureMap = textureMap;
+	m_animName = animName;
+	m_clock = new sf::Clock();
+	initAnimFrames();
+	// Create the sprite from the first frame of the animation
+	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheet(), m_animSpriteSheetBounds);
+	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
 	m_isAnimating = false;
 }
 

@@ -65,6 +65,7 @@ void Engine::input()
 		}
 
 		// TODO: Implement a control map to allow for switching controls
+		// TODO: Constants for default controls in EngineConstants.h
 		if (event.type == sf::Event::KeyPressed)
 		{
 			// For now, escape quits the game
@@ -124,6 +125,16 @@ void Engine::input()
 		else
 		{
 			player->stopMove(GameObject::Direction::RIGHT);
+		}
+
+		// Handle Attack (for now the control will be space)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			player->attack();
+		}
+		else
+		{
+			player->stopAttack();
 		}
 
 	}
