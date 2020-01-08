@@ -44,6 +44,9 @@ private:
 
 	// Update the frame
 	void updateAnimationFrame();
+
+	// Reset the animation back to its initial state
+	void resetAnimation();
 public:
 	// Animation constructors, top one uses default scaling factor
 	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename);

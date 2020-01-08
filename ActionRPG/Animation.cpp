@@ -35,6 +35,13 @@ void Animation::initAnimFrames()
 	m_animIndex = 0;
 }
 
+void Animation::resetAnimation()
+{
+	m_animSpriteSheetBounds.left = (int)m_firstFrameTopLeft.x;
+	m_sprite->setTextureRect(m_animSpriteSheetBounds);
+	m_animIndex = 0;
+}
+
 void Animation::updateAnimationFrame()
 {
 	if (m_animIndex < m_frames)
@@ -45,9 +52,7 @@ void Animation::updateAnimationFrame()
 	}
 	else
 	{
-		m_animSpriteSheetBounds.left = (int)m_firstFrameTopLeft.x;
-		m_sprite->setTextureRect(m_animSpriteSheetBounds);
-		m_animIndex = 0;
+		resetAnimation();
 	}
 }
 
@@ -71,6 +76,7 @@ void Animation::startAnimation()
 void Animation::stopAnimation()
 {
 	m_isAnimating = false;
+	resetAnimation();
 }
 
 bool Animation::isAnimating()
