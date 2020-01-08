@@ -176,8 +176,7 @@ void Player::update(float timeElapsed)
 	setPosition(m_origin);
 
 	// Set weapon position
-	// TODO: constants where necessary
-	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + 22, m_origin.y + 16));
+	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + m_playerConstants->c_weaponPositionOffsetX, m_origin.y + m_playerConstants->c_weaponPositionOffsetY));
 }
 
 // GameObject draw method override

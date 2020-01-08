@@ -39,7 +39,10 @@ public:
 	std::string c_weaponSwingAnimName = "knife_swing_anim";
 
 	const static int c_weaponAnimScalingFactor = 1;
-	const float c_weaponAnimSpeed = 0.05f;
+	const float c_weaponAnimSpeed = 0.023f;
+
+	const float c_weaponPositionOffsetX = 22;
+	const float c_weaponPositionOffsetY = 12;
 
 	// PlayerSummaryGui Constants
 	const sf::Vector2f c_rootPosition = sf::Vector2f(350, 150);
