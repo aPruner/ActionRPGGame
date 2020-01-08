@@ -1,26 +1,27 @@
 #include "Animation.h"
 
-Animation::Animation(TextureMap *textureMap, std::string const& animName, std::string const& spriteSheetFilename)
+// Only difference between these two constructors is the scaling factor
+Animation::Animation(TextureMap *textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed)
 {
-	m_textureMap = textureMap;
-	m_animName = animName;
-	m_clock = new sf::Clock();
-	initAnimFrames();
-	// Create the sprite from the first frame of the animation
-	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheetFromFilename(spriteSheetFilename), m_animSpriteSheetBounds);
+	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed);
 	m_sprite->scale((float)AnimationConstants::c_defaultScalingFactor, (float)AnimationConstants::c_defaultScalingFactor);
-	m_isAnimating = false;
 }
 
-Animation::Animation(TextureMap* textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename)
+Animation::Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed)
+{
+	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed);
+	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
+}
+
+void Animation::initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed)
 {
 	m_textureMap = textureMap;
 	m_animName = animName;
 	m_clock = new sf::Clock();
+	m_animationSpeed = animationSpeed;
 	initAnimFrames();
 	// Create the sprite from the first frame of the animation
 	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheetFromFilename(spriteSheetFilename), m_animSpriteSheetBounds);
-	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
 	m_isAnimating = false;
 }
 
@@ -60,8 +61,7 @@ void Animation::updateAnimationFrame()
 void Animation::animate()
 {
 	float dtSeconds = m_clock->getElapsedTime().asSeconds();
-	// TODO: this 0.1f should be a constant
-	if (dtSeconds > 0.1f)
+	if (dtSeconds > m_animationSpeed)
 	{
 		updateAnimationFrame();
 		m_clock->restart();

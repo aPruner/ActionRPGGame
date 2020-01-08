@@ -18,6 +18,9 @@ private:
 	// Height of each frame
 	int m_height;
 
+	// Speed of the animation (update time interval)
+	float m_animationSpeed;
+
 	// Vector representing the topLeft point of the first frame
 	sf::Vector2f m_firstFrameTopLeft;
 
@@ -39,6 +42,9 @@ private:
 	// TextureMap instance
 	TextureMap *m_textureMap;
 
+	// Called by constructors to init member variables
+	void initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
+
 	// Adds the animation frames to m_animFrames vector
 	void initAnimFrames();
 
@@ -49,8 +55,8 @@ private:
 	void resetAnimation();
 public:
 	// Animation constructors, top one uses default scaling factor
-	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename);
-	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename);
+	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
+	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed);
 
 	// Get the sprite of the current frame
 	sf::Sprite *getFrameSprite();

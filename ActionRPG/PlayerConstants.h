@@ -31,12 +31,15 @@ public:
 	const std::string& getPlayerRunAnimName(PlayerClass playerClass);
 	const std::string& getPlayerHitAnimName(PlayerClass playerClass);
 
+	const float c_playerAnimSpeed = 0.1f;
+
 	// Player weapon anim stuff
 	// TODO: Not only for knife, but for all weapons
 	std::string c_weaponIdleAnimName = "knife_idle_anim";
 	std::string c_weaponSwingAnimName = "knife_swing_anim";
 
 	const static int c_weaponAnimScalingFactor = 1;
+	const float c_weaponAnimSpeed = 0.05f;
 
 	// PlayerSummaryGui Constants
 	const sf::Vector2f c_rootPosition = sf::Vector2f(350, 150);

@@ -13,19 +13,22 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_idleAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed
 	);
 
 	m_runAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerRunAnimName(m_playerClass),
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed
 	);
 
 	m_hitAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerHitAnimName(m_playerClass),
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed
 	);
 
 	// TODO: constants for scaling factor
@@ -33,13 +36,15 @@ Player::Player(TextureMap *textureMap, Room *room)
 		textureMap,
 		m_playerConstants->c_weaponIdleAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponAnimSpeed
 	);
 	m_weaponSwingAnimation = new Animation(
 		textureMap,
 		m_playerConstants->c_weaponSwingAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponAnimSpeed
 	);
 
 	// By default, the player will be idle
