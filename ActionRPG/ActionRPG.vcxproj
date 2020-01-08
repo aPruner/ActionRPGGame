@@ -162,6 +162,7 @@
     <ClInclude Include="RoomConstants.h" />
     <ClInclude Include="TextureMap.h" />
     <ClInclude Include="TextGuiWidget.h" />
+    <ClInclude Include="TextureMapConstants.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="GuiWidget.h" />
     <ClInclude Include="WindowGuiWidget.h" />

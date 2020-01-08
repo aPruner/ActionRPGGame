@@ -1,33 +1,31 @@
 #include "Animation.h"
 
-Animation::Animation(TextureMap *textureMap, std::string const& animName)
+Animation::Animation(TextureMap *textureMap, std::string const& animName, std::string const& spriteSheetFilename)
 {
 	m_textureMap = textureMap;
 	m_animName = animName;
 	m_clock = new sf::Clock();
 	initAnimFrames();
 	// Create the sprite from the first frame of the animation
-	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheet(), m_animSpriteSheetBounds);
+	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheetFromFilename(spriteSheetFilename), m_animSpriteSheetBounds);
 	m_sprite->scale((float)AnimationConstants::c_defaultScalingFactor, (float)AnimationConstants::c_defaultScalingFactor);
 	m_isAnimating = false;
 }
 
-// TODO: Maybe I can reduce duplicate code for these constructors?
-Animation::Animation(TextureMap* textureMap, std::string const& animName, int scalingFactor)
+Animation::Animation(TextureMap* textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename)
 {
 	m_textureMap = textureMap;
 	m_animName = animName;
 	m_clock = new sf::Clock();
 	initAnimFrames();
 	// Create the sprite from the first frame of the animation
-	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheet(), m_animSpriteSheetBounds);
+	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheetFromFilename(spriteSheetFilename), m_animSpriteSheetBounds);
 	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
 	m_isAnimating = false;
 }
 
 void Animation::initAnimFrames()
 {
-	sf::Texture spriteSheet = m_textureMap->getSpriteSheet();
 	std::tuple<int, int, int, int, int> animTuple = m_textureMap->getSpriteSheetAnimVecTuple(m_animName);
 	m_firstFrameTopLeft = sf::Vector2f((float)std::get<0>(animTuple), (float)std::get<1>(animTuple));
 	m_width = std::get<2>(animTuple);
@@ -57,6 +55,7 @@ void Animation::updateAnimationFrame()
 void Animation::animate()
 {
 	float dtSeconds = m_clock->getElapsedTime().asSeconds();
+	// TODO: this 0.1f should be a constant
 	if (dtSeconds > 0.1f)
 	{
 		updateAnimationFrame();

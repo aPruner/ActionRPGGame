@@ -10,12 +10,37 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_textureMap = textureMap;
 
 	// Initialize animations
-	m_idleAnimation = new Animation(textureMap, m_playerConstants->getPlayerIdleAnimName(m_playerClass));
-	m_runAnimation = new Animation(textureMap, m_playerConstants->getPlayerRunAnimName(m_playerClass));
-	m_hitAnimation = new Animation(textureMap, m_playerConstants->getPlayerHitAnimName(m_playerClass));
+	m_idleAnimation = new Animation(
+		textureMap,
+		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename
+	);
 
-	m_weaponIdleAnimation = new Animation(textureMap, m_playerConstants->c_weaponIdleAnimName);
-	m_weaponSwingAnimation = new Animation(textureMap, m_playerConstants->c_weaponSwingAnimName);
+	m_runAnimation = new Animation(
+		textureMap,
+		m_playerConstants->getPlayerRunAnimName(m_playerClass),
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename
+	);
+
+	m_hitAnimation = new Animation(
+		textureMap,
+		m_playerConstants->getPlayerHitAnimName(m_playerClass),
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename
+	);
+
+	// TODO: constants for scaling factor
+	m_weaponIdleAnimation = new Animation(
+		textureMap,
+		m_playerConstants->c_weaponIdleAnimName,
+		m_playerConstants->c_weaponAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename
+	);
+	m_weaponSwingAnimation = new Animation(
+		textureMap,
+		m_playerConstants->c_weaponSwingAnimName,
+		m_playerConstants->c_weaponAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename
+	);
 
 	// By default, the player will be idle
 	m_sprite = *m_idleAnimation->getFrameSprite();
@@ -74,8 +99,7 @@ void Player::update(float timeElapsed)
 
 	if (m_attackPressed)
 	{
-		m_weaponIdleAnimation->stopAnimation();
-		m_weaponSwingAnimation->startAnimation();
+		// TODO: Put out the hitbox
 	}
 
 	// Move the debug rect as well as the player
@@ -128,6 +152,7 @@ void Player::update(float timeElapsed)
 		setSprite(*m_runAnimation->getFrameSprite());
 	}
 
+	// Handle weapon animation, only one weapon animation should animate at a time
 	// Player can move and attack at the same time
 	if (m_weaponIdleAnimation->isAnimating())
 	{
@@ -147,7 +172,7 @@ void Player::update(float timeElapsed)
 
 	// Set weapon position
 	// TODO: constants where necessary
-	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + 30, m_origin.y + 16));
+	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + 22, m_origin.y + 16));
 }
 
 // GameObject draw method override
@@ -216,11 +241,15 @@ void Player::stopMove(Direction direction)
 void Player::attack()
 {
 	m_isAttacking = true;
+	m_weaponIdleAnimation->stopAnimation();
+	m_weaponSwingAnimation->startAnimation();
 }
 
 void Player::stopAttack()
 {
 	m_isAttacking = false;
+	m_weaponSwingAnimation->stopAnimation();
+	m_weaponIdleAnimation->startAnimation();
 }
 
 // Getters and Setters

@@ -46,8 +46,8 @@ private:
 	void updateAnimationFrame();
 public:
 	// Animation constructors, top one uses default scaling factor
-	Animation(TextureMap* textureMap, std::string const& animName);
-	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor);
+	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename);
+	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename);
 
 	// Get the sprite of the current frame
 	sf::Sprite *getFrameSprite();

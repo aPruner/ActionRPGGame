@@ -36,6 +36,8 @@ public:
 	std::string c_weaponIdleAnimName = "knife_idle_anim";
 	std::string c_weaponSwingAnimName = "knife_swing_anim";
 
+	const static int c_weaponAnimScalingFactor = 1;
+
 	// PlayerSummaryGui Constants
 	const sf::Vector2f c_rootPosition = sf::Vector2f(350, 150);
 	const float c_rootHeight = 600;

@@ -6,20 +6,32 @@
 
 TextureMap::TextureMap()
 {
+	m_textureMapConstants = new TextureMapConstants();
+
 	m_textureMap = new std::map<std::string, sf::Texture>();
 	m_spriteSheetVecTupleTextureMap = new std::map<std::string, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f>>();
 	m_spriteSheetAnimTextureMap = new std::map<std::string, std::tuple<int, int, int, int, int>>();
-	m_spriteSheetNonAnimTextureMap = new std::map <std::string, std::tuple<int, int, int, int>>();
-	m_spriteSheet.loadFromFile(c_spriteSheetFilename);
-	loadTexturesFromTileList(c_spriteSheetListFilename);
-	loadTexturesFromTileList(c_weaponAnimSpriteSheetFileName);
+	m_spriteSheetNonAnimTextureMap = new std::map<std::string, std::tuple<int, int, int, int>>();
+	m_spriteSheetMap = new std::map<std::string, sf::Texture>();
+
+	addSpriteSheet(m_textureMapConstants->c_spriteSheetFilename);
+	addSpriteSheet(m_textureMapConstants->c_weaponAnimSpriteSheetFilename);
+
+	m_roomSpriteSheet = getSpriteSheetFromFilename(m_textureMapConstants->c_spriteSheetFilename);
+
+	loadTexturesFromTileList(m_textureMapConstants->c_spriteSheetListFilename);
+	loadTexturesFromTileList(m_textureMapConstants->c_weaponAnimSpriteSheetListFilename);
 }
 
 TextureMap::~TextureMap()
 {
 	delete m_textureMap;
+	delete m_spriteSheetVecTupleTextureMap;
+	delete m_spriteSheetAnimTextureMap;
+	delete m_spriteSheetMap;
 }
 
+// NOTE: This function only reads from text files
 void TextureMap::loadTexturesFromTileList(std::string const& spriteSheetListFilename)
 {
 	std::ifstream spriteSheetListFile;
@@ -73,6 +85,21 @@ void TextureMap::loadTexturesFromTileList(std::string const& spriteSheetListFile
 	spriteSheetListFile.close();
 }
 
+void TextureMap::addSpriteSheet(std::string const& spriteSheetFilename)
+{
+	auto it = m_spriteSheetMap->find(spriteSheetFilename);
+	if (it != m_spriteSheetMap->end())
+	{
+		return;
+	}
+	else
+	{
+		sf::Texture *spriteSheet = new sf::Texture();
+		spriteSheet->loadFromFile(spriteSheetFilename);
+		m_spriteSheetMap->insert(std::pair <std::string, sf::Texture>(spriteSheetFilename, *spriteSheet));
+	}
+}
+
 // Gets a texture from a filename
 sf::Texture& TextureMap::getTextureFromFilename(std::string const& filename)
 {
@@ -123,7 +150,22 @@ std::tuple<int, int, int, int, int>& TextureMap::getSpriteSheetAnimVecTuple(std:
 	return *(new std::tuple<int, int, int, int, int>(-1, -1, -1, -1, -1));
 }
 
-sf::Texture& TextureMap::getSpriteSheet()
+sf::Texture& TextureMap::getSpriteSheetFromFilename(std::string const& spriteSheetFilename)
 {
-	return m_spriteSheet;
+	auto it = m_spriteSheetMap->find(spriteSheetFilename);
+	if (it == m_spriteSheetMap->end())
+	{
+		addSpriteSheet(spriteSheetFilename);
+	}
+	return m_spriteSheetMap->at(spriteSheetFilename);
+}
+
+TextureMapConstants *TextureMap::getTextureMapConstants()
+{
+	return m_textureMapConstants;
+}
+
+sf::Texture& TextureMap::getRoomSpriteSheet()
+{
+	return m_roomSpriteSheet;
 }
