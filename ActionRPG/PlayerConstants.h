@@ -33,8 +33,6 @@ public:
 
 	const float c_playerAnimSpeed = 0.1f;
 
-	const bool c_playerAnimEmptySpriteOnReset = false;
-
 	// Player weapon anim stuff
 	// TODO: Not only for knife, but for all weapons
 	std::string c_weaponIdleAnimName = "knife_idle_anim";
@@ -46,8 +44,6 @@ public:
 	const float c_weaponPositionOffsetX = 22;
 	const float c_weaponPositionOffsetY = 12;
 
-	const bool c_playerWeaponAnimEmptySpriteOnReset = false;
-
 	// Player weapon air anim stuff
 	std::string c_weaponSwingAirAnimName = "knife_swing_air_anim";
 	const static int c_weaponAirAnimScalingFactor = 1;
@@ -55,8 +51,6 @@ public:
 
 	const float c_weaponAirAnimPositionOffsetX = 9;
 	const float c_weaponAirAnimPositionOffsetY = 12;
-
-	const bool c_playerWeaponAirAnimEmptySpriteOnReset = true;
 
 	// PlayerSummaryGui Constants
 	const sf::Vector2f c_rootPosition = sf::Vector2f(350, 150);

@@ -14,24 +14,21 @@ Player::Player(TextureMap *textureMap, Room *room)
 		textureMap,
 		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		m_playerConstants->c_playerAnimEmptySpriteOnReset
+		m_playerConstants->c_playerAnimSpeed
 	);
 
 	m_runAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerRunAnimName(m_playerClass),
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		m_playerConstants->c_playerAnimEmptySpriteOnReset
+		m_playerConstants->c_playerAnimSpeed
 	);
 
 	m_hitAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerHitAnimName(m_playerClass),
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		m_playerConstants->c_playerAnimEmptySpriteOnReset
+		m_playerConstants->c_playerAnimSpeed
 	);
 
 	m_weaponIdleAnimation = new Animation(
@@ -39,16 +36,14 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->c_weaponIdleAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed,
-		m_playerConstants->c_playerWeaponAnimEmptySpriteOnReset
+		m_playerConstants->c_weaponAnimSpeed
 	);
 	m_weaponSwingAnimation = new Animation(
 		textureMap,
 		m_playerConstants->c_weaponSwingAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed,
-		m_playerConstants->c_playerWeaponAnimEmptySpriteOnReset
+		m_playerConstants->c_weaponAnimSpeed
 	);
 
 	m_weaponAirAnimation = new Animation(
@@ -56,8 +51,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->c_weaponSwingAirAnimName,
 		m_playerConstants->c_weaponAirAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAirAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAirAnimSpeed,
-		m_playerConstants->c_playerWeaponAirAnimEmptySpriteOnReset
+		m_playerConstants->c_weaponAirAnimSpeed
 	);
 
 	// By default, the player will be idle
@@ -174,12 +168,15 @@ void Player::update(float timeElapsed)
 
 	// Handle weapon animation, only one weapon animation should animate at a time
 	// Player can move and attack at the same time
-	if (m_weaponIdleAnimation->isAnimating())
+	if (m_weaponIdleAnimation->isAnimating() && !m_weaponAirAnimation->isAnimating())
 	{
 		m_weaponIdleAnimation->animate();
 		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
+		// Seems kinda hacky but it's probably fine: set the weaponAirAnimSprite to the empty Sprite when not animating
+		// This will be used for all animations that aren't visible when not animating
+		setWeaponAirAnimSprite(sf::Sprite());
 	}
-	else if (m_weaponSwingAnimation->isAnimating())
+	else if (m_weaponSwingAnimation->isAnimating() && m_weaponAirAnimation->isAnimating())
 	{
 		m_weaponSwingAnimation->animate();
 		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
@@ -285,8 +282,8 @@ void Player::stopAttack()
 {
 	m_isAttacking = false;
 	m_weaponSwingAnimation->stopAnimation();
-	m_weaponIdleAnimation->startAnimation();
 	m_weaponAirAnimation->stopAnimation();
+	m_weaponIdleAnimation->startAnimation();
 }
 
 // Getters and Setters

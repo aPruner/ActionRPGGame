@@ -46,7 +46,7 @@ private:
 	bool m_emptySpriteOnReset;
 
 	// Called by constructors to init member variables
-	void initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset);
+	void initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
 
 	// Adds the animation frames to m_animFrames vector
 	void initAnimFrames();
@@ -58,13 +58,11 @@ private:
 	void resetAnimation();
 public:
 	// Animation constructors, top one uses default scaling factor
-	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset);
-	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset);
+	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
+	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed);
 
 	// Get the sprite of the current frame
 	sf::Sprite *getFrameSprite();
-
-	bool isAnimating();
 
 	// Run the animation
 	void animate();
@@ -72,4 +70,8 @@ public:
 	// Set the isAnimating flag
 	void startAnimation();
 	void stopAnimation();
+
+	// Getters and Setters
+	// Getters
+	bool isAnimating();
 };
