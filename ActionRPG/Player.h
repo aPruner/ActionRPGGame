@@ -60,7 +60,7 @@ private:
 	Animation *m_weaponIdleAnimation;
 	Animation *m_weaponSwingAnimation;
 
-	// Player weapon air/connection animations
+	// Player weapon hitbox animation
 	Animation *m_weaponHitboxAnimation;
 
 	// TODO: Write a weapon class to that will hold extra data about the weapon, but for now, just a sprite will do
@@ -116,6 +116,6 @@ public:
 	void setConditioning(int conditioning);
 	void setAgility(int agility);
 	void setWeaponSprite(sf::Sprite weaponSprite);
-	void setWeaponHitboxAnimSprite(sf::Sprite weaponAirAnimSprite);
+	void setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite);
 
 };

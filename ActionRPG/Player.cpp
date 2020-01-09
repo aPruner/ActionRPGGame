@@ -172,7 +172,7 @@ void Player::update(float timeElapsed)
 	{
 		m_weaponIdleAnimation->animate();
 		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
-		// Seems kinda hacky but it's probably fine: set the weaponAirAnimSprite to the empty Sprite when not animating
+		// Seems kinda hacky but it's probably fine: set the weaponHitboxAnimSprite to the empty Sprite when not animating
 		// This will be used for all animations that aren't visible when not animating
 		setWeaponHitboxAnimSprite(sf::Sprite());
 	}
@@ -197,7 +197,7 @@ void Player::update(float timeElapsed)
 		)
 	);
 
-	// Set weapon air anim sprite position
+	// Set weapon hitbox anim sprite position
 	m_weaponHitboxAnimSprite.setPosition(
 		sf::Vector2f(
 			m_origin.x + m_playerConstants->c_weaponHitboxAnimPositionOffsetX,
@@ -398,7 +398,7 @@ void Player::setWeaponSprite(sf::Sprite weaponSprite)
 	m_weaponSprite = weaponSprite;
 }
 
-void Player::setWeaponHitboxAnimSprite(sf::Sprite weaponAirAnimSprite)
+void Player::setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite)
 {
-	m_weaponHitboxAnimSprite = weaponAirAnimSprite;
+	m_weaponHitboxAnimSprite = weaponHitboxAnimSprite;
 }

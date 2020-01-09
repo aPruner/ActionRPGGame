@@ -44,7 +44,7 @@ public:
 	const float c_weaponPositionOffsetX = 22;
 	const float c_weaponPositionOffsetY = 12;
 
-	// Player weapon air anim stuff
+	// Player weapon hitbox anim stuff
 	std::string c_weaponSwingHitboxAnimName = "knife_hitbox_anim";
 	const static int c_weaponHitboxAnimScalingFactor = 1;
 	const float c_weaponHitboxAnimSpeed = 0.02f;
