@@ -3,6 +3,7 @@
 
 PlayerSummaryGui::PlayerSummaryGui(Player *player)
 {
+	m_isVisible = false;
 	m_player = player;
 
 	// TODO: Base these values on screen resolution

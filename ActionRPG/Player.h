@@ -19,6 +19,9 @@ private:
 	// Player name
 	std::string m_name;
 
+	// Instance of the room
+	Room* m_room;
+
 	// Player Attributes - effects subject to change
 	// Strength: increases raw melee attack damage, slightly increases health pool
 	int m_strength;
@@ -44,15 +47,27 @@ private:
 	bool m_moveLeftPressed;
 	bool m_moveRightPressed;
 
-	// Instance of the room
-	Room *m_room;
+	// Attack animation flags
+	bool m_attackPressed;
+	bool m_isAttacking;
 
 	// Player animations
 	Animation *m_idleAnimation;
 	Animation *m_runAnimation;
 	Animation *m_hitAnimation;
 
-	void initializePlayerAttributes();
+	// Player weapon animations
+	Animation *m_weaponIdleAnimation;
+	Animation *m_weaponSwingAnimation;
+
+	// Player weapon hitbox animation
+	Animation *m_weaponHitboxAnimation;
+
+	// TODO: Write a weapon class to that will hold extra data about the weapon, but for now, just a sprite will do
+	sf::Sprite m_weaponSprite;
+	sf::Sprite m_weaponHitboxAnimSprite;
+
+	void initializePlayer();
 
 public:
 	Player(TextureMap *textureMap, Room *room);
@@ -69,6 +84,12 @@ public:
 	// Input handler for stopping the player's movement
 	void stopMove(Direction direction);
 
+	// Input handler for attacking
+	void attack();
+
+	// Input handler for stopping the player's attack
+	void stopAttack();
+
 	// Getters and Setters
 	// Getters
 	PlayerConstants *getPlayerConstants();
@@ -81,6 +102,8 @@ public:
 	int getWisdom();
 	int getConditioning();
 	int getAgility();
+	sf::Sprite getWeaponSprite();
+	sf::Sprite getWeaponHitboxAnimSprite();
 
 	// Setters
 	void setName(std::string name);
@@ -92,5 +115,7 @@ public:
 	void setWisdom(int wisdom);
 	void setConditioning(int conditioning);
 	void setAgility(int agility);
+	void setWeaponSprite(sf::Sprite weaponSprite);
+	void setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite);
 
 };

@@ -4,6 +4,7 @@ DisplayGuiWidget::DisplayGuiWidget(sf::Vector2f position, sf::Vector2f parentPos
 {
 	m_guiWidgetConstants = new GuiWidgetConstants();
 
+	m_isVisible = false;
 	m_position = position;
 	m_parentPosition = parentPosition;
 	m_height = height;

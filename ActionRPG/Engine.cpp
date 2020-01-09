@@ -65,6 +65,7 @@ void Engine::input()
 		}
 
 		// TODO: Implement a control map to allow for switching controls
+		// TODO: Constants for default controls in EngineConstants.h
 		if (event.type == sf::Event::KeyPressed)
 		{
 			// For now, escape quits the game
@@ -126,6 +127,16 @@ void Engine::input()
 			player->stopMove(GameObject::Direction::RIGHT);
 		}
 
+		// Handle Attack (for now the control will be space)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			player->attack();
+		}
+		else
+		{
+			player->stopAttack();
+		}
+
 	}
 }
 
@@ -162,7 +173,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 	m_gameWindow->setView(m_game->getGameView());
 
 	// Draw the room
-	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), &m_textureMap->getSpriteSheet());
+	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), &m_textureMap->getRoomSpriteSheet());
 
 	// Draw debug rects for tiles
 	Tile **roomTileMap = m_game->getRoom()->getRoomTileMap();
