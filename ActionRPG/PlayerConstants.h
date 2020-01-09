@@ -45,12 +45,12 @@ public:
 	const float c_weaponPositionOffsetY = 12;
 
 	// Player weapon air anim stuff
-	std::string c_weaponSwingAirAnimName = "knife_swing_air_anim";
-	const static int c_weaponAirAnimScalingFactor = 1;
-	const float c_weaponAirAnimSpeed = 0.02f;
+	std::string c_weaponSwingHitboxAnimName = "knife_hitbox_anim";
+	const static int c_weaponHitboxAnimScalingFactor = 1;
+	const float c_weaponHitboxAnimSpeed = 0.02f;
 
-	const float c_weaponAirAnimPositionOffsetX = 9;
-	const float c_weaponAirAnimPositionOffsetY = 12;
+	const float c_weaponHitboxAnimPositionOffsetX = 9;
+	const float c_weaponHitboxAnimPositionOffsetY = 12;
 
 	// PlayerSummaryGui Constants
 	const sf::Vector2f c_rootPosition = sf::Vector2f(350, 150);

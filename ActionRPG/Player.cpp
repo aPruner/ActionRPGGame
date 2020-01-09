@@ -46,12 +46,12 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->c_weaponAnimSpeed
 	);
 
-	m_weaponAirAnimation = new Animation(
+	m_weaponHitboxAnimation = new Animation(
 		textureMap,
-		m_playerConstants->c_weaponSwingAirAnimName,
-		m_playerConstants->c_weaponAirAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponAirAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAirAnimSpeed
+		m_playerConstants->c_weaponSwingHitboxAnimName,
+		m_playerConstants->c_weaponHitboxAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponHitboxAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponHitboxAnimSpeed
 	);
 
 	// By default, the player will be idle
@@ -62,7 +62,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
 	m_weaponIdleAnimation->startAnimation();
 
-	m_weaponAirAnimSprite = sf::Sprite();
+	m_weaponHitboxAnimSprite = sf::Sprite();
 
 	// Initialize player stats
 	initializePlayer();
@@ -168,20 +168,20 @@ void Player::update(float timeElapsed)
 
 	// Handle weapon animation, only one weapon animation should animate at a time
 	// Player can move and attack at the same time
-	if (m_weaponIdleAnimation->isAnimating() && !m_weaponAirAnimation->isAnimating())
+	if (m_weaponIdleAnimation->isAnimating() && !m_weaponHitboxAnimation->isAnimating())
 	{
 		m_weaponIdleAnimation->animate();
 		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
 		// Seems kinda hacky but it's probably fine: set the weaponAirAnimSprite to the empty Sprite when not animating
 		// This will be used for all animations that aren't visible when not animating
-		setWeaponAirAnimSprite(sf::Sprite());
+		setWeaponHitboxAnimSprite(sf::Sprite());
 	}
-	else if (m_weaponSwingAnimation->isAnimating() && m_weaponAirAnimation->isAnimating())
+	else if (m_weaponSwingAnimation->isAnimating() && m_weaponHitboxAnimation->isAnimating())
 	{
 		m_weaponSwingAnimation->animate();
 		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
-		m_weaponAirAnimation->animate();
-		setWeaponAirAnimSprite(*m_weaponAirAnimation->getFrameSprite());
+		m_weaponHitboxAnimation->animate();
+		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
 	}
 
 	m_debugRectOutline.setPosition(m_origin);
@@ -198,10 +198,10 @@ void Player::update(float timeElapsed)
 	);
 
 	// Set weapon air anim sprite position
-	m_weaponAirAnimSprite.setPosition(
+	m_weaponHitboxAnimSprite.setPosition(
 		sf::Vector2f(
-			m_origin.x + m_playerConstants->c_weaponAirAnimPositionOffsetX,
-			m_origin.y + m_playerConstants->c_weaponAirAnimPositionOffsetY
+			m_origin.x + m_playerConstants->c_weaponHitboxAnimPositionOffsetX,
+			m_origin.y + m_playerConstants->c_weaponHitboxAnimPositionOffsetY
 		)
 	);
 }
@@ -211,7 +211,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);
 	target.draw(m_weaponSprite, states);
-	target.draw(m_weaponAirAnimSprite, states);
+	target.draw(m_weaponHitboxAnimSprite, states);
 }
 
 // Set the movement input flags to true based on input directions (pressed)
@@ -275,14 +275,14 @@ void Player::attack()
 	m_isAttacking = true;
 	m_weaponIdleAnimation->stopAnimation();
 	m_weaponSwingAnimation->startAnimation();
-	m_weaponAirAnimation->startAnimation();
+	m_weaponHitboxAnimation->startAnimation();
 }
 
 void Player::stopAttack()
 {
 	m_isAttacking = false;
 	m_weaponSwingAnimation->stopAnimation();
-	m_weaponAirAnimation->stopAnimation();
+	m_weaponHitboxAnimation->stopAnimation();
 	m_weaponIdleAnimation->startAnimation();
 }
 
@@ -342,9 +342,9 @@ sf::Sprite Player::getWeaponSprite()
 	return m_weaponSprite;
 }
 
-sf::Sprite Player::getWeaponAirAnimSprite()
+sf::Sprite Player::getWeaponHitboxAnimSprite()
 {
-	return m_weaponAirAnimSprite;
+	return m_weaponHitboxAnimSprite;
 }
 
 // Setters
@@ -398,7 +398,7 @@ void Player::setWeaponSprite(sf::Sprite weaponSprite)
 	m_weaponSprite = weaponSprite;
 }
 
-void Player::setWeaponAirAnimSprite(sf::Sprite weaponAirAnimSprite)
+void Player::setWeaponHitboxAnimSprite(sf::Sprite weaponAirAnimSprite)
 {
-	m_weaponAirAnimSprite = weaponAirAnimSprite;
+	m_weaponHitboxAnimSprite = weaponAirAnimSprite;
 }

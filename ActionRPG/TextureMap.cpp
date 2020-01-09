@@ -16,7 +16,7 @@ TextureMap::TextureMap()
 
 	addSpriteSheet(m_textureMapConstants->c_spriteSheetFilename);
 	addSpriteSheet(m_textureMapConstants->c_weaponAnimSpriteSheetFilename);
-	addSpriteSheet(m_textureMapConstants->c_weaponAirAnimSpriteSheetFilename);
+	addSpriteSheet(m_textureMapConstants->c_weaponHitboxAnimSpriteSheetFilename);
 
 	m_roomSpriteSheet = getSpriteSheetFromFilename(m_textureMapConstants->c_spriteSheetFilename);
 
