@@ -14,37 +14,50 @@ Player::Player(TextureMap *textureMap, Room *room)
 		textureMap,
 		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		m_playerConstants->c_playerAnimEmptySpriteOnReset
 	);
 
 	m_runAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerRunAnimName(m_playerClass),
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		m_playerConstants->c_playerAnimEmptySpriteOnReset
 	);
 
 	m_hitAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerHitAnimName(m_playerClass),
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		m_playerConstants->c_playerAnimEmptySpriteOnReset
 	);
 
-	// TODO: constants for scaling factor
 	m_weaponIdleAnimation = new Animation(
 		textureMap,
 		m_playerConstants->c_weaponIdleAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed
+		m_playerConstants->c_weaponAnimSpeed,
+		m_playerConstants->c_playerWeaponAnimEmptySpriteOnReset
 	);
 	m_weaponSwingAnimation = new Animation(
 		textureMap,
 		m_playerConstants->c_weaponSwingAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed
+		m_playerConstants->c_weaponAnimSpeed,
+		m_playerConstants->c_playerWeaponAnimEmptySpriteOnReset
+	);
+
+	m_weaponAirAnimation = new Animation(
+		textureMap,
+		m_playerConstants->c_weaponSwingAirAnimName,
+		m_playerConstants->c_weaponAirAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponAirAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponAirAnimSpeed,
+		m_playerConstants->c_playerWeaponAirAnimEmptySpriteOnReset
 	);
 
 	// By default, the player will be idle
@@ -54,6 +67,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 	// Weapon stuff
 	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
 	m_weaponIdleAnimation->startAnimation();
+
+	m_weaponAirAnimSprite = sf::Sprite();
 
 	// Initialize player stats
 	initializePlayer();
@@ -168,6 +183,8 @@ void Player::update(float timeElapsed)
 	{
 		m_weaponSwingAnimation->animate();
 		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
+		m_weaponAirAnimation->animate();
+		setWeaponAirAnimSprite(*m_weaponAirAnimation->getFrameSprite());
 	}
 
 	m_debugRectOutline.setPosition(m_origin);
@@ -175,8 +192,21 @@ void Player::update(float timeElapsed)
 
 	setPosition(m_origin);
 
-	// Set weapon position
-	m_weaponSprite.setPosition(sf::Vector2f(m_origin.x + m_playerConstants->c_weaponPositionOffsetX, m_origin.y + m_playerConstants->c_weaponPositionOffsetY));
+	// Set weapon sprite position
+	m_weaponSprite.setPosition(
+		sf::Vector2f(
+			m_origin.x + m_playerConstants->c_weaponPositionOffsetX,
+			m_origin.y + m_playerConstants->c_weaponPositionOffsetY
+		)
+	);
+
+	// Set weapon air anim sprite position
+	m_weaponAirAnimSprite.setPosition(
+		sf::Vector2f(
+			m_origin.x + m_playerConstants->c_weaponAirAnimPositionOffsetX,
+			m_origin.y + m_playerConstants->c_weaponAirAnimPositionOffsetY
+		)
+	);
 }
 
 // GameObject draw method override
@@ -184,6 +214,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);
 	target.draw(m_weaponSprite, states);
+	target.draw(m_weaponAirAnimSprite, states);
 }
 
 // Set the movement input flags to true based on input directions (pressed)
@@ -247,6 +278,7 @@ void Player::attack()
 	m_isAttacking = true;
 	m_weaponIdleAnimation->stopAnimation();
 	m_weaponSwingAnimation->startAnimation();
+	m_weaponAirAnimation->startAnimation();
 }
 
 void Player::stopAttack()
@@ -254,6 +286,7 @@ void Player::stopAttack()
 	m_isAttacking = false;
 	m_weaponSwingAnimation->stopAnimation();
 	m_weaponIdleAnimation->startAnimation();
+	m_weaponAirAnimation->stopAnimation();
 }
 
 // Getters and Setters
@@ -312,6 +345,11 @@ sf::Sprite Player::getWeaponSprite()
 	return m_weaponSprite;
 }
 
+sf::Sprite Player::getWeaponAirAnimSprite()
+{
+	return m_weaponAirAnimSprite;
+}
+
 // Setters
 void Player::setName(std::string name)
 {
@@ -361,4 +399,9 @@ void Player::setAgility(int agility)
 void Player::setWeaponSprite(sf::Sprite weaponSprite)
 {
 	m_weaponSprite = weaponSprite;
+}
+
+void Player::setWeaponAirAnimSprite(sf::Sprite weaponAirAnimSprite)
+{
+	m_weaponAirAnimSprite = weaponAirAnimSprite;
 }

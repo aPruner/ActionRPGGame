@@ -42,8 +42,11 @@ private:
 	// TextureMap instance
 	TextureMap *m_textureMap;
 
+	// Flag that is set to true if when the animation is reset, the first frame's sprite will not be shown
+	bool m_emptySpriteOnReset;
+
 	// Called by constructors to init member variables
-	void initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
+	void initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset);
 
 	// Adds the animation frames to m_animFrames vector
 	void initAnimFrames();
@@ -55,8 +58,8 @@ private:
 	void resetAnimation();
 public:
 	// Animation constructors, top one uses default scaling factor
-	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
-	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed);
+	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset);
+	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset);
 
 	// Get the sprite of the current frame
 	sf::Sprite *getFrameSprite();

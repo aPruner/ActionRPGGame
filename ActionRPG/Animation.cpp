@@ -1,20 +1,21 @@
 #include "Animation.h"
 
 // Only difference between these two constructors is the scaling factor
-Animation::Animation(TextureMap *textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed)
+Animation::Animation(TextureMap *textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset)
 {
-	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed);
+	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed, emptySpriteOnReset);
 	m_sprite->scale((float)AnimationConstants::c_defaultScalingFactor, (float)AnimationConstants::c_defaultScalingFactor);
 }
 
-Animation::Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed)
+Animation::Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset)
 {
-	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed);
+	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed, emptySpriteOnReset);
 	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
 }
 
-void Animation::initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed)
+void Animation::initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed, bool emptySpriteOnReset)
 {
+	m_emptySpriteOnReset = emptySpriteOnReset;
 	m_textureMap = textureMap;
 	m_animName = animName;
 	m_clock = new sf::Clock();
@@ -38,9 +39,19 @@ void Animation::initAnimFrames()
 
 void Animation::resetAnimation()
 {
-	m_animSpriteSheetBounds.left = (int)m_firstFrameTopLeft.x;
-	m_sprite->setTextureRect(m_animSpriteSheetBounds);
-	m_animIndex = 0;
+	if (!m_emptySpriteOnReset)
+	{
+		m_animSpriteSheetBounds.left = (int)m_firstFrameTopLeft.x;
+		m_sprite->setTextureRect(m_animSpriteSheetBounds);
+		m_animIndex = 0;
+	}
+	else
+	{
+		// If the emptySpriteOnReset flag is set to true, set the animation 1 frame outside of the spritesheet bounds
+		m_animSpriteSheetBounds.left = (int)m_firstFrameTopLeft.x - m_width;
+		m_sprite->setTextureRect(m_animSpriteSheetBounds);
+		m_animIndex = -1;
+	}
 }
 
 void Animation::updateAnimationFrame()

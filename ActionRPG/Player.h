@@ -58,10 +58,14 @@ private:
 
 	// Player weapon animations
 	Animation *m_weaponIdleAnimation;
-	Animation* m_weaponSwingAnimation;
+	Animation *m_weaponSwingAnimation;
 
-	//TODO: Write a weapon class to that will hold extra data about the weapon, but for now, just a sprite will do
+	// Player weapon air/connection animations
+	Animation *m_weaponAirAnimation;
+
+	// TODO: Write a weapon class to that will hold extra data about the weapon, but for now, just a sprite will do
 	sf::Sprite m_weaponSprite;
+	sf::Sprite m_weaponAirAnimSprite;
 
 	void initializePlayer();
 
@@ -99,6 +103,7 @@ public:
 	int getConditioning();
 	int getAgility();
 	sf::Sprite getWeaponSprite();
+	sf::Sprite getWeaponAirAnimSprite();
 
 	// Setters
 	void setName(std::string name);
@@ -111,5 +116,6 @@ public:
 	void setConditioning(int conditioning);
 	void setAgility(int agility);
 	void setWeaponSprite(sf::Sprite weaponSprite);
+	void setWeaponAirAnimSprite(sf::Sprite weaponAirAnimSprite);
 
 };
