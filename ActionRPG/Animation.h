@@ -42,8 +42,9 @@ private:
 	// TextureMap instance
 	TextureMap *m_textureMap;
 
-	// Flag that is set to true if when the animation is reset, the first frame's sprite will not be shown
-	bool m_emptySpriteOnReset;
+	// Flags for whether or not the animation is currently inverted
+	bool m_isInvertedX;
+	bool m_isInvertedY;
 
 	// Called by constructors to init member variables
 	void initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
@@ -57,8 +58,7 @@ private:
 	// Reset the animation back to its initial state
 	void resetAnimation();
 public:
-	// Animation constructors, top one uses default scaling factor
-	Animation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
+	// Animation constructor
 	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed);
 
 	// Get the sprite of the current frame
@@ -67,11 +67,17 @@ public:
 	// Run the animation
 	void animate();
 
-	// Set the isAnimating flag
+	// Set the isAnimating flag (setters with side effects)
 	void startAnimation();
 	void stopAnimation();
 
 	// Getters and Setters
 	// Getters
-	bool isAnimating();
+	bool getIsAnimating();
+	bool getIsInvertedX();
+	bool getIsInvertedY();
+
+	// Setters
+	void setIsInvertedX(bool isInvertedX);
+	void setIsInvertedY(bool isInvertedY);
 };

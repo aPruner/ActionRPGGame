@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <stdio.h>
+#include <sstream>
 #include "Engine.h"
 #include "Player.h"
 #include "PlayerSummaryGui.h"
@@ -154,12 +154,9 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 		(*it)->update(dtSeconds);
 	}
 
-	// TODO: use a stringstream for this instead, it's much cleaner
-	// Set the player debug text info after updating all GameObjects
-	char playerDebugTextBuffer[50];
-	sprintf_s(playerDebugTextBuffer, m_engineConstants->c_playerDebugTextInitString.c_str(), m_game->getPlayer()->getXPositionInTileMap(), m_game->getPlayer()->getYPositionInTileMap());
-	// sprintf_s(playerDebugTextBuffer, c_playerDebugTextInitString.c_str(), (int) m_game->getPlayer()->getOrigin().x, (int) m_game->getPlayer()->getOrigin().y);
-	m_playerDebugText.setString(std::string(playerDebugTextBuffer));
+	std::stringstream debugSS;
+	debugSS << m_engineConstants->c_playerDebugTextInitString << m_game->getPlayer()->getIsFacingLeft();
+	m_playerDebugText.setString(debugSS.str());
 
 	// Update the GameView's center point to be the player
 	m_game->centerGameViewOnPlayer();

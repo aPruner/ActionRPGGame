@@ -13,6 +13,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_idleAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
 		m_playerConstants->c_playerAnimSpeed
 	);
@@ -20,6 +21,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_runAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerRunAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
 		m_playerConstants->c_playerAnimSpeed
 	);
@@ -27,6 +29,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_hitAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerHitAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
 		m_playerConstants->c_playerAnimSpeed
 	);
@@ -84,6 +87,9 @@ void Player::initializePlayer()
 	m_wisdom = PlayerConstants::c_startingWisdom;
 	m_conditioning = PlayerConstants::c_startingConditioning;
 	m_agility = PlayerConstants::c_startingAgility;
+
+	// By default, the player is facing right
+	m_isFacingLeft = false;
 }
 
 // GameObject update method override
@@ -155,32 +161,57 @@ void Player::update(float timeElapsed)
 	}
 
 	// Handle animation, only one animation should animate at a time
-	if (m_idleAnimation->isAnimating())
+	if (m_idleAnimation->getIsAnimating())
 	{
+		if (m_isFacingLeft)
+		{
+			// TODO: Constants
+			m_idleAnimation->getFrameSprite()->setScale(-2, 2);
+		}
 		m_idleAnimation->animate();
 		setSprite(*m_idleAnimation->getFrameSprite());
 	}
-	else if (m_runAnimation->isAnimating())
+	else if (m_runAnimation->getIsAnimating())
 	{
+		if (m_isFacingLeft)
+		{
+			// TODO: Constants
+			m_runAnimation->getFrameSprite()->setScale(-2, 2);
+		}
 		m_runAnimation->animate();
 		setSprite(*m_runAnimation->getFrameSprite());
 	}
 
 	// Handle weapon animation, only one weapon animation should animate at a time
 	// Player can move and attack at the same time
-	if (m_weaponIdleAnimation->isAnimating() && !m_weaponHitboxAnimation->isAnimating())
+	if (m_weaponIdleAnimation->getIsAnimating() && !m_weaponHitboxAnimation->getIsAnimating())
 	{
 		m_weaponIdleAnimation->animate();
+		if (m_isFacingLeft)
+		{
+			// TODO: Constants
+			m_weaponIdleAnimation->getFrameSprite()->setScale(-1, 1);
+		}
 		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
 		// Seems kinda hacky but it's probably fine: set the weaponHitboxAnimSprite to the empty Sprite when not animating
 		// This will be used for all animations that aren't visible when not animating
 		setWeaponHitboxAnimSprite(sf::Sprite());
 	}
-	else if (m_weaponSwingAnimation->isAnimating() && m_weaponHitboxAnimation->isAnimating())
+	else if (m_weaponSwingAnimation->getIsAnimating() && m_weaponHitboxAnimation->getIsAnimating())
 	{
 		m_weaponSwingAnimation->animate();
+		if (m_isFacingLeft)
+		{
+			// TODO: Constants
+			m_weaponSwingAnimation->getFrameSprite()->setScale(-1, 1);
+		}
 		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
 		m_weaponHitboxAnimation->animate();
+		if (m_isFacingLeft)
+		{
+			// TODO: Constants
+			m_weaponHitboxAnimation->getFrameSprite()->setScale(-1, 1);
+		}
 		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
 	}
 
@@ -229,11 +260,19 @@ void Player::move(Direction direction)
 
 	if (direction == Direction::LEFT)
 	{
+		if (!m_isFacingLeft)
+		{
+			setIsFacingLeft(true);
+		}
 		m_moveLeftPressed = true;
 	}
 
 	if (direction == Direction::RIGHT)
 	{
+		if (m_isFacingLeft)
+		{
+			setIsFacingLeft(false);
+		}
 		m_moveRightPressed = true;
 	}
 	m_idleAnimation->stopAnimation();
@@ -347,6 +386,16 @@ sf::Sprite Player::getWeaponHitboxAnimSprite()
 	return m_weaponHitboxAnimSprite;
 }
 
+bool Player::getIsFacingLeft()
+{
+	return m_isFacingLeft;
+}
+
+bool Player::getSpritesFacingLeft()
+{
+	return m_spritesFacingLeft;
+}
+
 // Setters
 void Player::setName(std::string name)
 {
@@ -401,4 +450,14 @@ void Player::setWeaponSprite(sf::Sprite weaponSprite)
 void Player::setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite)
 {
 	m_weaponHitboxAnimSprite = weaponHitboxAnimSprite;
+}
+
+void Player::setIsFacingLeft(bool isFacingLeft)
+{
+	m_isFacingLeft = isFacingLeft;
+}
+
+void Player::setSpritesFacingLeft(bool spritesFacingLeft)
+{
+	m_spritesFacingLeft = spritesFacingLeft;
 }

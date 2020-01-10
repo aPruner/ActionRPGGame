@@ -31,6 +31,7 @@ public:
 	const std::string& getPlayerRunAnimName(PlayerClass playerClass);
 	const std::string& getPlayerHitAnimName(PlayerClass playerClass);
 
+	const static int c_playerAnimScalingFactor = 2;
 	const float c_playerAnimSpeed = 0.1f;
 
 	// Player weapon anim stuff

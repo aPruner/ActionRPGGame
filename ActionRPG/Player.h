@@ -47,6 +47,10 @@ private:
 	bool m_moveLeftPressed;
 	bool m_moveRightPressed;
 
+	// Flags for which way the player is facing
+	bool m_isFacingLeft;
+	bool m_spritesFacingLeft;
+
 	// Attack animation flags
 	bool m_attackPressed;
 	bool m_isAttacking;
@@ -104,6 +108,8 @@ public:
 	int getAgility();
 	sf::Sprite getWeaponSprite();
 	sf::Sprite getWeaponHitboxAnimSprite();
+	bool getIsFacingLeft();
+	bool getSpritesFacingLeft();
 
 	// Setters
 	void setName(std::string name);
@@ -117,5 +123,7 @@ public:
 	void setAgility(int agility);
 	void setWeaponSprite(sf::Sprite weaponSprite);
 	void setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite);
+	void setIsFacingLeft(bool isFacingLeft);
+	void setSpritesFacingLeft(bool spritesFacingLeft);
 
 };
