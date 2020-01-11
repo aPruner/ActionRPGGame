@@ -10,8 +10,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_textureMap = textureMap;
 
 	// Initialize animations
-
-	// By default, the player is facing right
+	// By default, the player is facing right, the animations need a pointer to this member variable
+	// in order to properly know to invert themselves or not
 	m_isFacingLeft = false;
 
 	m_idleAnimation = new Animation(
@@ -76,12 +76,18 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
 	m_weaponIdleAnimation->startAnimation();
 
+	// Init Origin rect (weapon)
+	m_weaponDebugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
+	m_weaponDebugRectOrigin.setFillColor(sf::Color::Green);
+	m_weaponDebugRectOrigin.setOutlineColor(sf::Color::Green);
+	m_weaponDebugRectOrigin.setOutlineThickness((float)1);
+
 	m_weaponHitboxAnimSprite = sf::Sprite();
 
 	// Initialize player stats
 	initializePlayer();
 
-	setOrigin(c_initialPosition);
+	setOrigin(sf::Vector2f(c_initialPosition.x + m_sprite.getGlobalBounds().width / 2, c_initialPosition.y + m_sprite.getGlobalBounds().height / 2));
 	initDebugRect();
 }
 
@@ -99,15 +105,6 @@ void Player::initializePlayer()
 	m_conditioning = PlayerConstants::c_startingConditioning;
 	m_agility = PlayerConstants::c_startingAgility;
 }
-
-//void Player::configureAnimationInversion(bool inverted)
-//{
-//	m_idleAnimation->setIsInvertedX(inverted);
-//	m_runAnimation->setIsInvertedX(inverted);
-//	m_weaponIdleAnimation->setIsInvertedX(inverted);
-//	m_weaponSwingAnimation->setIsInvertedX(inverted);
-//	m_weaponHitboxAnimation->setIsInvertedX(inverted);
-//}
 
 // GameObject update method override
 void Player::update(float timeElapsed)
@@ -209,11 +206,19 @@ void Player::update(float timeElapsed)
 
 	m_debugRectOutline.setPosition(m_origin);
 	m_debugRectOrigin.setPosition(m_origin);
+	// m_debugRectPosition.setPosition(getPosition().left, getPosition().top);
 
 	setPosition(m_origin);
 
 	// Set weapon sprite position
 	m_weaponSprite.setPosition(
+		sf::Vector2f(
+			m_origin.x + m_playerConstants->c_weaponPositionOffsetX,
+			m_origin.y + m_playerConstants->c_weaponPositionOffsetY
+		)
+	);
+
+	m_weaponDebugRectOrigin.setPosition(
 		sf::Vector2f(
 			m_origin.x + m_playerConstants->c_weaponPositionOffsetX,
 			m_origin.y + m_playerConstants->c_weaponPositionOffsetY
@@ -234,6 +239,10 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);
 	target.draw(m_weaponSprite, states);
+	if (m_drawDebugRects)
+	{
+		target.draw(m_weaponDebugRectOrigin, states);
+	}
 	target.draw(m_weaponHitboxAnimSprite, states);
 }
 
@@ -255,7 +264,6 @@ void Player::move(Direction direction)
 		if (!m_isFacingLeft)
 		{
 			setIsFacingLeft(true);
-			//configureAnimationInversion(true);
 		}
 		m_moveLeftPressed = true;
 	}
@@ -265,7 +273,6 @@ void Player::move(Direction direction)
 		if (m_isFacingLeft)
 		{
 			setIsFacingLeft(false);
-			//configureAnimationInversion(false);
 		}
 		m_moveRightPressed = true;
 	}

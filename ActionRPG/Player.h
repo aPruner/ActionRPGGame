@@ -69,11 +69,9 @@ private:
 	// TODO: Write a weapon class to that will hold extra data about the weapon, but for now, just a sprite will do
 	sf::Sprite m_weaponSprite;
 	sf::Sprite m_weaponHitboxAnimSprite;
+	sf::RectangleShape m_weaponDebugRectOrigin;
 
 	void initializePlayer();
-
-	// Sets all the animation inversions in X to true or false
-	void configureAnimationInversion(bool inverted);
 
 public:
 	Player(TextureMap *textureMap, Room *room);

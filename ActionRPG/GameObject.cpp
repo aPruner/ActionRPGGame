@@ -21,10 +21,10 @@ void GameObject::setPosition(sf::Vector2f position)
 	m_sprite.setPosition(position);
 }
 
-void GameObject::setOrigin(sf::Vector2f position)
+void GameObject::setOrigin(sf::Vector2f origin)
 {
-	m_origin = position;
-	m_sprite.setOrigin(position);
+	m_origin = origin;
+	m_sprite.setOrigin(origin);
 }
 
 sf::Vector2f GameObject::getOrigin()
@@ -70,6 +70,12 @@ void GameObject::initDebugRect()
 	m_debugRectOrigin.setOutlineColor(sf::Color::Green);
 	m_debugRectOrigin.setOutlineThickness((float)1);
 
+	m_debugRectPosition = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
+	m_debugRectPosition.setPosition(sf::Vector2f(getPosition().left, getPosition().top));
+	m_debugRectPosition.setFillColor(sf::Color::Blue);
+	m_debugRectPosition.setOutlineColor(sf::Color::Blue);
+	m_debugRectPosition.setOutlineThickness((float)1);
+
 	m_drawDebugRects = true;
 }
 
@@ -86,4 +92,9 @@ sf::RectangleShape GameObject::getDebugRectOutline()
 sf::RectangleShape GameObject::getDebugRectOrigin()
 {
 	return m_debugRectOrigin;
+}
+
+sf::RectangleShape GameObject::getDebugRectPosition()
+{
+	return m_debugRectPosition;
 }
