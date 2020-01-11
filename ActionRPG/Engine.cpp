@@ -155,7 +155,9 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 	}
 
 	std::stringstream debugSS;
-	debugSS << m_engineConstants->c_playerDebugTextInitString << m_game->getPlayer()->getIsFacingLeft();
+	debugSS << m_engineConstants->c_playerDebugTextInitString << m_game->getPlayer()->getIsFacingLeft() << '\n';
+	debugSS << m_engineConstants->c_playerInvertedXDebugString << m_game->getPlayer()->getRunAnimation()->getIsInvertedX() << '\n';
+	debugSS << m_engineConstants->c_playerSpriteScaleDebugString << '(' << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().x << ", " << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().y << ')';
 	m_playerDebugText.setString(debugSS.str());
 
 	// Update the GameView's center point to be the player

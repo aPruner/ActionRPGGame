@@ -1,12 +1,6 @@
 #include "Animation.h"
 
-Animation::Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed)
-{
-	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed);
-	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
-}
-
-void Animation::initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed)
+Animation::Animation(TextureMap* textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed, bool *isInvertedX)
 {
 	m_textureMap = textureMap;
 	m_animName = animName;
@@ -15,7 +9,10 @@ void Animation::initAnimation(TextureMap* textureMap, std::string const& animNam
 	initAnimFrames();
 	// Create the sprite from the first frame of the animation
 	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheetFromFilename(spriteSheetFilename), m_animSpriteSheetBounds);
+	m_scalingFactor = scalingFactor;
+	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
 	m_isAnimating = false;
+	m_isInvertedX = isInvertedX;
 }
 
 void Animation::initAnimFrames()
@@ -38,6 +35,16 @@ void Animation::resetAnimation()
 
 void Animation::updateAnimationFrame()
 {
+	// If necessary, invert the sprite on this frame
+	if (*m_isInvertedX)
+	{
+		m_sprite->setScale(AnimationConstants::c_invertedXScaleValue * m_scalingFactor, m_scalingFactor);
+	}
+	else
+	{
+		m_sprite->setScale(m_scalingFactor, m_scalingFactor);
+	}
+
 	if (m_animIndex < m_frames)
 	{
 		m_animSpriteSheetBounds.left += m_width;
@@ -87,21 +94,5 @@ sf::Sprite *Animation::getFrameSprite()
 
 bool Animation::getIsInvertedX()
 {
-	return m_isInvertedX;
-}
-
-bool Animation::getIsInvertedY()
-{
-	return m_isInvertedY;
-}
-
-// Setters
-void Animation::setIsInvertedX(bool isInvertedX)
-{
-	m_isInvertedX = isInvertedX;
-}
-
-void Animation::setIsInvertedY(bool isInvertedY)
-{
-	m_isInvertedY = isInvertedY;
+	return *m_isInvertedX;
 }

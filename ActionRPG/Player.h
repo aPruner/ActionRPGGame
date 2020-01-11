@@ -49,7 +49,6 @@ private:
 
 	// Flags for which way the player is facing
 	bool m_isFacingLeft;
-	bool m_spritesFacingLeft;
 
 	// Attack animation flags
 	bool m_attackPressed;
@@ -72,6 +71,9 @@ private:
 	sf::Sprite m_weaponHitboxAnimSprite;
 
 	void initializePlayer();
+
+	// Sets all the animation inversions in X to true or false
+	void configureAnimationInversion(bool inverted);
 
 public:
 	Player(TextureMap *textureMap, Room *room);
@@ -106,10 +108,12 @@ public:
 	int getWisdom();
 	int getConditioning();
 	int getAgility();
+	Animation *getIdleAnimation();
+	Animation *getRunAnimation();
+	Animation *getWeaponIdleAnimation();
 	sf::Sprite getWeaponSprite();
 	sf::Sprite getWeaponHitboxAnimSprite();
 	bool getIsFacingLeft();
-	bool getSpritesFacingLeft();
 
 	// Setters
 	void setName(std::string name);
@@ -124,6 +128,5 @@ public:
 	void setWeaponSprite(sf::Sprite weaponSprite);
 	void setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite);
 	void setIsFacingLeft(bool isFacingLeft);
-	void setSpritesFacingLeft(bool spritesFacingLeft);
 
 };

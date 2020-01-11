@@ -18,6 +18,9 @@ private:
 	// Height of each frame
 	int m_height;
 
+	// Scaling factor for the animation
+	int m_scalingFactor;
+
 	// Speed of the animation (update time interval)
 	float m_animationSpeed;
 
@@ -43,11 +46,8 @@ private:
 	TextureMap *m_textureMap;
 
 	// Flags for whether or not the animation is currently inverted
-	bool m_isInvertedX;
-	bool m_isInvertedY;
-
-	// Called by constructors to init member variables
-	void initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed);
+	bool *m_isInvertedX;
+	bool *m_isInvertedY;
 
 	// Adds the animation frames to m_animFrames vector
 	void initAnimFrames();
@@ -59,7 +59,7 @@ private:
 	void resetAnimation();
 public:
 	// Animation constructor
-	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed);
+	Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed, bool *isInvertedX);
 
 	// Get the sprite of the current frame
 	sf::Sprite *getFrameSprite();
@@ -75,9 +75,5 @@ public:
 	// Getters
 	bool getIsAnimating();
 	bool getIsInvertedX();
-	bool getIsInvertedY();
 
-	// Setters
-	void setIsInvertedX(bool isInvertedX);
-	void setIsInvertedY(bool isInvertedY);
 };

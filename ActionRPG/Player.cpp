@@ -10,12 +10,17 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_textureMap = textureMap;
 
 	// Initialize animations
+
+	// By default, the player is facing right
+	m_isFacingLeft = false;
+
 	m_idleAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
 		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	m_runAnimation = new Animation(
@@ -23,7 +28,9 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->getPlayerRunAnimName(m_playerClass),
 		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+
 	);
 
 	m_hitAnimation = new Animation(
@@ -31,7 +38,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->getPlayerHitAnimName(m_playerClass),
 		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	m_weaponIdleAnimation = new Animation(
@@ -39,14 +47,16 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->c_weaponIdleAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
 	);
 	m_weaponSwingAnimation = new Animation(
 		textureMap,
 		m_playerConstants->c_weaponSwingAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	m_weaponHitboxAnimation = new Animation(
@@ -54,7 +64,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->c_weaponSwingHitboxAnimName,
 		m_playerConstants->c_weaponHitboxAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponHitboxAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponHitboxAnimSpeed
+		m_playerConstants->c_weaponHitboxAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	// By default, the player will be idle
@@ -87,10 +98,16 @@ void Player::initializePlayer()
 	m_wisdom = PlayerConstants::c_startingWisdom;
 	m_conditioning = PlayerConstants::c_startingConditioning;
 	m_agility = PlayerConstants::c_startingAgility;
-
-	// By default, the player is facing right
-	m_isFacingLeft = false;
 }
+
+//void Player::configureAnimationInversion(bool inverted)
+//{
+//	m_idleAnimation->setIsInvertedX(inverted);
+//	m_runAnimation->setIsInvertedX(inverted);
+//	m_weaponIdleAnimation->setIsInvertedX(inverted);
+//	m_weaponSwingAnimation->setIsInvertedX(inverted);
+//	m_weaponHitboxAnimation->setIsInvertedX(inverted);
+//}
 
 // GameObject update method override
 void Player::update(float timeElapsed)
@@ -163,21 +180,11 @@ void Player::update(float timeElapsed)
 	// Handle animation, only one animation should animate at a time
 	if (m_idleAnimation->getIsAnimating())
 	{
-		if (m_isFacingLeft)
-		{
-			// TODO: Constants
-			m_idleAnimation->getFrameSprite()->setScale(-2, 2);
-		}
 		m_idleAnimation->animate();
 		setSprite(*m_idleAnimation->getFrameSprite());
 	}
 	else if (m_runAnimation->getIsAnimating())
 	{
-		if (m_isFacingLeft)
-		{
-			// TODO: Constants
-			m_runAnimation->getFrameSprite()->setScale(-2, 2);
-		}
 		m_runAnimation->animate();
 		setSprite(*m_runAnimation->getFrameSprite());
 	}
@@ -187,11 +194,6 @@ void Player::update(float timeElapsed)
 	if (m_weaponIdleAnimation->getIsAnimating() && !m_weaponHitboxAnimation->getIsAnimating())
 	{
 		m_weaponIdleAnimation->animate();
-		if (m_isFacingLeft)
-		{
-			// TODO: Constants
-			m_weaponIdleAnimation->getFrameSprite()->setScale(-1, 1);
-		}
 		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
 		// Seems kinda hacky but it's probably fine: set the weaponHitboxAnimSprite to the empty Sprite when not animating
 		// This will be used for all animations that aren't visible when not animating
@@ -200,18 +202,8 @@ void Player::update(float timeElapsed)
 	else if (m_weaponSwingAnimation->getIsAnimating() && m_weaponHitboxAnimation->getIsAnimating())
 	{
 		m_weaponSwingAnimation->animate();
-		if (m_isFacingLeft)
-		{
-			// TODO: Constants
-			m_weaponSwingAnimation->getFrameSprite()->setScale(-1, 1);
-		}
 		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
 		m_weaponHitboxAnimation->animate();
-		if (m_isFacingLeft)
-		{
-			// TODO: Constants
-			m_weaponHitboxAnimation->getFrameSprite()->setScale(-1, 1);
-		}
 		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
 	}
 
@@ -263,6 +255,7 @@ void Player::move(Direction direction)
 		if (!m_isFacingLeft)
 		{
 			setIsFacingLeft(true);
+			//configureAnimationInversion(true);
 		}
 		m_moveLeftPressed = true;
 	}
@@ -272,6 +265,7 @@ void Player::move(Direction direction)
 		if (m_isFacingLeft)
 		{
 			setIsFacingLeft(false);
+			//configureAnimationInversion(false);
 		}
 		m_moveRightPressed = true;
 	}
@@ -376,6 +370,20 @@ int Player::getAgility()
 	return m_agility;
 }
 
+Animation *Player::getIdleAnimation()
+{
+	return m_idleAnimation;
+}
+Animation *Player::getRunAnimation()
+{
+	return m_runAnimation;
+}
+
+Animation *Player::getWeaponIdleAnimation()
+{
+	return m_weaponIdleAnimation;
+}
+
 sf::Sprite Player::getWeaponSprite()
 {
 	return m_weaponSprite;
@@ -389,11 +397,6 @@ sf::Sprite Player::getWeaponHitboxAnimSprite()
 bool Player::getIsFacingLeft()
 {
 	return m_isFacingLeft;
-}
-
-bool Player::getSpritesFacingLeft()
-{
-	return m_spritesFacingLeft;
 }
 
 // Setters
@@ -455,9 +458,4 @@ void Player::setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite)
 void Player::setIsFacingLeft(bool isFacingLeft)
 {
 	m_isFacingLeft = isFacingLeft;
-}
-
-void Player::setSpritesFacingLeft(bool spritesFacingLeft)
-{
-	m_spritesFacingLeft = spritesFacingLeft;
 }

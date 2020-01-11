@@ -10,4 +10,8 @@ public:
 	
 	// Animation start index
 	const static int c_animationStartIndex = 0;
+
+	// Animation inverted scaling constants
+	const static int c_invertedXScaleValue = -1;
+	const static int c_invertedYScaleValue = -1;
 };
