@@ -53,8 +53,8 @@ public:
 	// Getters
 	sf::Sprite getSprite();
 
-	// Get the position (global bounds) of the GameObject
-	sf::FloatRect getPosition();
+	// Get the bounding box (global bounds) of the GameObject
+	sf::FloatRect getBoundingBox();
 
 	// Get the origin (center point for transformations) of the GameObject
 	sf::Vector2f getOrigin();
@@ -71,6 +71,6 @@ public:
 
 	// Setters
 	void setSprite(sf::Sprite newSprite);
-	void setPosition(sf::Vector2f);
 	void setOrigin(sf::Vector2f origin);
+	void setPosition(sf::Vector2f origin);
 };

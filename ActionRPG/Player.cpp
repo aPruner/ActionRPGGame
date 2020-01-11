@@ -110,35 +110,32 @@ void Player::initializePlayer()
 void Player::update(float timeElapsed)
 {
 
+	sf::Vector2f newOrigin = sf::Vector2f(m_origin.x, m_origin.y);
 	// Move the Player if necessary
 	if (m_moveUpPressed)
 	{
-		m_origin.y -= timeElapsed * m_speed;
+		newOrigin.y -= timeElapsed * m_speed;
 	}
 
 	if (m_moveDownPressed)
 	{
-		m_origin.y += timeElapsed * m_speed;
+		newOrigin.y += timeElapsed * m_speed;
 	}
 
 	if (m_moveLeftPressed)
 	{
-		m_origin.x -= timeElapsed * m_speed;
+		newOrigin.x -= timeElapsed * m_speed;
 	}
 
 	if (m_moveRightPressed)
 	{
-		m_origin.x += timeElapsed * m_speed;
+		newOrigin.x += timeElapsed * m_speed;
 	}
 
 	if (m_attackPressed)
 	{
 		// TODO: Put out the hitbox
 	}
-
-	// Move the debug rect as well as the player
-	m_debugRectOutline.setPosition(m_origin);
-	m_debugRectOrigin.setPosition(m_origin);
 
 	// TODO: Proper collision detection, with any walls and other GameObjects
 	// Collision detection - outer walls only
@@ -153,25 +150,25 @@ void Player::update(float timeElapsed)
 	// Check left boundary
 	if (boundsRect.left < 0)
 	{
-		m_origin.x += timeElapsed * m_speed;
+		newOrigin.x += timeElapsed * m_speed;
 	}
 
 	// Check top boundary
 	if (boundsRect.top < 0)
 	{
-		m_origin.y += timeElapsed * m_speed;
+		newOrigin.y += timeElapsed * m_speed;
 	}
 
 	// Check right boundary
 	if (boundsRect.left + boundsRect.width >= RoomConstants::c_maxRoomWidthPixels * RoomConstants::c_roomScalingFactor)
 	{
-		m_origin.x -= timeElapsed * m_speed;
+		newOrigin.x -= timeElapsed * m_speed;
 	}
 
 	// Check bottom boundary
 	if (boundsRect.top + boundsRect.height >= RoomConstants::c_maxRoomHeightPixels * RoomConstants::c_roomScalingFactor)
 	{
-		m_origin.y -= timeElapsed * m_speed;
+		newOrigin.y -= timeElapsed * m_speed;
 	}
 
 	// Handle animation, only one animation should animate at a time
@@ -203,12 +200,16 @@ void Player::update(float timeElapsed)
 		m_weaponHitboxAnimation->animate();
 		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
 	}
-
-	m_debugRectOutline.setPosition(m_origin);
-	m_debugRectOrigin.setPosition(m_origin);
+	/*m_debugRectOutline.setPosition(m_origin);
+	m_debugRectOrigin.setPosition(m_origin);*/
 	// m_debugRectPosition.setPosition(getPosition().left, getPosition().top);
 
-	setPosition(m_origin);
+	setPosition(newOrigin);
+
+	// Move the debug rect as well as the player
+	m_debugRectOutline.setPosition(newOrigin);
+	m_debugRectOrigin.setPosition(newOrigin);
+	m_debugRectPosition.setPosition(getBoundingBox().left, getBoundingBox().top);
 
 	// Set weapon sprite position
 	m_weaponSprite.setPosition(
