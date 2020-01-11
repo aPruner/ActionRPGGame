@@ -31,9 +31,11 @@ protected:
 	// Set and color the debug rect
 	void initDebugRect();
 
-	// TODO: Figure out and define the real difference between origin and position. Do we even need both?
-	// Origin (position) of the GameObject
+	// Origin (center point) of the GameObject
 	sf::Vector2f m_origin;
+
+	// Position (top left point) of the GameObject
+	sf::Vector2f m_position;
 
 public:
 	// Direction enum

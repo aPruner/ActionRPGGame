@@ -87,7 +87,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 	// Initialize player stats
 	initializePlayer();
 
-	setOrigin(sf::Vector2f(c_initialPosition.x + m_sprite.getGlobalBounds().width / 2, c_initialPosition.y + m_sprite.getGlobalBounds().height / 2));
+	sf::Vector2f initOrigin = sf::Vector2f(c_initialPosition.x + m_sprite.getGlobalBounds().width / 2, c_initialPosition.y + m_sprite.getGlobalBounds().height / 2);
+	setOrigin(initOrigin);
 	initDebugRect();
 }
 
@@ -110,7 +111,7 @@ void Player::initializePlayer()
 void Player::update(float timeElapsed)
 {
 
-	sf::Vector2f newOrigin = sf::Vector2f(m_origin.x, m_origin.y);
+	sf::Vector2f newOrigin = getOrigin();
 	// Move the Player if necessary
 	if (m_moveUpPressed)
 	{
@@ -139,7 +140,6 @@ void Player::update(float timeElapsed)
 
 	// TODO: Proper collision detection, with any walls and other GameObjects
 	// Collision detection - outer walls only
-
 	// Get the position in the TileMap, and check all 8 positions around the player for intersections
 	int xPositionInTileMap = getXPositionInTileMap();
 	int yPositionInTileMap = getYPositionInTileMap();
@@ -200,37 +200,38 @@ void Player::update(float timeElapsed)
 		m_weaponHitboxAnimation->animate();
 		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
 	}
-	/*m_debugRectOutline.setPosition(m_origin);
-	m_debugRectOrigin.setPosition(m_origin);*/
-	// m_debugRectPosition.setPosition(getPosition().left, getPosition().top);
-
-	setPosition(newOrigin);
 
 	// Move the debug rect as well as the player
+
+	// Move the player
+	setPosition(newOrigin);
+	// sf::Vector2f origin = sf::Vector2f(newOrigin.x + getBoundingBox().width / 2, newOrigin.y + getBoundingBox().width / 2);
+	// setOrigin(origin);
+
+	// Move the debug rect
 	m_debugRectOutline.setPosition(newOrigin);
 	m_debugRectOrigin.setPosition(newOrigin);
-	m_debugRectPosition.setPosition(getBoundingBox().left, getBoundingBox().top);
 
 	// Set weapon sprite position
 	m_weaponSprite.setPosition(
 		sf::Vector2f(
-			m_origin.x + m_playerConstants->c_weaponPositionOffsetX,
-			m_origin.y + m_playerConstants->c_weaponPositionOffsetY
+			newOrigin.x + m_playerConstants->c_weaponPositionOffsetX,
+			newOrigin.y + m_playerConstants->c_weaponPositionOffsetY
 		)
 	);
 
 	m_weaponDebugRectOrigin.setPosition(
 		sf::Vector2f(
-			m_origin.x + m_playerConstants->c_weaponPositionOffsetX,
-			m_origin.y + m_playerConstants->c_weaponPositionOffsetY
+			newOrigin.x + m_playerConstants->c_weaponPositionOffsetX,
+			newOrigin.y + m_playerConstants->c_weaponPositionOffsetY
 		)
 	);
 
 	// Set weapon hitbox anim sprite position
 	m_weaponHitboxAnimSprite.setPosition(
 		sf::Vector2f(
-			m_origin.x + m_playerConstants->c_weaponHitboxAnimPositionOffsetX,
-			m_origin.y + m_playerConstants->c_weaponHitboxAnimPositionOffsetY
+			newOrigin.x + m_playerConstants->c_weaponHitboxAnimPositionOffsetX,
+			newOrigin.y + m_playerConstants->c_weaponHitboxAnimPositionOffsetY
 		)
 	);
 }
