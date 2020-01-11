@@ -31,10 +31,7 @@ protected:
 	// Set and color the debug rect
 	void initDebugRect();
 
-	// Origin (center point) of the GameObject
-	sf::Vector2f m_origin;
-
-	// Position (top left point) of the GameObject
+	// Position (global coordinates) of the GameObject
 	sf::Vector2f m_position;
 
 public:
@@ -58,7 +55,10 @@ public:
 	// Get the bounding box (global bounds) of the GameObject
 	sf::FloatRect getBoundingBox();
 
-	// Get the origin (center point for transformations) of the GameObject
+	// Get the position (global coordinates) of the GameObject
+	sf::Vector2f getPosition();
+
+	// Get the origin (center in local coordinates) of the GameObject - kinda useless
 	sf::Vector2f getOrigin();
 
 	// Return x or y position of this GameObject in the tile map (Room position)
@@ -73,6 +73,7 @@ public:
 
 	// Setters
 	void setSprite(sf::Sprite newSprite);
-	void setOrigin(sf::Vector2f origin);
-	void setPosition(sf::Vector2f origin);
+
+	// Sets the position of the GameObject in global coordinates, and also sets the origin to the center of the GameObject (for inversions)
+	void setPosition(sf::Vector2f position);
 };
