@@ -199,7 +199,6 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 		{
 			m_gameWindow->draw(gameObject->getDebugRectOutline());
 			m_gameWindow->draw(gameObject->getDebugRectOrigin());
-			// m_gameWindow->draw(gameObject->getDebugRectPosition());
 		}
 	}
 

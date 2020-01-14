@@ -206,7 +206,7 @@ void Player::update(float timeElapsed)
 
 	// Move the debug rect
 	// TODO: Constants
-	sf::Vector2f debugRectOutlinePosition = sf::Vector2f(newPosition.x - getBoundingBox().width / 2, newPosition.y - getBoundingBox().height / 2);
+	sf::Vector2f debugRectOutlinePosition = sf::Vector2f(newPosition.x - getBoundingBox().width / m_playerConstants->c_halfDenominator, newPosition.y - getBoundingBox().height / m_playerConstants->c_halfDenominator);
 	m_debugRectOutline.setPosition(debugRectOutlinePosition);
 	m_debugRectOrigin.setPosition(newPosition);
 
