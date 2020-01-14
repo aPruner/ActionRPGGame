@@ -7,7 +7,8 @@
 class GameObject : public sf::Drawable
 {
 protected:
-	// GameObject specific constants (Abstract classes won't have a constants file)
+	// TODO: GameObjectConstants file
+	// GameObject specific constants
 	const float c_initialPositionX = 0;
 	const float c_initialPositionY = 0;
 	const sf::Vector2f c_initialPosition = sf::Vector2f(c_initialPositionX, c_initialPositionY);
@@ -22,15 +23,16 @@ protected:
 	// Rectangle drawables for debugging 
 	sf::RectangleShape m_debugRectOutline; // (outline of GameObject)
 	sf::RectangleShape m_debugRectOrigin; // (origin of GameObject)
+	sf::RectangleShape m_debugRectPosition; // (position of GameObject)
 
 	// Flag for whether or not to draw debug rectangles
 	bool m_drawDebugRects;
 
-	// Set and color the debugging rect
+	// Set and color the debug rect
 	void initDebugRect();
 
-	// Origin (position) of the GameObject
-	sf::Vector2f m_origin;
+	// Position (global coordinates) of the GameObject
+	sf::Vector2f m_position;
 
 public:
 	// Direction enum
@@ -45,25 +47,33 @@ public:
 	// Pure virtual method for drawing the game object
 	// Must be defined in the derived class
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-
-	// Getter/Setter for the sprite
-	sf::Sprite getSprite();
-	void setSprite(sf::Sprite newSprite);
 	
-	// Get the position (global bounds) of the GameObject
-	sf::FloatRect getPosition();
-	void setPosition(sf::Vector2f);
+	// Getters and Setters
+	// Getters
+	sf::Sprite getSprite();
 
-	// Getter/Setter for the origin of the GameObject
+	// Get the bounding box (global bounds) of the GameObject
+	sf::FloatRect getBoundingBox();
+
+	// Get the position (global coordinates) of the GameObject
+	sf::Vector2f getPosition();
+
+	// Get the origin (center in local coordinates) of the GameObject - kinda useless
 	sf::Vector2f getOrigin();
-	void setOrigin(sf::Vector2f position);
 
-	// Return x or y position of this GameObject in the tile map
+	// Return x or y position of this GameObject in the tile map (Room position)
 	int getXPositionInTileMap();
 	int getYPositionInTileMap();
-	
-	// Debug helper methods
+
+	// Debug getters
 	bool getDebugStatus();
 	sf::RectangleShape getDebugRectOutline();
 	sf::RectangleShape getDebugRectOrigin();
+	sf::RectangleShape getDebugRectPosition();
+
+	// Setters
+	void setSprite(sf::Sprite newSprite);
+
+	// Sets the position of the GameObject in global coordinates, and also sets the origin to the center of the GameObject (for inversions)
+	void setPosition(sf::Vector2f position);
 };

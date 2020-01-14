@@ -6,6 +6,8 @@ class PlayerConstants {
 public:
 	// Player Constants
 
+	const static int c_halfDenominator = 2;
+
 	// Player Class enum
 	const enum class PlayerClass { Knight, Wizard, Elf, Dino };
 
@@ -31,6 +33,7 @@ public:
 	const std::string& getPlayerRunAnimName(PlayerClass playerClass);
 	const std::string& getPlayerHitAnimName(PlayerClass playerClass);
 
+	const static int c_playerAnimScalingFactor = 2;
 	const float c_playerAnimSpeed = 0.1f;
 
 	// Player weapon anim stuff
@@ -41,16 +44,13 @@ public:
 	const static int c_weaponAnimScalingFactor = 1;
 	const float c_weaponAnimSpeed = 0.023f;
 
-	const float c_weaponPositionOffsetX = 22;
-	const float c_weaponPositionOffsetY = 12;
+	const float c_weaponPositionOffsetX = 3;
+	const float c_weaponPositionOffsetY = -10;
 
 	// Player weapon hitbox anim stuff
 	std::string c_weaponSwingHitboxAnimName = "knife_hitbox_anim";
 	const static int c_weaponHitboxAnimScalingFactor = 1;
 	const float c_weaponHitboxAnimSpeed = 0.02f;
-
-	const float c_weaponHitboxAnimPositionOffsetX = 9;
-	const float c_weaponHitboxAnimPositionOffsetY = 12;
 
 	// PlayerSummaryGui Constants
 	const sf::Vector2f c_rootPosition = sf::Vector2f(350, 150);

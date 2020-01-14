@@ -1,42 +1,32 @@
 #include "GameObject.h"
+#include <cmath>
 
 sf::Sprite GameObject::getSprite()
 {
 	return m_sprite;
 }
 
-void GameObject::setSprite(sf::Sprite newSprite)
-{
-	m_sprite = newSprite;
-}
-
-sf::FloatRect GameObject::getPosition()
+sf::FloatRect GameObject::getBoundingBox()
 {
 	return m_sprite.getGlobalBounds();
 }
 
-void GameObject::setPosition(sf::Vector2f position)
+sf::Vector2f GameObject::getPosition()
 {
-	m_origin = position;
-	m_sprite.setPosition(position);
+	return m_position;
 }
 
-void GameObject::setOrigin(sf::Vector2f position)
-{
-	m_origin = position;
-	m_sprite.setOrigin(position);
-}
-
+// This getter is mostly useless because it will always return the same value in local coordinates
 sf::Vector2f GameObject::getOrigin()
 {
-	return m_origin;
+	return m_sprite.getOrigin();
 }
 
 // Returns -1 if outside
 int GameObject::getXPositionInTileMap()
 {
-	int xPositionInTileMap = (int) m_origin.x / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
-	if (m_origin.x < 0)
+	int xPositionInTileMap = (int) m_position.x / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
+	if (m_position.x < 0)
 	{
 		return -1;
 	}
@@ -46,8 +36,8 @@ int GameObject::getXPositionInTileMap()
 // Returns -1 if outside
 int GameObject::getYPositionInTileMap()
 {
-	int yPositionInTileMap = (int) m_origin.y / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
-	if (m_origin.y < 0)
+	int yPositionInTileMap = (int) m_position.y / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
+	if (m_position.y < 0)
 	{
 		return -1;
 	}
@@ -57,15 +47,15 @@ int GameObject::getYPositionInTileMap()
 void GameObject::initDebugRect()
 {
 	// Init outline rect
-	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(getPosition().width, getPosition().height));
-	m_debugRectOutline.setPosition(getOrigin());
+	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(getBoundingBox().width, getBoundingBox().height));
+	m_debugRectOutline.setOrigin(getPosition());
 	m_debugRectOutline.setFillColor(sf::Color::Transparent);
 	m_debugRectOutline.setOutlineColor(sf::Color::Red);
 	m_debugRectOutline.setOutlineThickness((float)1);
 
 	// Init Origin rect
 	m_debugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
-	m_debugRectOrigin.setPosition(getOrigin());
+	m_debugRectOrigin.setOrigin(getPosition());
 	m_debugRectOrigin.setFillColor(sf::Color::Green);
 	m_debugRectOrigin.setOutlineColor(sf::Color::Green);
 	m_debugRectOrigin.setOutlineThickness((float)1);
@@ -86,4 +76,23 @@ sf::RectangleShape GameObject::getDebugRectOutline()
 sf::RectangleShape GameObject::getDebugRectOrigin()
 {
 	return m_debugRectOrigin;
+}
+
+sf::RectangleShape GameObject::getDebugRectPosition()
+{
+	return m_debugRectPosition;
+}
+
+void GameObject::setSprite(sf::Sprite newSprite)
+{
+	m_sprite = newSprite;
+}
+
+void GameObject::setPosition(sf::Vector2f position)
+{
+	m_position = position;
+	// Origin is in local co - ordinates, and getBoundingBox() returns the original widthand height of the sprite after scaling,
+	// but origin is applied and then scaled (so e.g for the player, width / 4 is width / 2 scaled by the scaling factor (2))
+	m_sprite.setOrigin(getBoundingBox().width / 2 / abs(m_sprite.getScale().x), getBoundingBox().height / 2 / abs(m_sprite.getScale().y));
+	m_sprite.setPosition(position);
 }

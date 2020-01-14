@@ -10,25 +10,36 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_textureMap = textureMap;
 
 	// Initialize animations
+	// By default, the player is facing right, the animations need a pointer to this member variable
+	// in order to properly know to invert themselves or not
+	m_isFacingLeft = false;
+
 	m_idleAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	m_runAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerRunAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+
 	);
 
 	m_hitAnimation = new Animation(
 		textureMap,
 		m_playerConstants->getPlayerHitAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	m_weaponIdleAnimation = new Animation(
@@ -36,14 +47,16 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->c_weaponIdleAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
 	);
 	m_weaponSwingAnimation = new Animation(
 		textureMap,
 		m_playerConstants->c_weaponSwingAnimName,
 		m_playerConstants->c_weaponAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	m_weaponHitboxAnimation = new Animation(
@@ -51,7 +64,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 		m_playerConstants->c_weaponSwingHitboxAnimName,
 		m_playerConstants->c_weaponHitboxAnimScalingFactor,
 		m_textureMap->getTextureMapConstants()->c_weaponHitboxAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponHitboxAnimSpeed
+		m_playerConstants->c_weaponHitboxAnimSpeed,
+		&m_isFacingLeft
 	);
 
 	// By default, the player will be idle
@@ -62,12 +76,16 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
 	m_weaponIdleAnimation->startAnimation();
 
+	// Init Origin rect (weapon)
+	m_weaponDebugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
+	m_weaponDebugRectOrigin.setFillColor(sf::Color::Yellow);
+	m_weaponDebugRectOrigin.setOutlineColor(sf::Color::Yellow);
+	m_weaponDebugRectOrigin.setOutlineThickness((float)1);
+
 	m_weaponHitboxAnimSprite = sf::Sprite();
 
 	// Initialize player stats
 	initializePlayer();
-
-	setOrigin(c_initialPosition);
 	initDebugRect();
 }
 
@@ -90,25 +108,26 @@ void Player::initializePlayer()
 void Player::update(float timeElapsed)
 {
 
+	sf::Vector2f newPosition = getPosition();
 	// Move the Player if necessary
 	if (m_moveUpPressed)
 	{
-		m_origin.y -= timeElapsed * m_speed;
+		newPosition.y -= timeElapsed * m_speed;
 	}
 
 	if (m_moveDownPressed)
 	{
-		m_origin.y += timeElapsed * m_speed;
+		newPosition.y += timeElapsed * m_speed;
 	}
 
 	if (m_moveLeftPressed)
 	{
-		m_origin.x -= timeElapsed * m_speed;
+		newPosition.x -= timeElapsed * m_speed;
 	}
 
 	if (m_moveRightPressed)
 	{
-		m_origin.x += timeElapsed * m_speed;
+		newPosition.x += timeElapsed * m_speed;
 	}
 
 	if (m_attackPressed)
@@ -116,13 +135,9 @@ void Player::update(float timeElapsed)
 		// TODO: Put out the hitbox
 	}
 
-	// Move the debug rect as well as the player
-	m_debugRectOutline.setPosition(m_origin);
-	m_debugRectOrigin.setPosition(m_origin);
-
 	// TODO: Proper collision detection, with any walls and other GameObjects
+	// TODO: Since doing the face player left issue, existing hit detection is off. Good thing the system will be rewritten soon anyways!
 	// Collision detection - outer walls only
-
 	// Get the position in the TileMap, and check all 8 positions around the player for intersections
 	int xPositionInTileMap = getXPositionInTileMap();
 	int yPositionInTileMap = getYPositionInTileMap();
@@ -133,34 +148,34 @@ void Player::update(float timeElapsed)
 	// Check left boundary
 	if (boundsRect.left < 0)
 	{
-		m_origin.x += timeElapsed * m_speed;
+		newPosition.x += timeElapsed * m_speed;
 	}
 
 	// Check top boundary
 	if (boundsRect.top < 0)
 	{
-		m_origin.y += timeElapsed * m_speed;
+		newPosition.y += timeElapsed * m_speed;
 	}
 
 	// Check right boundary
 	if (boundsRect.left + boundsRect.width >= RoomConstants::c_maxRoomWidthPixels * RoomConstants::c_roomScalingFactor)
 	{
-		m_origin.x -= timeElapsed * m_speed;
+		newPosition.x -= timeElapsed * m_speed;
 	}
 
 	// Check bottom boundary
 	if (boundsRect.top + boundsRect.height >= RoomConstants::c_maxRoomHeightPixels * RoomConstants::c_roomScalingFactor)
 	{
-		m_origin.y -= timeElapsed * m_speed;
+		newPosition.y -= timeElapsed * m_speed;
 	}
 
 	// Handle animation, only one animation should animate at a time
-	if (m_idleAnimation->isAnimating())
+	if (m_idleAnimation->getIsAnimating())
 	{
 		m_idleAnimation->animate();
 		setSprite(*m_idleAnimation->getFrameSprite());
 	}
-	else if (m_runAnimation->isAnimating())
+	else if (m_runAnimation->getIsAnimating())
 	{
 		m_runAnimation->animate();
 		setSprite(*m_runAnimation->getFrameSprite());
@@ -168,7 +183,7 @@ void Player::update(float timeElapsed)
 
 	// Handle weapon animation, only one weapon animation should animate at a time
 	// Player can move and attack at the same time
-	if (m_weaponIdleAnimation->isAnimating() && !m_weaponHitboxAnimation->isAnimating())
+	if (m_weaponIdleAnimation->getIsAnimating() && !m_weaponHitboxAnimation->getIsAnimating())
 	{
 		m_weaponIdleAnimation->animate();
 		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
@@ -176,7 +191,7 @@ void Player::update(float timeElapsed)
 		// This will be used for all animations that aren't visible when not animating
 		setWeaponHitboxAnimSprite(sf::Sprite());
 	}
-	else if (m_weaponSwingAnimation->isAnimating() && m_weaponHitboxAnimation->isAnimating())
+	else if (m_weaponSwingAnimation->getIsAnimating() && m_weaponHitboxAnimation->getIsAnimating())
 	{
 		m_weaponSwingAnimation->animate();
 		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
@@ -184,26 +199,24 @@ void Player::update(float timeElapsed)
 		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
 	}
 
-	m_debugRectOutline.setPosition(m_origin);
-	m_debugRectOrigin.setPosition(m_origin);
+	// Move the debug rect as well as the player
 
-	setPosition(m_origin);
+	// Move the player
+	setPosition(newPosition);
+
+	// Move the debug rect
+	// TODO: Constants
+	sf::Vector2f debugRectOutlinePosition = sf::Vector2f(newPosition.x - getBoundingBox().width / m_playerConstants->c_halfDenominator, newPosition.y - getBoundingBox().height / m_playerConstants->c_halfDenominator);
+	m_debugRectOutline.setPosition(debugRectOutlinePosition);
+	m_debugRectOrigin.setPosition(newPosition);
 
 	// Set weapon sprite position
-	m_weaponSprite.setPosition(
-		sf::Vector2f(
-			m_origin.x + m_playerConstants->c_weaponPositionOffsetX,
-			m_origin.y + m_playerConstants->c_weaponPositionOffsetY
-		)
-	);
+	sf::Vector2f allWeaponSpritesPosition = sf::Vector2f(newPosition.x, newPosition.y + m_playerConstants->c_weaponPositionOffsetY);
+	m_weaponSprite.setPosition(allWeaponSpritesPosition);
+	m_weaponDebugRectOrigin.setPosition(allWeaponSpritesPosition);
 
 	// Set weapon hitbox anim sprite position
-	m_weaponHitboxAnimSprite.setPosition(
-		sf::Vector2f(
-			m_origin.x + m_playerConstants->c_weaponHitboxAnimPositionOffsetX,
-			m_origin.y + m_playerConstants->c_weaponHitboxAnimPositionOffsetY
-		)
-	);
+	m_weaponHitboxAnimSprite.setPosition(allWeaponSpritesPosition);
 }
 
 // GameObject draw method override
@@ -211,6 +224,10 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);
 	target.draw(m_weaponSprite, states);
+	if (m_drawDebugRects)
+	{
+		target.draw(m_weaponDebugRectOrigin, states);
+	}
 	target.draw(m_weaponHitboxAnimSprite, states);
 }
 
@@ -229,11 +246,19 @@ void Player::move(Direction direction)
 
 	if (direction == Direction::LEFT)
 	{
+		if (!m_isFacingLeft)
+		{
+			setIsFacingLeft(true);
+		}
 		m_moveLeftPressed = true;
 	}
 
 	if (direction == Direction::RIGHT)
 	{
+		if (m_isFacingLeft)
+		{
+			setIsFacingLeft(false);
+		}
 		m_moveRightPressed = true;
 	}
 	m_idleAnimation->stopAnimation();
@@ -337,6 +362,20 @@ int Player::getAgility()
 	return m_agility;
 }
 
+Animation *Player::getIdleAnimation()
+{
+	return m_idleAnimation;
+}
+Animation *Player::getRunAnimation()
+{
+	return m_runAnimation;
+}
+
+Animation *Player::getWeaponIdleAnimation()
+{
+	return m_weaponIdleAnimation;
+}
+
 sf::Sprite Player::getWeaponSprite()
 {
 	return m_weaponSprite;
@@ -345,6 +384,11 @@ sf::Sprite Player::getWeaponSprite()
 sf::Sprite Player::getWeaponHitboxAnimSprite()
 {
 	return m_weaponHitboxAnimSprite;
+}
+
+bool Player::getIsFacingLeft()
+{
+	return m_isFacingLeft;
 }
 
 // Setters
@@ -401,4 +445,9 @@ void Player::setWeaponSprite(sf::Sprite weaponSprite)
 void Player::setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite)
 {
 	m_weaponHitboxAnimSprite = weaponHitboxAnimSprite;
+}
+
+void Player::setIsFacingLeft(bool isFacingLeft)
+{
+	m_isFacingLeft = isFacingLeft;
 }

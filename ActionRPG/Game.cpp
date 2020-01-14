@@ -10,7 +10,7 @@ Game::Game(TextureMap *textureMap, sf::Vector2f screenResolution)
 	m_player = new Player(m_textureMap, m_room);
 	addGameObject(m_player);
 	m_gameView = sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y));
-	m_gameView.setCenter(m_player->getOrigin());
+	m_gameView.setCenter(m_player->getPosition());
 
 	// TODO: figure out what else to do with these views (my guess is not much)
 	m_hudView = sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y));
@@ -65,5 +65,5 @@ void Game::addGameObject(GameObject *gameObject)
 
 void Game::centerGameViewOnPlayer()
 {
-	m_gameView.setCenter(m_player->getOrigin());
+	m_gameView.setCenter(m_player->getPosition());
 }

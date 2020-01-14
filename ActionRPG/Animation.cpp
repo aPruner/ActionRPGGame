@@ -1,19 +1,6 @@
 #include "Animation.h"
 
-// Only difference between these two constructors is the scaling factor
-Animation::Animation(TextureMap *textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed)
-{
-	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed);
-	m_sprite->scale((float)AnimationConstants::c_defaultScalingFactor, (float)AnimationConstants::c_defaultScalingFactor);
-}
-
-Animation::Animation(TextureMap *textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed)
-{
-	initAnimation(textureMap, animName, spriteSheetFilename, animationSpeed);
-	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
-}
-
-void Animation::initAnimation(TextureMap* textureMap, std::string const& animName, std::string const& spriteSheetFilename, float animationSpeed)
+Animation::Animation(TextureMap* textureMap, std::string const& animName, int scalingFactor, std::string const& spriteSheetFilename, float animationSpeed, bool *isInvertedX)
 {
 	m_textureMap = textureMap;
 	m_animName = animName;
@@ -22,29 +9,42 @@ void Animation::initAnimation(TextureMap* textureMap, std::string const& animNam
 	initAnimFrames();
 	// Create the sprite from the first frame of the animation
 	m_sprite = new sf::Sprite(m_textureMap->getSpriteSheetFromFilename(spriteSheetFilename), m_animSpriteSheetBounds);
+	m_scalingFactor = scalingFactor;
+	m_sprite->scale((float)scalingFactor, (float)scalingFactor);
 	m_isAnimating = false;
+	m_isInvertedX = isInvertedX;
 }
 
 void Animation::initAnimFrames()
 {
 	std::tuple<int, int, int, int, int> animTuple = m_textureMap->getSpriteSheetAnimVecTuple(m_animName);
 	m_firstFrameTopLeft = sf::Vector2f((float)std::get<0>(animTuple), (float)std::get<1>(animTuple));
-	m_width = std::get<2>(animTuple);
-	m_height = std::get<3>(animTuple);
-	m_frames = std::get<4>(animTuple) - 1;
+	m_width = std::get<AnimationConstants::c_vecTupleWidthIndex>(animTuple);
+	m_height = std::get<AnimationConstants::c_vecTupleHeightIndex>(animTuple);
+	m_frames = std::get<AnimationConstants::c_vecTupleFramesIndex>(animTuple) - AnimationConstants::c_vecTupleFramesOffsetValue;
 	m_animSpriteSheetBounds = sf::IntRect((int)m_firstFrameTopLeft.x, (int)m_firstFrameTopLeft.y, m_width, m_height);
-	m_animIndex = 0;
+	m_animIndex = AnimationConstants::c_animationStartIndex;
 }
 
 void Animation::resetAnimation()
 {
 	m_animSpriteSheetBounds.left = (int)m_firstFrameTopLeft.x;
 	m_sprite->setTextureRect(m_animSpriteSheetBounds);
-	m_animIndex = 0;
+	m_animIndex = AnimationConstants::c_animationStartIndex;
 }
 
 void Animation::updateAnimationFrame()
 {
+	// If necessary, invert the sprite on this frame
+	if (*m_isInvertedX)
+	{
+		m_sprite->setScale(AnimationConstants::c_invertedXScaleValue * m_scalingFactor, m_scalingFactor);
+	}
+	else
+	{
+		m_sprite->setScale(m_scalingFactor, m_scalingFactor);
+	}
+
 	if (m_animIndex < m_frames)
 	{
 		m_animSpriteSheetBounds.left += m_width;
@@ -68,6 +68,7 @@ void Animation::animate()
 	}
 }
 
+// Essentially acts as a setter for m_isAnimating
 void Animation::startAnimation()
 {
 	m_isAnimating = true;
@@ -79,7 +80,9 @@ void Animation::stopAnimation()
 	resetAnimation();
 }
 
-bool Animation::isAnimating()
+// Getters and Setters
+// Getters
+bool Animation::getIsAnimating()
 {
 	return m_isAnimating;
 }
@@ -87,4 +90,9 @@ bool Animation::isAnimating()
 sf::Sprite *Animation::getFrameSprite()
 {
 	return m_sprite;
+}
+
+bool Animation::getIsInvertedX()
+{
+	return *m_isInvertedX;
 }

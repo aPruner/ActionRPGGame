@@ -47,6 +47,9 @@ private:
 	bool m_moveLeftPressed;
 	bool m_moveRightPressed;
 
+	// Flags for which way the player is facing
+	bool m_isFacingLeft;
+
 	// Attack animation flags
 	bool m_attackPressed;
 	bool m_isAttacking;
@@ -66,6 +69,7 @@ private:
 	// TODO: Write a weapon class to that will hold extra data about the weapon, but for now, just a sprite will do
 	sf::Sprite m_weaponSprite;
 	sf::Sprite m_weaponHitboxAnimSprite;
+	sf::RectangleShape m_weaponDebugRectOrigin;
 
 	void initializePlayer();
 
@@ -102,8 +106,12 @@ public:
 	int getWisdom();
 	int getConditioning();
 	int getAgility();
+	Animation *getIdleAnimation();
+	Animation *getRunAnimation();
+	Animation *getWeaponIdleAnimation();
 	sf::Sprite getWeaponSprite();
 	sf::Sprite getWeaponHitboxAnimSprite();
+	bool getIsFacingLeft();
 
 	// Setters
 	void setName(std::string name);
@@ -117,5 +125,6 @@ public:
 	void setAgility(int agility);
 	void setWeaponSprite(sf::Sprite weaponSprite);
 	void setWeaponHitboxAnimSprite(sf::Sprite weaponHitboxAnimSprite);
+	void setIsFacingLeft(bool isFacingLeft);
 
 };
