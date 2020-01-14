@@ -42,6 +42,7 @@ void Engine::initFpsCounter()
 	m_fpsCounter.setCharacterSize(m_engineConstants->c_defaultFontSize);
 	m_fpsCounter.setFillColor(m_engineConstants->c_defaultFontColor);
 	m_fpsCounter.setPosition(m_engineConstants->c_fpsCounterPosition);
+	m_timeSinceLastFpsUpdateSeconds = 0;
 }
 
 void Engine::initPlayerDebugText()
@@ -146,8 +147,13 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
-	m_fps = 1.f / dtSeconds;
-	m_fpsCounter.setString(m_engineConstants->c_fpsCounterInitString + std::to_string(m_fps));
+	m_timeSinceLastFpsUpdateSeconds += dtSeconds;
+	if (m_timeSinceLastFpsUpdateSeconds > 1) {
+		m_fps = 1.f / dtSeconds;
+		m_fpsInt = (int)m_fps;
+		m_fpsCounter.setString(m_engineConstants->c_fpsCounterInitString + std::to_string(m_fpsInt));
+		m_timeSinceLastFpsUpdateSeconds = 0;
+	}
 
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{

@@ -49,6 +49,8 @@ private:
 
 	// Current FPS value
 	float m_fps;
+	int m_fpsInt;
+	float m_timeSinceLastFpsUpdateSeconds;
 
 	// Initialize the fps counter
 	void initFpsCounter();
