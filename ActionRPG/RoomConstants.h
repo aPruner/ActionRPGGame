@@ -1,4 +1,6 @@
 #pragma once
+#include <map>
+#include <string>
 
 class RoomConstants {
 public:
@@ -12,4 +14,7 @@ public:
 	const static int c_roomScalingFactor = 2;
 	const static int c_roomTileMapSize = c_maxRoomWidthTiles * c_maxRoomHeightTiles;
 	const static size_t c_roomVASize = c_roomTileMapSize * c_vertsInQuad;
+
+	// Room of chars representing tiles in a .txt room file mapped to texture names for those tiles
+	const static std::map<std::string, std::string> c_roomTxtCharMap;
 };
