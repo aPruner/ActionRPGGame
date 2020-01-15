@@ -1,5 +1,31 @@
 #include "RoomConstants.h"
 
+// TODO: Define all constants that are currently not static in a similar way to this one
 std::map<std::string, std::string> c_roomTxtCharMap = {
-	{"a", "wall_top"}
+	{"a", "wall_top"},
+	{"b", "wall_top"},
+	{"c", "wall_top"},
+	{"d", "wall_top"},
+	{"e", "wall_top"},
+	{"f", "wall_top"},
+	{"g", "wall_top"},
+	{"h", "wall_top"},
+	{"i", "wall_top"},
+	{"j", "wall_top"},
+	{"k", "wall_top"},
+	{"l", "wall_top"},
+	{"m", "wall_top"},
+	{"n", "wall_top"},
+	{"o", "wall_top"},
+	{"p", "wall_top"},
+	{"q", "wall_top"},
+	{"r", "wall_top"},
+	{"s", "wall_top"},
+	{"t", "wall_top"},
+	{"u", "wall_top"},
+	{"v", "wall_top"},
+	{"w", "wall_top"},
+	{"x", "wall_top"},
+	{"y", "wall_top"},
+	{"z", "wall_top"},
 };
