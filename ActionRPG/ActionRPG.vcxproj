@@ -150,6 +150,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationConstants.h" />
     <ClInclude Include="DisplayGuiWidget.h" />
+    <ClInclude Include="DungeonReader.h" />
     <ClInclude Include="GuiWidgetConstants.h" />
     <ClInclude Include="PlayerSummaryGui.h" />
     <ClInclude Include="Engine.h" />

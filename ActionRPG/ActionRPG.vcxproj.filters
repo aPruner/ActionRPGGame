@@ -128,5 +128,8 @@
     <ClInclude Include="TextureMapConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DungeonReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
