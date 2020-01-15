@@ -20,6 +20,9 @@ private:
 	// VertexArray representing the roomTileMap (this is drawn)
 	sf::VertexArray m_roomVA;
 
+	// VertexArray for walls that are drawn ontop (and around) the tiles
+	sf::VertexArray m_roomWallLayerVA;
+
 	// TODO: Add a data structure that represents a room read in from a file
 
 public:
@@ -29,8 +32,14 @@ public:
 	// Write to the VA to create the room (so it can be drawn)
 	void createRoom();
 
-	// Getter for the VA, which will need to be drawn by the Engine
+	// Getters and Setters
+	// Getters
+
+	// Getter for the room (under layer)
 	sf::VertexArray& getRoomVA();
+
+	// Getter for the wall layer VA
+	sf::VertexArray& getRoomWallLayerVA();
 
 	// Get a tile from the tile map at logical position x, y
 	Tile *getTile(int x, int y);

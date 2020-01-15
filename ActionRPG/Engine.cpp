@@ -179,6 +179,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 
 	// Draw the room
 	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), &m_textureMap->getRoomSpriteSheet());
+	m_gameWindow->draw(m_game->getRoom()->getRoomWallLayerVA(), &m_textureMap->getRoomSpriteSheet());
 
 	// Draw debug rects for tiles
 	Tile **roomTileMap = m_game->getRoom()->getRoomTileMap();

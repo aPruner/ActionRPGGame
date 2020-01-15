@@ -23,7 +23,14 @@ void Tile::initDebugRect()
 		(float)(m_yPosition * RoomConstants::c_tileSideLengthPixels * RoomConstants::c_roomScalingFactor)
 	));
 	m_debugRect.setFillColor(sf::Color::Transparent);
-	m_debugRect.setOutlineColor(sf::Color::Blue);
+	if (m_isSolid)
+	{
+		m_debugRect.setOutlineColor(sf::Color::Red);
+	}
+	else
+	{
+		m_debugRect.setOutlineColor(sf::Color::Blue);
+	}
 	m_debugRect.setOutlineThickness((float)1);
 	m_drawDebugRect = true;
 }
