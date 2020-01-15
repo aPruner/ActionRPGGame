@@ -29,6 +29,8 @@ void Room::createRoom()
 	m_roomWallLayerVA.resize(RoomConstants::c_roomVASize);
 
 	int currentTile = 0;
+	bool drawFloorTile = false;
+	bool drawWallTile = false;
 
 	for (int i = 0; i < RoomConstants::c_maxRoomHeightTiles; i++)
 	{
@@ -61,83 +63,118 @@ void Room::createRoom()
 			if (i == 0 && j == 0) // top left corner case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_top_left";
 			}
 			else if (i == 0 && j == RoomConstants::c_maxRoomWidthTiles - 1) // top right corner case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_top_right";
 			}
 			else if (i == RoomConstants::c_maxRoomHeightTiles - 1 && j == 0) // bottom left corner case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_front_left";
 			}
 			else if (i == RoomConstants::c_maxRoomHeightTiles - 1 && j == RoomConstants::c_maxRoomWidthTiles - 1) // bottom right corner case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_front_right";
 			}
 			else if (i == 1 && j == 0) // under top left corner case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_mid_left";
 			}
-			else if (i == 1 && j == RoomConstants::c_maxRoomWidthTiles - 1) // Under top right corner case
+			else if (i == 1 && j == RoomConstants::c_maxRoomWidthTiles - 1) // under top right corner case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_mid_right";
 			}
 			else if (i == RoomConstants::c_maxRoomHeightTiles - 2 && j == 0)
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_mid_left";
 			}
 			else if (i == RoomConstants::c_maxRoomHeightTiles - 2 && j == RoomConstants::c_maxRoomWidthTiles - 1)
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_mid_right";
 			}
 			else if (i == 1) // top wall case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_mid";
 			}
 			else if (i == RoomConstants::c_maxRoomHeightTiles - 2) // bottom wall top part case
 			{
-				isSolid = true;
+				isSolid = false;
+				drawFloorTile = true;
+				drawWallTile = true;
 				tileTextureName = "wall_top_mid";
 			}
 			else if (i == 0) // top wall top part case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_top_mid";
 
 			}
 			else if (j == 0) // left wall case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_mid_left";
 			}
 			else if (i == RoomConstants::c_maxRoomHeightTiles - 1) // bottom wall case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_mid";
 			}
 			else if (j == RoomConstants::c_maxRoomWidthTiles - 1) // right wall case
 			{
 				isSolid = true;
+				drawFloorTile = false;
+				drawWallTile = true;
 				tileTextureName = "wall_side_mid_right";
 			}
+			else
+			{
+				isSolid = false;
+				drawFloorTile = true;
+				drawWallTile = false;
+				tileTextureName = c_floor1TextureName;
+			}
 
-			Tile *tile = new Tile(c_floor1TextureName, isSolid, i, j);
+			Tile *tile = new Tile(tileTextureName, isSolid, j, i);
 			m_roomTileMap[i * RoomConstants::c_maxRoomWidthTiles + j] = tile;
 
 			// Now fill the VA texture coordinates
 			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple;
-			vecTuple = m_textureMap->getSpriteSheetVecTuple(c_floor1TextureName);
 
-			if (!isSolid) {
+			if (drawFloorTile) {
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_floor1TextureName);
 				m_roomVA[currentTile].texCoords = std::get<0>(vecTuple);
 				m_roomVA[currentTile + 1].texCoords = std::get<1>(vecTuple);
 				m_roomVA[currentTile + 2].texCoords = std::get<2>(vecTuple);
@@ -145,7 +182,7 @@ void Room::createRoom()
 			}
 
 			// When necessary, fill the wall layer VA
-			if (isSolid)
+			if (drawWallTile)
 			{
 				// Set the position of the current tile in the WallLayerVA
 				m_roomWallLayerVA[currentTile].position = sf::Vector2f(
