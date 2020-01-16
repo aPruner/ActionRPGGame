@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cmath>
 #include "TextureMap.h"
 #include "RoomConstants.h"
 

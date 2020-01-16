@@ -15,7 +15,8 @@ DungeonReader::~DungeonReader()
 }
 
 // TODO: Decide how rooms/dungeons will work, for now, dungeon reader will only read in a room
-// but technically, the txt file could represent a whole dungeon (multiple rooms with corridors connecting them)
+// but later on the .txt file could represent a whole dungeon (multiple rooms with corridors connecting them)
+// if I want to design it that way - maybe my decision on procedural generation will influence this?
 Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 {
 	std::ifstream dungeonFile;
@@ -31,32 +32,25 @@ Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 	int dungeonWidthTiles = std::stoi(splitLine.at(0));
 	int dungeonHeightTiles = std::stoi(splitLine.at(1));
 	
-
 	while (std::getline(dungeonFile, line))
 	{
 		tilesLineVec.push_back(line);
 	}
 
-	Tile **dungeonRepresentation = new Tile *[dungeonWidthTiles * dungeonHeightTiles];
+	Tile **tileGrid = new Tile *[dungeonWidthTiles * dungeonHeightTiles];
 
 	for (int i = 0; i < dungeonHeightTiles; i++)
 	{
 		for (int j = 0; j < dungeonWidthTiles; j++)
 		{
+			// Get the necessary data to create this tile
 			std::string tileTextureName = RoomConstants::c_roomTxtCharMap.at(tilesLineVec.at(i)[j]);
-			dungeonRepresentation[i * dungeonWidthTiles + j] = new Tile();
-			// Create tile and insert in tile map
+			TileProperties tileProperties = TileConstants::c_tilePropertyMap.at(tileTextureName);
+
+			// Create tile and insert in the tile grid
+			tileGrid[i * dungeonWidthTiles + j] = new Tile(tileTextureName, &tileProperties, j, i);
 		}
 	}
 	
-	Room *room = new Room(m_textureMap, dungeonWidthTiles, dungeonHeightTiles);
-	
-
-
-
-	// Step 1: Read chars into data structure (maybe vector of strings)
-	// Step 2: Build new data structure with chars that can be used to index roomTxtCharMap (to get tile types)
-	// Step 3: Loop through this new data structure and create logical tiles in a tile map with correct logic for each tile type
-	// Step 4: Write logical data to the VAs and draw the logical tile map
-	return room;
+	return new Room(m_textureMap, dungeonWidthTiles, dungeonHeightTiles, tileGrid);
 }

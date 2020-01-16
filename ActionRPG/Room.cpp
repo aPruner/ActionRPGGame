@@ -1,6 +1,6 @@
 #include "Room.h"
 
-Room::Room(TextureMap* textureMap, int widthTiles, int heightTiles, Tile *roomRepresentation[])
+Room::Room(TextureMap* textureMap, int widthTiles, int heightTiles, Tile *roomTileGrid[])
 {
 	m_textureMap = textureMap;
 	m_widthTiles = widthTiles;
@@ -14,10 +14,10 @@ Room::~Room()
 	{
 		for (int j = 0; j < RoomConstants::c_maxRoomWidthTiles; j++)
 		{
-			delete m_roomTileMap[i * RoomConstants::c_maxRoomWidthTiles + j];
+			delete m_roomTileGrid[i * RoomConstants::c_maxRoomWidthTiles + j];
 		}
 	}
-	delete[] m_roomTileMap;
+	delete[] m_roomTileGrid;
 }
 
 // Populate the VertexArrays
@@ -229,12 +229,12 @@ sf::VertexArray& Room::getRoomWallLayerVA()
 
 Tile *Room::getTile(int x, int y)
 {
-	return m_roomTileMap[y * RoomConstants::c_maxRoomWidthPixels + x];
+	return m_roomTileGrid[y * RoomConstants::c_maxRoomWidthPixels + x];
 }
 
 Tile **Room::getRoomTileMap()
 {
-	return m_roomTileMap;
+	return m_roomTileGrid;
 }
 
 int Room::getMaxRoomWidthTiles()

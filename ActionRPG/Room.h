@@ -14,8 +14,8 @@ private:
 	int m_widthTiles;
 	int m_heightTiles;
 
-	// Tile map (logically represents the room)
-	Tile *m_roomTileMap[RoomConstants::c_roomTileMapSize];
+	// Tile Grid (logically represents the room)
+	Tile *m_roomTileGrid[RoomConstants::c_roomTileMapSize];
 
 	// Instance of the textureMap
 	TextureMap *m_textureMap;
@@ -27,7 +27,7 @@ private:
 	sf::VertexArray m_roomWallLayerVA;
 
 public:
-	Room(TextureMap *textureMap, int roomWidthTiles, int roomHeightTiles);
+	Room(TextureMap *textureMap, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
 	~Room();
 
 	// Write to the VA to create the room (so it can be drawn)

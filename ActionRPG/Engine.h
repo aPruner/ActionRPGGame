@@ -1,11 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <sstream>
 #include "GameObject.h"
 #include "Game.h"
 #include "Gui.h"
 #include "TextureMap.h"
 #include "EngineConstants.h"
 #include "PlayerSummaryGui.h"
+#include "Player.h"
+
 
 class Engine
 {

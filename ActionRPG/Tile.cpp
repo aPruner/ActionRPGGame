@@ -1,9 +1,11 @@
 #include "Tile.h"
 
-Tile::Tile(std::string const& tileTextureName, bool isSolid, int xPosition, int yPosition)
+Tile::Tile(std::string const& tileTextureName, TileProperties *tileProperties, int xPosition, int yPosition)
 {
 	m_tileTextureName = tileTextureName;
-	m_isSolid = isSolid;
+	m_tileProperties = tileProperties;
+	m_isSolid = tileProperties->getIsSolid();
+	m_isAnimated = tileProperties->getIsAnimated();
 	m_xPosition = xPosition;
 	m_yPosition = yPosition;
 	m_bounds = sf::FloatRect(
@@ -35,6 +37,8 @@ void Tile::initDebugRect()
 	m_drawDebugRect = true;
 }
 
+// Getters and Setters
+// Getters
 sf::FloatRect Tile::getBounds()
 {
 	return m_bounds;
@@ -48,4 +52,16 @@ sf::RectangleShape Tile::getDebugRectangleShape()
 bool Tile::getDebugStatus()
 {
 	return m_drawDebugRect;
+}
+
+// Setters
+void Tile::setIsSolid(bool isSolid)
+{
+	m_isSolid = isSolid;
+}
+
+
+void Tile::setIsAnimated(bool isAnimated)
+{
+	m_isAnimated = isAnimated;
 }

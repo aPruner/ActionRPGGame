@@ -1,8 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <sstream>
 #include "Engine.h"
-#include "Player.h"
-#include "PlayerSummaryGui.h"
 
 Engine::Engine()
 {

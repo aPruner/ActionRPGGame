@@ -1,4 +1,5 @@
 #pragma once
+#include <sstream>
 #include "Gui.h"
 #include "Player.h"
 #include "WindowGuiWidget.h"

@@ -2,6 +2,8 @@
 
 // TODO: Be aware of wall top part edge case, it may (seemingly) need to be solid if it is part of a top (back) wall,
 // but it shouldn't be solid as part of a bottom (front) wall
+
+// TODO: This map is static, but the TileProperties values in the <key, value> pairs are not on the heap. Am I good here?
 std::map<std::string, TileProperties> c_tilePropertyMap = {
 	{"wall_top_left", TileProperties(false, false, "wall_top_left")},
 	{"wall_top_mid", TileProperties(false, false, "wall_top_mid")},
@@ -58,7 +60,7 @@ std::map<std::string, TileProperties> c_tilePropertyMap = {
 	{"hole", TileProperties(true, false, "hole")}
 };
 
-TileProperties::TileProperties(bool isSolid, bool isAnimated, std::string tileTextureName)
+TileProperties::TileProperties(bool isSolid, bool isAnimated, std::string const& tileTextureName)
 {
 	m_isSolid = isSolid;
 	m_isAnimated = isAnimated;
