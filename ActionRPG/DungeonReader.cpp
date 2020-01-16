@@ -24,23 +24,33 @@ Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 	std::string line;
 	std::vector<std::string> tilesLineVec = std::vector<std::string>();
 
-	int maxLineLength = 0;
+	// Read the first line to get the dimensions of the dungeon
+	std::getline(dungeonFile, line);
+	std::istringstream lineStream(line);
+	std::vector<std::string> splitLine((std::istream_iterator<std::string>(lineStream)), std::istream_iterator<std::string>());
+	int dungeonWidthTiles = std::stoi(splitLine.at(0));
+	int dungeonHeightTiles = std::stoi(splitLine.at(1));
+	
 
 	while (std::getline(dungeonFile, line))
 	{
 		tilesLineVec.push_back(line);
-		if (line.length() > maxLineLength)
-		{
-			maxLineLength = line.length();
-		}
 	}
 
-	// The width of the dungeon will be the length of the longest line in the file
-	int dungeonWidthTiles = maxLineLength;
-	// The height of the dungeon will be the length of the lines vector
-	int dungeonHeightTiles = tilesLineVec.size();
-	Room* room = new Room(m_textureMap, dungeonWidthTiles, dungeonHeightTiles);
-	// TODO: finish this method
+	Tile **dungeonRepresentation = new Tile *[dungeonWidthTiles * dungeonHeightTiles];
+
+	for (int i = 0; i < dungeonHeightTiles; i++)
+	{
+		for (int j = 0; j < dungeonWidthTiles; j++)
+		{
+			std::string tileTextureName = RoomConstants::c_roomTxtCharMap.at(tilesLineVec.at(i)[j]);
+			dungeonRepresentation[i * dungeonWidthTiles + j] = new Tile();
+			// Create tile and insert in tile map
+		}
+	}
+	
+	Room *room = new Room(m_textureMap, dungeonWidthTiles, dungeonHeightTiles);
+	
 
 
 
@@ -48,4 +58,5 @@ Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 	// Step 2: Build new data structure with chars that can be used to index roomTxtCharMap (to get tile types)
 	// Step 3: Loop through this new data structure and create logical tiles in a tile map with correct logic for each tile type
 	// Step 4: Write logical data to the VAs and draw the logical tile map
+	return room;
 }

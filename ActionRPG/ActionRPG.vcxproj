@@ -145,6 +145,7 @@
     <ClCompile Include="TextGuiWidget.cpp" />
     <ClCompile Include="TextureMap.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileConstants.cpp" />
     <ClCompile Include="WindowGuiWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,7 @@
     <ClInclude Include="TextureMapConstants.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="GuiWidget.h" />
+    <ClInclude Include="TileConstants.h" />
     <ClInclude Include="WindowGuiWidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

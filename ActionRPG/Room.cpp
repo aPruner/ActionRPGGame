@@ -1,10 +1,11 @@
 #include "Room.h"
 
-Room::Room(TextureMap* textureMap, int widthTiles, int heightTiles)
+Room::Room(TextureMap* textureMap, int widthTiles, int heightTiles, Tile *roomRepresentation[])
 {
 	m_textureMap = textureMap;
 	m_widthTiles = widthTiles;
 	m_heightTiles = heightTiles;
+	
 }
 
 Room::~Room()
@@ -16,9 +17,10 @@ Room::~Room()
 			delete m_roomTileMap[i * RoomConstants::c_maxRoomWidthTiles + j];
 		}
 	}
+	delete[] m_roomTileMap;
 }
 
-// Populate the VA
+// Populate the VertexArrays
 void Room::initRoom()
 {
 
