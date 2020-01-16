@@ -1,8 +1,12 @@
 #include "Room.h"
 
-Room::Room(TextureMap* textureMap, int widthTiles, int heightTiles, Tile *roomTileGrid[])
+Room::Room(TextureMap* textureMap, RoomConstants* roomConstants, TileConstants* tileConstants, int widthTiles, int heightTiles, Tile *roomTileGrid[])
 {
 	m_textureMap = textureMap;
+	m_roomConstants = roomConstants;
+	m_tileConstants = tileConstants;
+	m_roomTileGrid = roomTileGrid;
+
 	m_widthTiles = widthTiles;
 	m_heightTiles = heightTiles;
 }
@@ -60,122 +64,11 @@ void Room::initRoom()
 				(float) ((i + 1) * tileSideLengthPixels * scalingFactor)
 			);
 
-			// TODO: Implement system where text files (containing rows of chars representing tiles) are read in and converted into rooms
-			// Create a new tile in the tile map
-			bool isSolid = false;
-			std::string tileTextureName;
-			if (i == 0 && j == 0) // top left corner case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_top_left";
-			}
-			else if (i == 0 && j == RoomConstants::c_maxRoomWidthTiles - 1) // top right corner case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_top_right";
-			}
-			else if (i == RoomConstants::c_maxRoomHeightTiles - 1 && j == 0) // bottom left corner case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_front_left";
-			}
-			else if (i == RoomConstants::c_maxRoomHeightTiles - 1 && j == RoomConstants::c_maxRoomWidthTiles - 1) // bottom right corner case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_front_right";
-			}
-			else if (i == 1 && j == 0) // under top left corner case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_mid_left";
-			}
-			else if (i == 1 && j == RoomConstants::c_maxRoomWidthTiles - 1) // under top right corner case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_mid_right";
-			}
-			else if (i == RoomConstants::c_maxRoomHeightTiles - 2 && j == 0)
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_mid_left";
-			}
-			else if (i == RoomConstants::c_maxRoomHeightTiles - 2 && j == RoomConstants::c_maxRoomWidthTiles - 1)
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_mid_right";
-			}
-			else if (i == 1) // top wall case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_mid";
-			}
-			else if (i == RoomConstants::c_maxRoomHeightTiles - 2) // bottom wall top part case
-			{
-				isSolid = false;
-				drawFloorTile = true;
-				drawWallTile = true;
-				tileTextureName = "wall_top_mid";
-			}
-			else if (i == 0) // top wall top part case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_top_mid";
-
-			}
-			else if (j == 0) // left wall case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_mid_left";
-			}
-			else if (i == RoomConstants::c_maxRoomHeightTiles - 1) // bottom wall case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_mid";
-			}
-			else if (j == RoomConstants::c_maxRoomWidthTiles - 1) // right wall case
-			{
-				isSolid = true;
-				drawFloorTile = false;
-				drawWallTile = true;
-				tileTextureName = "wall_side_mid_right";
-			}
-			else
-			{
-				isSolid = false;
-				drawFloorTile = true;
-				drawWallTile = false;
-				tileTextureName = RoomConstants::c_floor1TextureName;
-			}
-
 			// Now fill the VA texture coordinates
 			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple;
 
 			if (drawFloorTile) {
-				vecTuple = m_textureMap->getSpriteSheetVecTuple(RoomConstants::c_floor1TextureName);
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(m_roomConstants->c_floor1TextureName);
 				m_roomVA[currentTile].texCoords = std::get<0>(vecTuple);
 				m_roomVA[currentTile + 1].texCoords = std::get<1>(vecTuple);
 				m_roomVA[currentTile + 2].texCoords = std::get<2>(vecTuple);
@@ -202,7 +95,7 @@ void Room::initRoom()
 					(float)(j * tileSideLengthPixels * scalingFactor),
 					(float)((i + 1) * tileSideLengthPixels * scalingFactor)
 				);
-				vecTuple = m_textureMap->getSpriteSheetVecTuple(tileTextureName);
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(m_roomConstants->c_floor1TextureName);
 				m_roomWallLayerVA[currentTile].texCoords = std::get<0>(vecTuple);
 				m_roomWallLayerVA[currentTile + 1].texCoords = std::get<1>(vecTuple);
 				m_roomWallLayerVA[currentTile + 2].texCoords = std::get<2>(vecTuple);
@@ -229,7 +122,7 @@ Tile *Room::getTile(int x, int y)
 	return m_roomTileGrid[y * RoomConstants::c_maxRoomWidthPixels + x];
 }
 
-Tile **Room::getRoomTileMap()
+Tile **Room::getRoomTileGrid()
 {
 	return m_roomTileGrid;
 }

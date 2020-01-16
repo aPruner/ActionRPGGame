@@ -6,11 +6,12 @@ Game::Game(TextureMap *textureMap, DungeonReader *dungeonReader, sf::Vector2f sc
 	m_textureMap = textureMap;
 	m_dungeonReader = dungeonReader;
 	m_gameObjects = new std::vector<GameObject *>();
+
 	// Read the room in from a dungeon file
-	
 	// TODO: constant for room filename
 	m_room = dungeonReader->readDungeon("rooms/room01.txt");
 	m_room->initRoom();
+
 	m_player = new Player(m_textureMap, m_room);
 	addGameObject(m_player);
 	m_gameView = sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y));

@@ -8,14 +8,18 @@
 class Room
 {
 private:
-	// Room constants are all static values, so no need for constants object
+	// TODO: not sure if these are necessary here, get rid of them if possible
+	// RoomConstants instance
+	RoomConstants *m_roomConstants;
+	// TileConstants instance
+	TileConstants *m_tileConstants;
 
 	// Width and Height of the room in tiles
 	int m_widthTiles;
 	int m_heightTiles;
 
 	// Tile Grid (logically represents the room)
-	Tile *m_roomTileGrid[RoomConstants::c_roomTileMapSize];
+	Tile **m_roomTileGrid;
 
 	// Instance of the textureMap
 	TextureMap *m_textureMap;
@@ -27,7 +31,7 @@ private:
 	sf::VertexArray m_roomWallLayerVA;
 
 public:
-	Room(TextureMap *textureMap, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
+	Room(TextureMap *textureMap, RoomConstants* roomConstants, TileConstants* tileConstants, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
 	~Room();
 
 	// Write to the VA to create the room (so it can be drawn)
@@ -46,7 +50,7 @@ public:
 	Tile *getTile(int x, int y);
 
 	// Get the tilemap
-	Tile **getRoomTileMap();
+	Tile **getRoomTileGrid();
 
 	int getMaxRoomWidthTiles();
 	int getMaxRoomHeightTiles();

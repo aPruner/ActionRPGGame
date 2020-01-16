@@ -8,7 +8,15 @@
 
 class DungeonReader {
 private:
+	// Instance of the TextureMap
 	TextureMap *m_textureMap;
+	
+	// Instance of RoomConstants
+	RoomConstants *m_roomConstants;
+
+	// Instance of TileConstants
+	TileConstants *m_tileConstants;
+
 public:
 	DungeonReader(TextureMap *textureMap);
 	~DungeonReader();

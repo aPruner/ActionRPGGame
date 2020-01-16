@@ -63,9 +63,6 @@
     <ClCompile Include="WindowGuiWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RoomConstants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DungeonReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

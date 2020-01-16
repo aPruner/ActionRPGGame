@@ -15,6 +15,10 @@ DungeonReader::~DungeonReader()
 // if I want to design it that way - maybe my decision on procedural generation will influence this?
 Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 {
+	// initialize static RoomConstants and TileConstants maps
+	m_roomConstants = new RoomConstants();
+	m_tileConstants = new TileConstants();
+
 	std::ifstream dungeonFile;
 	dungeonFile.open(dungeonFilename);
 
@@ -40,13 +44,13 @@ Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 		for (int j = 0; j < dungeonWidthTiles; j++)
 		{
 			// Get the necessary data to create this tile
-			std::string tileTextureName = RoomConstants::c_roomTxtCharMap.at(tilesLineVec.at(i)[j]);
-			TileProperties tileProperties = TileConstants::c_tilePropertyMap.at(tileTextureName);
+			std::string tileTextureName = m_roomConstants->c_roomTxtCharMap.at(tilesLineVec.at(i)[j]);
+			TileProperties tileProperties = m_tileConstants->c_tilePropertyMap.at(tileTextureName);
 
 			// Create tile and insert in the tile grid
 			tileGrid[i * dungeonWidthTiles + j] = new Tile(tileTextureName, &tileProperties, j, i);
 		}
 	}
 	
-	return new Room(m_textureMap, dungeonWidthTiles, dungeonHeightTiles, tileGrid);
+	return new Room(m_textureMap, m_roomConstants, m_tileConstants, dungeonWidthTiles, dungeonHeightTiles, tileGrid);
 }
