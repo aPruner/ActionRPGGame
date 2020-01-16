@@ -16,5 +16,7 @@ public:
 	const static size_t c_roomVASize = c_roomTileMapSize * c_vertsInQuad;
 
 	// Room of chars representing tiles in a .txt room file mapped to texture names for those tiles
-	const static std::map<std::string, std::string> c_roomTxtCharMap;
-};
+	const static std::map<char, std::string> c_roomTxtCharMap;
+
+	const static std::string c_floor1TextureName;
+}; 

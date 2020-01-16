@@ -3,13 +3,16 @@
 #include "TextureMap.h"
 #include "RoomConstants.h"
 
+// TODO: Decide if Room class will be needed, or if it will just be Dungeon instead
+// Based on this decision, rename Room class to Dungeon or create a new Dungeon class
 class Room
 {
 private:
 	// Room constants are all static values, so no need for constants object
 
-	// TODO: Map TileType enum to tileType strings
-	const std::string c_floor1TextureName = "floor_1";
+	// Width and Height of the room in tiles
+	int m_widthTiles;
+	int m_heightTiles;
 
 	// Tile map (logically represents the room)
 	Tile *m_roomTileMap[RoomConstants::c_roomTileMapSize];
@@ -23,14 +26,12 @@ private:
 	// VertexArray for walls that are drawn ontop (and around) the tiles
 	sf::VertexArray m_roomWallLayerVA;
 
-	// TODO: Add a data structure that represents a room read in from a file
-
 public:
-	Room(TextureMap *textureMap);
+	Room(TextureMap *textureMap, int roomWidthTiles, int roomHeightTiles);
 	~Room();
 
 	// Write to the VA to create the room (so it can be drawn)
-	void createRoom();
+	void initRoom();
 
 	// Getters and Setters
 	// Getters

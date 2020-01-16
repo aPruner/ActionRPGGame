@@ -1,8 +1,10 @@
 #include "Room.h"
 
-Room::Room(TextureMap* textureMap)
+Room::Room(TextureMap* textureMap, int widthTiles, int heightTiles)
 {
 	m_textureMap = textureMap;
+	m_widthTiles = widthTiles;
+	m_heightTiles = heightTiles;
 }
 
 Room::~Room()
@@ -17,7 +19,7 @@ Room::~Room()
 }
 
 // Populate the VA
-void Room::createRoom()
+void Room::initRoom()
 {
 
 	// Configure the VA
@@ -164,7 +166,7 @@ void Room::createRoom()
 				isSolid = false;
 				drawFloorTile = true;
 				drawWallTile = false;
-				tileTextureName = c_floor1TextureName;
+				tileTextureName = RoomConstants::c_floor1TextureName;
 			}
 
 			Tile *tile = new Tile(tileTextureName, isSolid, j, i);
@@ -174,7 +176,7 @@ void Room::createRoom()
 			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple;
 
 			if (drawFloorTile) {
-				vecTuple = m_textureMap->getSpriteSheetVecTuple(c_floor1TextureName);
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(RoomConstants::c_floor1TextureName);
 				m_roomVA[currentTile].texCoords = std::get<0>(vecTuple);
 				m_roomVA[currentTile + 1].texCoords = std::get<1>(vecTuple);
 				m_roomVA[currentTile + 2].texCoords = std::get<2>(vecTuple);

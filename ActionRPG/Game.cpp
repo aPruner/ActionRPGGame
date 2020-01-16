@@ -5,8 +5,8 @@ Game::Game(TextureMap *textureMap, sf::Vector2f screenResolution)
 	m_screenResolution = screenResolution;
 	m_textureMap = textureMap;
 	m_gameObjects = new std::vector<GameObject *>();
-	m_room = new Room(textureMap);
-	m_room->createRoom();
+	m_room = new Room(textureMap, 16, 16); // TODO: Make game use the DungeonReader to create the room here
+	m_room->initRoom();
 	m_player = new Player(m_textureMap, m_room);
 	addGameObject(m_player);
 	m_gameView = sf::View(sf::FloatRect(0, 0, screenResolution.x, screenResolution.y));
