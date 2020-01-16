@@ -1,11 +1,15 @@
 #include "Game.h"
 
-Game::Game(TextureMap *textureMap, sf::Vector2f screenResolution)
+Game::Game(TextureMap *textureMap, DungeonReader *dungeonReader, sf::Vector2f screenResolution)
 {
 	m_screenResolution = screenResolution;
 	m_textureMap = textureMap;
+	m_dungeonReader = dungeonReader;
 	m_gameObjects = new std::vector<GameObject *>();
-	m_room = new Room(textureMap, 16, 16); // TODO: Make game use the DungeonReader to create the room here
+	// Read the room in from a dungeon file
+	
+	// TODO: constant for room filename
+	m_room = dungeonReader->readDungeon("rooms/room01.txt");
 	m_room->initRoom();
 	m_player = new Player(m_textureMap, m_room);
 	addGameObject(m_player);

@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include <cmath>
 
 sf::Sprite GameObject::getSprite()
 {

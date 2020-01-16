@@ -16,10 +16,16 @@ Engine::Engine()
 	// Initializie the player debug text
 	initPlayerDebugText();
 
-	// Initialize the game
+	// Initialize the texture map
 	m_textureMap = new TextureMap();
-	m_game = new Game(m_textureMap, m_screenResolution);
 
+	// Initialize the dungeon reader
+	m_dungeonReader = new DungeonReader(m_textureMap);
+
+	// Initialize the game
+	m_game = new Game(m_textureMap, m_dungeonReader, m_screenResolution);
+
+	// Initialize gui array
 	m_guiInstances = new std::vector<Gui *>();
 
 	// Initialize Player Gui

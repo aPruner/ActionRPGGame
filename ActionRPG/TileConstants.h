@@ -1,14 +1,8 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <map>
 #include <string>
-
-class TileConstants {
-public:
-	// TileConstants includes constant maps for all of the tile data
-
-	// Map tileTextureName -> TileProperties object
-	const static std::map<std::string, TileProperties> c_tilePropertyMap;
-};
+#include "RoomConstants.h"
 
 // TileProperties is essentially a struct (class) that holds constant properties for each tile type
 // TileProperties will be populated in the above c_tilePropertyMap for each tile texture
@@ -33,4 +27,12 @@ public:
 	bool getIsAnimated();
 	std::string getTileTextureName();
 
+};
+
+class TileConstants {
+public:
+	// TileConstants includes constant maps for all of the tile data
+
+	// Map tileTextureName -> TileProperties object
+	const static std::map<std::string, TileProperties> c_tilePropertyMap;
 };

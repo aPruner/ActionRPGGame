@@ -5,7 +5,6 @@ Room::Room(TextureMap* textureMap, int widthTiles, int heightTiles, Tile *roomTi
 	m_textureMap = textureMap;
 	m_widthTiles = widthTiles;
 	m_heightTiles = heightTiles;
-	
 }
 
 Room::~Room()
@@ -17,9 +16,10 @@ Room::~Room()
 			delete m_roomTileGrid[i * RoomConstants::c_maxRoomWidthTiles + j];
 		}
 	}
-	delete[] m_roomTileGrid;
+	delete[] &m_roomTileGrid;
 }
 
+// TODO: draw the room as per the tileGrid, instead of hardcoded
 // Populate the VertexArrays
 void Room::initRoom()
 {
@@ -170,9 +170,6 @@ void Room::initRoom()
 				drawWallTile = false;
 				tileTextureName = RoomConstants::c_floor1TextureName;
 			}
-
-			Tile *tile = new Tile(tileTextureName, isSolid, j, i);
-			m_roomTileMap[i * RoomConstants::c_maxRoomWidthTiles + j] = tile;
 
 			// Now fill the VA texture coordinates
 			std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f> vecTuple;

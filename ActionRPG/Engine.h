@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Gui.h"
 #include "TextureMap.h"
+#include "DungeonReader.h"
 #include "EngineConstants.h"
 #include "PlayerSummaryGui.h"
 #include "Player.h"
@@ -21,6 +22,9 @@ private:
 
 	// TextureMap instance
 	TextureMap *m_textureMap;
+
+	// DungeonReader instance
+	DungeonReader *m_dungeonReader;
 
 	// Game instance
 	Game *m_game;

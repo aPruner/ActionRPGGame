@@ -1,8 +1,4 @@
 #include "DungeonReader.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
 
 DungeonReader::DungeonReader(TextureMap *textureMap)
 {
