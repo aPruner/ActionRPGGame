@@ -17,7 +17,7 @@ private:
 	TileProperties *m_tileProperties;
 
 	// Type of tile, represented by a string
-	std::string m_tileTextureName;
+	std::string m_textureName;
 
 	// Rectangle drawable for debugging
 	sf::RectangleShape m_debugRect;
@@ -32,8 +32,10 @@ public:
 	// Getters and Setters
 	// Getters
 	sf::FloatRect getBounds();
+	std::string const& getTextureName();
+	TileProperties *getTileProperties();
 
-	// Debug helper methods
+	// Debug helper getters
 	bool getDebugStatus();
 	sf::RectangleShape getDebugRectangleShape();
 

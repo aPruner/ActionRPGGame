@@ -1,8 +1,8 @@
 #include "Tile.h"
 
-Tile::Tile(std::string const& tileTextureName, TileProperties *tileProperties, int xPosition, int yPosition)
+Tile::Tile(std::string const& textureName, TileProperties *tileProperties, int xPosition, int yPosition)
 {
-	m_tileTextureName = tileTextureName;
+	m_textureName = textureName;
 	m_tileProperties = tileProperties;
 	m_isSolid = tileProperties->getIsSolid();
 	m_isAnimated = tileProperties->getIsAnimated();
@@ -42,6 +42,16 @@ void Tile::initDebugRect()
 sf::FloatRect Tile::getBounds()
 {
 	return m_bounds;
+}
+
+std::string const& Tile::getTextureName()
+{
+	return m_textureName;
+}
+
+TileProperties* Tile::getTileProperties()
+{
+	return m_tileProperties;
 }
 
 sf::RectangleShape Tile::getDebugRectangleShape()
