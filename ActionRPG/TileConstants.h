@@ -26,7 +26,6 @@ public:
 	bool getIsSolid();
 	bool getIsAnimated();
 	std::string getTileTextureName();
-
 };
 
 class TileConstants {
