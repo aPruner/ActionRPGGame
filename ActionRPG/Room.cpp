@@ -1,10 +1,9 @@
 #include "Room.h"
 
-Room::Room(TextureMap* textureMap, RoomConstants* roomConstants, TileConstants* tileConstants, int widthTiles, int heightTiles, Tile *roomTileGrid[])
+Room::Room(TextureMap* textureMap, RoomConstants* roomConstants, int widthTiles, int heightTiles, Tile *roomTileGrid[])
 {
 	m_textureMap = textureMap;
 	m_roomConstants = roomConstants;
-	m_tileConstants = tileConstants;
 	m_roomTileGrid = roomTileGrid;
 
 	m_widthTiles = widthTiles;
@@ -23,7 +22,6 @@ Room::~Room()
 	delete[] &m_roomTileGrid;
 }
 
-// TODO: draw the room as per the tileGrid, instead of hardcoded
 // Populate the VertexArrays
 void Room::initRoom()
 {

@@ -31,7 +31,7 @@ private:
 	sf::VertexArray m_roomWallLayerVA;
 
 public:
-	Room(TextureMap *textureMap, RoomConstants* roomConstants, TileConstants* tileConstants, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
+	Room(TextureMap *textureMap, RoomConstants* roomConstants, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
 	~Room();
 
 	// Write to the VA to create the room (so it can be drawn)

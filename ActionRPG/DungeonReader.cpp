@@ -14,7 +14,7 @@ DungeonReader::~DungeonReader()
 // if I want to design it that way - maybe my decision on procedural generation will influence this?
 Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 {
-	// initialize static RoomConstants and TileConstants maps
+	// Initialize room and tile constants
 	m_roomConstants = new RoomConstants();
 	m_tileConstants = new TileConstants();
 
@@ -51,5 +51,5 @@ Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 		}
 	}
 	
-	return new Room(m_textureMap, m_roomConstants, m_tileConstants, dungeonWidthTiles, dungeonHeightTiles, tileGrid);
+	return new Room(m_textureMap, m_roomConstants, dungeonWidthTiles, dungeonHeightTiles, tileGrid);
 }
