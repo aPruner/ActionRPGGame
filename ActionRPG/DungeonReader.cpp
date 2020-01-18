@@ -44,11 +44,11 @@ Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 		for (int j = 0; j < dungeonWidthTiles; j++)
 		{
 			// Get the necessary data to create this tile
-			std::string tileTextureName = m_roomConstants->c_roomTxtCharMap.at(tilesLineVec.at(i)[j]);
-			TileProperties tileProperties = m_tileConstants->c_tilePropertyMap.at(tileTextureName);
+			char tileIndex = tilesLineVec.at(i)[j];
+			TileProperties tileProperties = m_tileConstants->c_tilePropertiesMap.at(tileIndex);
 
 			// Create tile and insert in the tile grid
-			tileGrid[i * dungeonWidthTiles + j] = new Tile(tileTextureName, &tileProperties, j, i);
+			tileGrid[i * dungeonWidthTiles + j] = new Tile(&tileProperties, j, i);
 		}
 	}
 	

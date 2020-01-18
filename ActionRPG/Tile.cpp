@@ -1,11 +1,11 @@
 #include "Tile.h"
 
-Tile::Tile(std::string const& textureName, TileProperties *tileProperties, int xPosition, int yPosition)
+Tile::Tile(TileProperties *tileProperties, int xPosition, int yPosition)
 {
-	m_textureName = textureName;
 	m_tileProperties = tileProperties;
 	m_isSolid = tileProperties->getIsSolid();
 	m_isAnimated = tileProperties->getIsAnimated();
+	m_textureName = tileProperties->getTileTextureName();
 	m_xPosition = xPosition;
 	m_yPosition = yPosition;
 	m_bounds = sf::FloatRect(

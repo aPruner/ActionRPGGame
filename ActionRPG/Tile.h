@@ -27,7 +27,7 @@ private:
 	void initDebugRect();
 
 public:
-	Tile(std::string const& tileTextureName, TileProperties *tileProperties, int xPosition, int yPosition);
+	Tile(TileProperties *tileProperties, int xPosition, int yPosition);
 
 	// Getters and Setters
 	// Getters
