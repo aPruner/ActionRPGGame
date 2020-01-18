@@ -7,7 +7,6 @@ DungeonReader::DungeonReader(TextureMap *textureMap)
 
 DungeonReader::~DungeonReader()
 {
-
 }
 
 // TODO: Decide how rooms/dungeons will work, for now, dungeon reader will only read in a room

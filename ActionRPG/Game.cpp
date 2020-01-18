@@ -8,8 +8,7 @@ Game::Game(TextureMap *textureMap, DungeonReader *dungeonReader, sf::Vector2f sc
 	m_gameObjects = new std::vector<GameObject *>();
 
 	// Read the room in from a dungeon file
-	// TODO: constant for room filename
-	m_room = dungeonReader->readDungeon("rooms/room01.txt");
+	m_room = dungeonReader->readDungeon(RoomConstants::c_roomFilename);
 	m_room->initRoom();
 
 	m_player = new Player(m_textureMap, m_room);

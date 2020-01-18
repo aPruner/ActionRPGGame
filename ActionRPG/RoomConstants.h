@@ -15,4 +15,5 @@ public:
 	const static int c_roomTileMapSize = c_maxRoomWidthTiles * c_maxRoomHeightTiles;
 	const static size_t c_roomVASize = c_roomTileMapSize * c_vertsInQuad;
 
+	const static std::string c_roomFilename;
 }; 

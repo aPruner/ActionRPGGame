@@ -141,6 +141,7 @@
     <ClCompile Include="PlayerConstants.cpp" />
     <ClCompile Include="PlayerSummaryGui.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomConstants.cpp" />
     <ClCompile Include="TextGuiWidget.cpp" />
     <ClCompile Include="TextureMap.cpp" />
     <ClCompile Include="Tile.cpp" />
