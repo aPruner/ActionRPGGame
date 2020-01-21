@@ -8,6 +8,7 @@ class Tile
 private:
 	bool m_isSolid;
 	bool m_isAnimated;
+	bool m_isTopWallDrawn;
 	sf::FloatRect m_bounds;
 
 	int m_xPosition;
@@ -33,6 +34,7 @@ public:
 	// Getters
 	sf::FloatRect getBounds();
 	std::string const& getTextureName();
+	bool getIsTopWallDrawn();
 	TileProperties *getTileProperties();
 
 	// Debug helper getters

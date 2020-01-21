@@ -1,9 +1,9 @@
 #include "Room.h"
 
-Room::Room(TextureMap* textureMap, RoomConstants* roomConstants, int widthTiles, int heightTiles, Tile *roomTileGrid[])
+Room::Room(TextureMap* textureMap, TileConstants* tileConstants, int widthTiles, int heightTiles, Tile *roomTileGrid[])
 {
 	m_textureMap = textureMap;
-	m_roomConstants = roomConstants;
+	m_tileConstants = tileConstants;
 	m_roomTileGrid = roomTileGrid;
 
 	m_widthTiles = widthTiles;
@@ -73,9 +73,36 @@ void Room::initRoom()
 			m_roomVA[currentTileIndex + 2].texCoords = std::get<2>(vecTuple);
 			m_roomVA[currentTileIndex + 3].texCoords = std::get<3>(vecTuple);
 
-			// TODO: fix wall layer VA code to only draw the wall top of the bottom wall
-			// When necessary, fill the wall layer VA
-			// Insert Wall layer VA code here
+			// If necessary, draw the wall top mid overtop of the current floor tile
+			if (currentTile->getIsTopWallDrawn())
+			{
+				// Set the position of the current tile in the wallLayerVA
+				m_roomWallLayerVA[currentTileIndex].position = sf::Vector2f(
+					(float)(j * tileSideLengthPixels * scalingFactor),
+					(float)(i * tileSideLengthPixels * scalingFactor)
+				);
+				m_roomWallLayerVA[currentTileIndex + 1].position = sf::Vector2f(
+					(float)((j + 1) * tileSideLengthPixels * scalingFactor),
+					(float)(i * tileSideLengthPixels * scalingFactor)
+				);
+				m_roomWallLayerVA[currentTileIndex + 2].position = sf::Vector2f(
+					(float)((j + 1) * tileSideLengthPixels * scalingFactor),
+					(float)((i + 1) * tileSideLengthPixels * scalingFactor)
+				);
+				m_roomWallLayerVA[currentTileIndex + 3].position = sf::Vector2f(
+					(float)(j * tileSideLengthPixels * scalingFactor),
+					(float)((i + 1) * tileSideLengthPixels * scalingFactor)
+				);
+
+				// Get the vecTuple for the wall top mid texture
+				vecTuple = m_textureMap->getSpriteSheetVecTuple(m_tileConstants->c_wallTopMidTextureName);
+
+				// Write the wall top mid over this floor tile
+				m_roomWallLayerVA[currentTileIndex].texCoords = std::get<0>(vecTuple);
+				m_roomWallLayerVA[currentTileIndex + 1].texCoords = std::get<1>(vecTuple);
+				m_roomWallLayerVA[currentTileIndex + 2].texCoords = std::get<2>(vecTuple);
+				m_roomWallLayerVA[currentTileIndex + 3].texCoords = std::get<3>(vecTuple);
+			}
 
 			currentTileIndex += RoomConstants::c_vertsInQuad;
 		}

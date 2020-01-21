@@ -8,10 +8,7 @@
 class Room
 {
 private:
-	// TODO: not sure if these are necessary here, get rid of them if possible
-	// RoomConstants instance
-	RoomConstants *m_roomConstants;
-	// TileConstants instance
+	// TileConstants instance - for now, used to fetch wall top mid texture name
 	TileConstants *m_tileConstants;
 
 	// Width and Height of the room in tiles
@@ -31,7 +28,7 @@ private:
 	sf::VertexArray m_roomWallLayerVA;
 
 public:
-	Room(TextureMap *textureMap, RoomConstants* roomConstants, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
+	Room(TextureMap *textureMap, TileConstants* tileConstants, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
 	~Room();
 
 	// Write to the VA to create the room (so it can be drawn)

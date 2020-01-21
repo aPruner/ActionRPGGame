@@ -51,5 +51,5 @@ Room *DungeonReader::readDungeon(std::string const& dungeonFilename)
 		}
 	}
 	
-	return new Room(m_textureMap, m_roomConstants, dungeonWidthTiles, dungeonHeightTiles, tileGrid);
+	return new Room(m_textureMap, m_tileConstants, dungeonWidthTiles, dungeonHeightTiles, tileGrid);
 }

@@ -6,6 +6,7 @@ Tile::Tile(TileProperties *tileProperties, int xPosition, int yPosition)
 	m_isSolid = tileProperties->getIsSolid();
 	m_isAnimated = tileProperties->getIsAnimated();
 	m_textureName = tileProperties->getTileTextureName();
+	m_isTopWallDrawn = tileProperties->getIsTopWallDrawn();
 	m_xPosition = xPosition;
 	m_yPosition = yPosition;
 	m_bounds = sf::FloatRect(
@@ -47,6 +48,11 @@ sf::FloatRect Tile::getBounds()
 std::string const& Tile::getTextureName()
 {
 	return m_textureName;
+}
+
+bool Tile::getIsTopWallDrawn()
+{
+	return m_isTopWallDrawn;
 }
 
 TileProperties* Tile::getTileProperties()
