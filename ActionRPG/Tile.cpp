@@ -1,9 +1,12 @@
 #include "Tile.h"
 
-Tile::Tile(std::string const& tileTextureName, bool isSolid, int xPosition, int yPosition)
+Tile::Tile(TileProperties *tileProperties, int xPosition, int yPosition)
 {
-	m_tileTextureName = tileTextureName;
-	m_isSolid = isSolid;
+	m_tileProperties = tileProperties;
+	m_isSolid = tileProperties->getIsSolid();
+	m_isAnimated = tileProperties->getIsAnimated();
+	m_textureName = tileProperties->getTileTextureName();
+	m_isTopWallDrawn = tileProperties->getIsTopWallDrawn();
 	m_xPosition = xPosition;
 	m_yPosition = yPosition;
 	m_bounds = sf::FloatRect(
@@ -23,14 +26,38 @@ void Tile::initDebugRect()
 		(float)(m_yPosition * RoomConstants::c_tileSideLengthPixels * RoomConstants::c_roomScalingFactor)
 	));
 	m_debugRect.setFillColor(sf::Color::Transparent);
-	m_debugRect.setOutlineColor(sf::Color::Blue);
+	if (m_isSolid)
+	{
+		m_debugRect.setOutlineColor(sf::Color::Red);
+	}
+	else
+	{
+		m_debugRect.setOutlineColor(sf::Color::Blue);
+	}
 	m_debugRect.setOutlineThickness((float)1);
 	m_drawDebugRect = true;
 }
 
+// Getters and Setters
+// Getters
 sf::FloatRect Tile::getBounds()
 {
 	return m_bounds;
+}
+
+std::string const& Tile::getTextureName()
+{
+	return m_textureName;
+}
+
+bool Tile::getIsTopWallDrawn()
+{
+	return m_isTopWallDrawn;
+}
+
+TileProperties* Tile::getTileProperties()
+{
+	return m_tileProperties;
 }
 
 sf::RectangleShape Tile::getDebugRectangleShape()
@@ -41,4 +68,16 @@ sf::RectangleShape Tile::getDebugRectangleShape()
 bool Tile::getDebugStatus()
 {
 	return m_drawDebugRect;
+}
+
+// Setters
+void Tile::setIsSolid(bool isSolid)
+{
+	m_isSolid = isSolid;
+}
+
+
+void Tile::setIsAnimated(bool isAnimated)
+{
+	m_isAnimated = isAnimated;
 }

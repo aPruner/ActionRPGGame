@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "TextureMap.h"
+#include "DungeonReader.h"
 #include "Room.h"
 
 class Game
@@ -27,8 +28,11 @@ private:
 	// Player instance
 	Player *m_player;
 
-	// Pointer to the TextureMap
+	// TextureMap instance
 	TextureMap *m_textureMap;
+
+	// DungeonReader instance
+	DungeonReader *m_dungeonReader;
 
 	// Screen resolution, passed down from the engine
 	sf::Vector2f m_screenResolution;
@@ -37,7 +41,7 @@ private:
 	Room *m_room;
 
 public:
-	Game(TextureMap *textureMap, sf::Vector2f screenResolution);
+	Game(TextureMap *textureMap, DungeonReader *dungeonReader, sf::Vector2f screenResolution);
 	~Game();
 
 	void centerGameViewOnPlayer();

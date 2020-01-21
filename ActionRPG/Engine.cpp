@@ -1,8 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <sstream>
 #include "Engine.h"
-#include "Player.h"
-#include "PlayerSummaryGui.h"
 
 Engine::Engine()
 {
@@ -20,10 +16,16 @@ Engine::Engine()
 	// Initializie the player debug text
 	initPlayerDebugText();
 
-	// Initialize the game
+	// Initialize the texture map
 	m_textureMap = new TextureMap();
-	m_game = new Game(m_textureMap, m_screenResolution);
 
+	// Initialize the dungeon reader
+	m_dungeonReader = new DungeonReader(m_textureMap);
+
+	// Initialize the game
+	m_game = new Game(m_textureMap, m_dungeonReader, m_screenResolution);
+
+	// Initialize gui array
 	m_guiInstances = new std::vector<Gui *>();
 
 	// Initialize Player Gui
@@ -179,16 +181,17 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 
 	// Draw the room
 	m_gameWindow->draw(m_game->getRoom()->getRoomVA(), &m_textureMap->getRoomSpriteSheet());
+	m_gameWindow->draw(m_game->getRoom()->getRoomWallLayerVA(), &m_textureMap->getRoomSpriteSheet());
 
 	// Draw debug rects for tiles
-	Tile **roomTileMap = m_game->getRoom()->getRoomTileMap();
+	Tile **roomTileGrid = m_game->getRoom()->getRoomTileGrid();
 	int yRoomTileMapSize = m_game->getRoom()->getMaxRoomHeightTiles();
 	int xRoomTileMapSize = m_game->getRoom()->getMaxRoomWidthTiles();
 	for (int i = 0; i < yRoomTileMapSize; i++)
 	{
 		for (int j = 0; j < xRoomTileMapSize; j++)
 		{
-			Tile *tile = roomTileMap[i * yRoomTileMapSize + j];
+			Tile *tile = roomTileGrid[i * yRoomTileMapSize + j];
 			if (tile->getDebugStatus())
 			{
 				m_gameWindow->draw(tile->getDebugRectangleShape());

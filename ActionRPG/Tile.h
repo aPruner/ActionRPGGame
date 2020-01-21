@@ -1,21 +1,24 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "RoomConstants.h"
+#include "TileConstants.h"
 
 class Tile
 {
 private:
 	bool m_isSolid;
+	bool m_isAnimated;
+	bool m_isTopWallDrawn;
 	sf::FloatRect m_bounds;
 
 	int m_xPosition;
 	int m_yPosition;
 
-	// Type of tile, represented by a string
-	std::string m_tileTextureName;
+	// Properties object for tiles of this type
+	TileProperties *m_tileProperties;
 
-	// Texture Coords for this TileType
-	sf::Vector2f m_tileTexCoords[RoomConstants::c_vertsInQuad];
+	// Type of tile, represented by a string
+	std::string m_textureName;
 
 	// Rectangle drawable for debugging
 	sf::RectangleShape m_debugRect;
@@ -25,11 +28,20 @@ private:
 	void initDebugRect();
 
 public:
-	Tile(std::string const& tileTextureName, bool isSolid, int xPosition, int yPosition);
+	Tile(TileProperties *tileProperties, int xPosition, int yPosition);
 
+	// Getters and Setters
+	// Getters
 	sf::FloatRect getBounds();
+	std::string const& getTextureName();
+	bool getIsTopWallDrawn();
+	TileProperties *getTileProperties();
 
-	// Debug helper methods
+	// Debug helper getters
 	bool getDebugStatus();
 	sf::RectangleShape getDebugRectangleShape();
+
+	// Setters
+	void setIsSolid(bool isSolid);
+	void setIsAnimated(bool isAnimated);
 };

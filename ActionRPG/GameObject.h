@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cmath>
 #include "TextureMap.h"
 #include "RoomConstants.h"
 
@@ -7,12 +8,6 @@
 class GameObject : public sf::Drawable
 {
 protected:
-	// TODO: GameObjectConstants file
-	// GameObject specific constants
-	const float c_initialPositionX = 0;
-	const float c_initialPositionY = 0;
-	const sf::Vector2f c_initialPosition = sf::Vector2f(c_initialPositionX, c_initialPositionY);
-
 	// TextureMap to fetch textures from
 	TextureMap *m_textureMap;
 

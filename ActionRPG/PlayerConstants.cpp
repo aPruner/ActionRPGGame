@@ -1,6 +1,6 @@
 #include "PlayerConstants.h"
-#include <string>
 
+// TODO: Convert these to const static maps
 const std::string& PlayerConstants::getPlayerIdleAnimName(PlayerClass playerClass)
 {
 	switch (playerClass)

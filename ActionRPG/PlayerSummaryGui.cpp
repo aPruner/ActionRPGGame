@@ -1,5 +1,4 @@
 #include "PlayerSummaryGui.h"
-#include <sstream>
 
 PlayerSummaryGui::PlayerSummaryGui(Player *player)
 {
