@@ -151,9 +151,12 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationConstants.h" />
+    <ClInclude Include="Armor.h" />
     <ClInclude Include="DisplayGuiWidget.h" />
     <ClInclude Include="DungeonReader.h" />
     <ClInclude Include="GuiWidgetConstants.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemConstants.h" />
     <ClInclude Include="PlayerSummaryGui.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConstants.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="GuiWidget.h" />
     <ClInclude Include="TileConstants.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="WindowGuiWidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
