@@ -2,6 +2,11 @@
 
 // Getters and Setters
 // Getters
+std::string const& Item::getName()
+{
+	return m_name;
+}
+
 int Item::getStackQuantity()
 {
 	return m_stackQuantity;
@@ -18,6 +23,11 @@ int Item::getInventorySlot()
 }
 
 // Setters
+void Item::setName(std::string name)
+{
+	m_name = name;
+}
+
 void Item::setStackQuantity(int stackQuantity)
 {
 	m_stackQuantity = stackQuantity;
