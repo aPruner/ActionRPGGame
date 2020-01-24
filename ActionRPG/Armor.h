@@ -6,6 +6,8 @@ private:
 	// Defense value of the armor piece
 	int m_baseArmorRating;
 
+	// TODO: Add more data here as necessary
+
 public:
 	Armor();
 	~Armor();

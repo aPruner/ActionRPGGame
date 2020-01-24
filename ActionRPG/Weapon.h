@@ -6,6 +6,7 @@ private:
 	// Base Attack damage
 	int m_baseAttackDmg;
 
+	// TODO: Add more data here as necessary
 
 public:
 	Weapon();
