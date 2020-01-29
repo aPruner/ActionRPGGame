@@ -9,6 +9,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_room = room;
 	m_textureMap = textureMap;
 
+	m_inventory = new std::vector<Item>();
+
 	// Initialize animations
 	// By default, the player is facing right, the animations need a pointer to this member variable
 	// in order to properly know to invert themselves or not
@@ -87,6 +89,11 @@ Player::Player(TextureMap *textureMap, Room *room)
 	// Initialize player stats
 	initializePlayer();
 	initDebugRect();
+}
+
+Player::~Player()
+{
+	delete m_inventory;
 }
 
 // Initialize the player attributes
