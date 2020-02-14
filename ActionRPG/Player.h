@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "PlayerConstants.h"
 #include "Item.h"
+#include "Inventory.h"
 
 class Player : virtual public GameObject
 {
@@ -21,10 +22,10 @@ private:
 	std::string m_name;
 
 	// Instance of the room
-	Room* m_room;
+	Room *m_room;
 
 	// Player inventory
-	std::vector<Item>* m_inventory;
+	Inventory *m_inventory;
 
 	// Player Attributes - effects subject to change
 	// Strength: increases raw melee attack damage, slightly increases health pool
