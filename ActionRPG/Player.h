@@ -118,6 +118,7 @@ public:
 	sf::Sprite getWeaponSprite();
 	sf::Sprite getWeaponHitboxAnimSprite();
 	bool getIsFacingLeft();
+	Inventory *getInventory();
 
 	// Setters
 	void setName(std::string name);

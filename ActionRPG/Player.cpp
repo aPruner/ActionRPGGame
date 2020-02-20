@@ -398,6 +398,11 @@ bool Player::getIsFacingLeft()
 	return m_isFacingLeft;
 }
 
+Inventory *Player::getInventory()
+{
+	return m_inventory;
+}
+
 // Setters
 void Player::setName(std::string name)
 {
