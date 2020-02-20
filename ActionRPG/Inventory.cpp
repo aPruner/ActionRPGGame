@@ -5,10 +5,26 @@ Inventory::Inventory()
 	m_maxSize = InventoryConstants::c_defaultMaxSize;
 	m_gold = InventoryConstants::c_defaultStartingGold;
 	m_isFull = false;
+
+	// TODO: Maybe init and add starting items here
+
+	// Initialize Inventory data structures
+	m_itemsVec = new std::vector<Item *>();
+	m_itemsMap = new std::map<Item *, int>();
 }
 
 Inventory::~Inventory()
 {
+}
+
+void Inventory::addItem(Item *item)
+{
+
+}
+
+void Inventory::removeItem(Item *item)
+{
+
 }
 
 // Getters and Setters

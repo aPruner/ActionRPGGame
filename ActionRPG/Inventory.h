@@ -15,11 +15,17 @@ private:
 	bool m_isFull;
 	
 	// Vector representation of the inventory
-	std::vector<Item> *m_items;
+	std::vector<Item *> *m_itemsVec;
+
+	// Map representation of the inventory (for quick lookup)
+	std::map<Item *, int> *m_itemsMap;
 
 public:
 	Inventory();
 	~Inventory();
+
+	void addItem(Item *item);
+	void removeItem(Item *item);
 
 	// Getters and Setters
 	// Getters
