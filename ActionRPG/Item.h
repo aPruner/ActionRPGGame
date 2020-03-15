@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-// Abstract class from which to derive wearable, consumable, and other game items
+// Abstract class from which to derive equipable, consumable, and other game items
 class Item {
 private:
 	// Item name

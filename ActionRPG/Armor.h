@@ -1,7 +1,7 @@
 #pragma once
-#include "WearableItem.h"
+#include "EquipableItem.h"
 
-class Armor : WearableItem {
+class Armor : EquipableItem {
 private:
 	// Defense value of the armor piece
 	int m_baseArmorRating;

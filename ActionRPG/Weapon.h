@@ -1,7 +1,7 @@
 #pragma once
-#include "WearableItem.h"
+#include "EquipableItem.h"
 
-class Weapon : WearableItem {
+class Weapon : EquipableItem {
 private:
 	// Base Attack damage
 	int m_baseAttackDmg;
