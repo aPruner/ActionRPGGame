@@ -9,7 +9,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_room = room;
 	m_textureMap = textureMap;
 
-	m_inventory = new std::vector<Item>();
+	m_inventory = new Inventory();
 
 	// Initialize animations
 	// By default, the player is facing right, the animations need a pointer to this member variable
