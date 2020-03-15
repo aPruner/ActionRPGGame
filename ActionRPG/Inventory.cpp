@@ -63,9 +63,26 @@ bool Inventory::addItem(Item *item)
 	return true;
 }
 
-void Inventory::removeItem(Item *item)
+bool Inventory::removeItem(Item *item)
 {
-	// TODO: implement this
+	if (m_isEmpty)
+	{
+		return false;
+	}
+
+	auto itMap = m_itemsMap->find(item->getName);
+	if (itMap == m_itemsMap->end())
+	{
+		return false;
+	}
+	
+	auto itVec = std::find(m_itemsVec->begin(), m_itemsVec->end(), item);
+	if (itVec != m_itemsVec->end)
+	{
+		m_itemsVec->erase(itVec);
+	}
+
+	// Also subtract 1 (for now, eventually it will be stackQuantity) from m_itemsMap, and then remove the item from the map if the value in the map is 0
 }
 
 // Getters and Setters

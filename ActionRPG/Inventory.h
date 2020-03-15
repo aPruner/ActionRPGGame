@@ -42,7 +42,7 @@ public:
 	// Removes an item from the inventory if it exists
 	// Returns true if removing the item succeeded, false if not
 	// TODO: logic for stacks of items, for now, all items have a stackQuantity value of 1, and a maxStackQuantity value of 1
-	void removeItem(Item *item);
+	bool removeItem(Item *item);
 
 	// Getters and Setters
 	// Getters
