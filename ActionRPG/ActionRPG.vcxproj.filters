@@ -90,7 +90,7 @@
     <ClCompile Include="ItemPickup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Equipable.cpp">
+    <ClCompile Include="EquipableItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

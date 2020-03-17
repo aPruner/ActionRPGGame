@@ -70,19 +70,26 @@ bool Inventory::removeItem(Item *item)
 		return false;
 	}
 
-	auto itMap = m_itemsMap->find(item->getName);
+	auto itMap = m_itemsMap->find(item->getName());
 	if (itMap == m_itemsMap->end())
 	{
 		return false;
 	}
+
+	// TODO: implement logic for stackQuantities
+	// For now, this method (as well as addItem) assumes that all items behave like EquipableItems (stackQuantity and maxStackQuantity will always be == 1)
+	m_itemsMap->at(item->getName())--;
+	if (m_itemsMap->at(item->getName()) == 0)
+	{
+		m_itemsMap->erase(item->getName());
+	}
 	
 	auto itVec = std::find(m_itemsVec->begin(), m_itemsVec->end(), item);
-	if (itVec != m_itemsVec->end)
+	if (itVec != m_itemsVec->end())
 	{
 		m_itemsVec->erase(itVec);
 	}
-
-	// Also subtract 1 (for now, eventually it will be stackQuantity) from m_itemsMap, and then remove the item from the map if the value in the map is 0
+	return true;
 }
 
 // Getters and Setters

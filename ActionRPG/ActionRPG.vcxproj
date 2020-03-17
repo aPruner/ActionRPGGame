@@ -152,7 +152,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileConstants.cpp" />
     <ClCompile Include="Weapon.cpp" />
-    <ClCompile Include="Equipable.cpp" />
+    <ClCompile Include="EquipableItem.cpp" />
     <ClCompile Include="WindowGuiWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
