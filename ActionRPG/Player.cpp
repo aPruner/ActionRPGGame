@@ -111,7 +111,7 @@ void Player::initializePlayer()
 	m_agility = PlayerConstants::c_startingAgility;
 }
 
-// GameObject update method override
+// Override for GameObject::update
 void Player::update(float timeElapsed)
 {
 
@@ -226,7 +226,7 @@ void Player::update(float timeElapsed)
 	m_weaponHitboxAnimSprite.setPosition(allWeaponSpritesPosition);
 }
 
-// GameObject draw method override
+// Override for GameObject::draw
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);

@@ -2,12 +2,10 @@
 
 Weapon::Weapon()
 {
-
 }
 
 Weapon::~Weapon()
 {
-
 }
 
 // Getters and Setters
