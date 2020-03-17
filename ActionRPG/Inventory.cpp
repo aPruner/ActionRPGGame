@@ -5,7 +5,6 @@ Inventory::Inventory()
 	m_maxSize = InventoryConstants::c_defaultMaxSize;
 	m_gold = InventoryConstants::c_defaultStartingGold;
 	m_isFull = false;
-	m_isEmpty = true;
 	m_freeSlots = m_maxSize;
 
 	// TODO: Maybe init and add starting items here
@@ -28,8 +27,9 @@ bool Inventory::addItem(Item *item)
 {
 	// For now, just return false if the inventory is full. Deal with stacks later once inventory works for unstackable items
 	// In other words, assume every stackQuantity and maxStackQuantity are both 1 for simplicity
-	if (m_isFull)
+	if (m_freeSlots == 0)
 	{
+		// Inventory is full if there are no free slots
 		return false;
 	}
 
@@ -44,9 +44,9 @@ bool Inventory::addItem(Item *item)
 		m_itemsMap->insert(newItemPair);
 		m_itemsVec->push_back(item);
 		m_freeSlots--;
-		if (m_freeSlots == 0 && m_itemsVec->size() == m_maxSize)
+		if (m_freeSlots == 0)
 		{
-			m_isFull = true;
+			setIsFull(true);
 		}
 	}
 	else
@@ -55,9 +55,9 @@ bool Inventory::addItem(Item *item)
 		m_itemsMap->insert(newItemPair);
 		m_itemsVec->push_back(item);
 		m_freeSlots--;
-		if (m_freeSlots == 0 && m_itemsVec->size() == m_maxSize)
+		if (m_freeSlots == 0)
 		{
-			m_isFull = true;
+			setIsFull(true);
 		}
 	}
 	return true;
@@ -65,8 +65,9 @@ bool Inventory::addItem(Item *item)
 
 bool Inventory::removeItem(Item *item)
 {
-	if (m_isEmpty)
+	if (m_freeSlots == m_maxSize)
 	{
+		// Inventory is empty, nothing can be removed
 		return false;
 	}
 
@@ -89,6 +90,10 @@ bool Inventory::removeItem(Item *item)
 	{
 		m_itemsVec->erase(itVec);
 	}
+
+	// After removing an item, the inventory will never be full
+	m_freeSlots++;
+	setIsFull(false);
 	return true;
 }
 
@@ -109,11 +114,6 @@ bool Inventory::getIsFull()
 	return m_isFull;
 }
 
-bool Inventory::getIsEmpty()
-{
-	return m_isEmpty;
-}
-
 // Setters
 void Inventory::setGold(int gold)
 {
@@ -128,9 +128,4 @@ void Inventory::setMaxSize(int maxSize)
 void Inventory::setIsFull(bool isFull)
 {
 	m_isFull = isFull;
-}
-
-void Inventory::setIsEmpty(bool isEmpty)
-{
-	m_isEmpty = isEmpty;
 }

@@ -14,11 +14,8 @@ private:
 	// Number of free stack slots in the inventory
 	int m_freeSlots;
 
-	// Flag for inventory full
+	// Flag for inventory full (no free slots)
 	bool m_isFull;
-
-	// Flag for inventory empty
-	bool m_isEmpty;
 	
 	// Vector representation of the inventory
 	std::vector<Item *> *m_itemsVec;
@@ -49,12 +46,10 @@ public:
 	int getMaxSize();
 	int getGold();
 	bool getIsFull();
-	bool getIsEmpty();
 	
 	// Setters
 	void setMaxSize(int maxSize);
 	void setGold(int gold);
 	void setIsFull(bool isFull);
-	void setIsEmpty(bool isEmpty);
 
 };
