@@ -24,6 +24,9 @@ private:
 	// Icon representing the item in the inventory
 	sf::Sprite m_iconSprite;
 
+	// Sprite representing the item pickup (as it exists in the game world)
+	sf::Sprite m_pickupSprite;
+
 	// TODO: Add more stuff here as necessary
 	
 public:
@@ -35,6 +38,7 @@ public:
 	int getMaxStackQuantity();
 	int getGoldValue();
 	int getInventorySlot();
+	sf::Sprite getPickupSprite();
 
 	// Setters
 	void setName(std::string name);
@@ -43,4 +47,5 @@ public:
 	void setMaxStackQuantity(int maxStackQuantity);
 	void setGoldValue(int goldValue);
 	void setInventorySlot(int inventorySlot);
+	void setPickupSprite(sf::Sprite pickupSprite);
 };

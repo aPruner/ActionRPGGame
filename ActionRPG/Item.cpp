@@ -32,6 +32,11 @@ int Item::getInventorySlot()
 	return m_inventorySlot;
 }
 
+sf::Sprite Item::getPickupSprite()
+{
+	return m_pickupSprite;
+}
+
 // Setters
 void Item::setName(std::string name)
 {
@@ -61,4 +66,9 @@ void Item::setGoldValue(int goldValue)
 void Item::setInventorySlot(int inventorySlot)
 {
 	m_inventorySlot = inventorySlot;
+}
+
+void Item::setPickupSprite(sf::Sprite pickupSprite)
+{
+	m_pickupSprite = pickupSprite;
 }
