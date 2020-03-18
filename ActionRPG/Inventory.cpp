@@ -14,7 +14,7 @@ Inventory::Inventory()
 
 	// TODO: Constants
 	// Initialize the knife (first basic item in every inventory)
-	Item* knife = new Weapon("knife");
+	Item *knife = new Weapon("knife");
 }
 
 Inventory::~Inventory()
