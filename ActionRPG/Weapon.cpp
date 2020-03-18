@@ -1,13 +1,14 @@
 #include "Weapon.h"
 
-Weapon::Weapon()
+Weapon::Weapon(std::string const& name)
 {
+	m_name = name;
 
+	// TODO: Set baseAttackDmg and other necessary stuff
 }
 
 Weapon::~Weapon()
 {
-
 }
 
 // Getters and Setters

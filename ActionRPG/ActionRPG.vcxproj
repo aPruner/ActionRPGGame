@@ -138,7 +138,9 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="GuiWidget.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemPickup.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerConstants.cpp" />
@@ -150,7 +152,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileConstants.cpp" />
     <ClCompile Include="Weapon.cpp" />
-    <ClCompile Include="WearableItem.cpp" />
+    <ClCompile Include="EquipableItem.cpp" />
     <ClCompile Include="WindowGuiWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,8 +163,11 @@
     <ClInclude Include="DisplayGuiWidget.h" />
     <ClInclude Include="DungeonReader.h" />
     <ClInclude Include="GuiWidgetConstants.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="InventoryConstants.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemConstants.h" />
+    <ClInclude Include="ItemPickup.h" />
     <ClInclude Include="PlayerSummaryGui.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConstants.h" />
@@ -180,7 +185,7 @@
     <ClInclude Include="GuiWidget.h" />
     <ClInclude Include="TileConstants.h" />
     <ClInclude Include="Weapon.h" />
-    <ClInclude Include="WearableItem.h" />
+    <ClInclude Include="EquipableItem.h" />
     <ClInclude Include="WindowGuiWidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,9 +2,9 @@
 #include "Item.h"
 #include "PlayerConstants.h"
 
-// Abstract class extended from Item, which is extended by wearable item classes (armor, weapons)
-class WearableItem : Item {
-private:
+// Abstract class extended from Item, which is extended by equipable item classes (armor, weapons)
+class EquipableItem : public Item {
+protected:
 	// The slot in which this armor piece can be equipped
 	int m_equipSlot;
 

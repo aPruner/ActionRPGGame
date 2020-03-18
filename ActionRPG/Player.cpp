@@ -9,6 +9,8 @@ Player::Player(TextureMap *textureMap, Room *room)
 	m_room = room;
 	m_textureMap = textureMap;
 
+	m_inventory = new Inventory();
+
 	// Initialize animations
 	// By default, the player is facing right, the animations need a pointer to this member variable
 	// in order to properly know to invert themselves or not
@@ -89,6 +91,11 @@ Player::Player(TextureMap *textureMap, Room *room)
 	initDebugRect();
 }
 
+Player::~Player()
+{
+	delete m_inventory;
+}
+
 // Initialize the player attributes
 void Player::initializePlayer()
 {
@@ -104,7 +111,7 @@ void Player::initializePlayer()
 	m_agility = PlayerConstants::c_startingAgility;
 }
 
-// GameObject update method override
+// Override for GameObject::update
 void Player::update(float timeElapsed)
 {
 
@@ -219,7 +226,7 @@ void Player::update(float timeElapsed)
 	m_weaponHitboxAnimSprite.setPosition(allWeaponSpritesPosition);
 }
 
-// GameObject draw method override
+// Override for GameObject::draw
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_sprite, states);
@@ -389,6 +396,11 @@ sf::Sprite Player::getWeaponHitboxAnimSprite()
 bool Player::getIsFacingLeft()
 {
 	return m_isFacingLeft;
+}
+
+Inventory *Player::getInventory()
+{
+	return m_inventory;
 }
 
 // Setters

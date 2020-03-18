@@ -1,15 +1,15 @@
 #pragma once
-#include "WearableItem.h"
+#include "EquipableItem.h"
 
-class Weapon : WearableItem {
-private:
+class Weapon : public EquipableItem {
+protected:
 	// Base Attack damage
 	int m_baseAttackDmg;
 
 	// TODO: Add more data here as necessary
 
 public:
-	Weapon();
+	Weapon(std::string const& name);
 	~Weapon();
 
 	// Getters and Setters

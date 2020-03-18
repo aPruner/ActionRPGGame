@@ -3,6 +3,8 @@
 #include "Room.h"
 #include "Animation.h"
 #include "PlayerConstants.h"
+#include "Item.h"
+#include "Inventory.h"
 
 class Player : virtual public GameObject
 {
@@ -20,7 +22,10 @@ private:
 	std::string m_name;
 
 	// Instance of the room
-	Room* m_room;
+	Room *m_room;
+
+	// Player inventory
+	Inventory *m_inventory;
 
 	// Player Attributes - effects subject to change
 	// Strength: increases raw melee attack damage, slightly increases health pool
@@ -47,7 +52,7 @@ private:
 	bool m_moveLeftPressed;
 	bool m_moveRightPressed;
 
-	// Flags for which way the player is facing
+	// Flag for which way the player is facing
 	bool m_isFacingLeft;
 
 	// Attack animation flags
@@ -75,6 +80,7 @@ private:
 
 public:
 	Player(TextureMap *textureMap, Room *room);
+	~Player();
 
 	// Override for GameObject::update
 	void update(float timeElapsed) override;
@@ -112,6 +118,7 @@ public:
 	sf::Sprite getWeaponSprite();
 	sf::Sprite getWeaponHitboxAnimSprite();
 	bool getIsFacingLeft();
+	Inventory *getInventory();
 
 	// Setters
 	void setName(std::string name);
