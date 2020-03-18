@@ -21,6 +21,7 @@ Inventory::~Inventory()
 {
 }
 
+// TODO: Implement this, and stacking system in general
 int Inventory::checkStackQuantities(Item* item, int currentItemStackQuantity)
 {
 	return 0;

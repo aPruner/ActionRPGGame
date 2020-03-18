@@ -23,6 +23,7 @@ private:
 	// Map representation of the inventory (for quick lookup), maps itemName->totalQuantity (all stack quantities summed together)
 	std::map<std::string, int> *m_itemsMap;
 
+	// TODO: Implement this, and stacking system in general
 	// Returns the amount of free space available if item were to be added to the Inventory
 	// NOTE: Returns a negative value if the item would overflow the Inventory
 	int checkStackQuantities(Item *item, int currentStackQuantity);
