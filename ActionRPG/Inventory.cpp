@@ -39,6 +39,7 @@ bool Inventory::addItem(Item *item)
 
 	auto it = m_itemsMap->find(item->getName());
 
+	// TODO: Read below comment and implement stacking system
 	// For now, this logic will be the same in either branch of the if statement, as stack quantities are not relevant yet
 	// Once stack quantities come into play, this logic will have to change for the else branch, as stacks of items can be 
 	// added to existing stacks if they are small enough (without taking up new free slot)
