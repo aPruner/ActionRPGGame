@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include "Weapon.h"
 
 Inventory::Inventory()
 {
@@ -7,11 +8,13 @@ Inventory::Inventory()
 	m_isFull = false;
 	m_freeSlots = m_maxSize;
 
-	// TODO: Maybe init and add starting items here
-
 	// Initialize Inventory data structures
 	m_itemsVec = new std::vector<Item *>();
 	m_itemsMap = new std::map<std::string, int>();
+
+	// TODO: Constants
+	// Initialize the knife (first basic item in every inventory)
+	Item* knife = new Weapon("knife");
 }
 
 Inventory::~Inventory()
