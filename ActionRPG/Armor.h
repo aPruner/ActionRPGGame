@@ -1,7 +1,7 @@
 #pragma once
 #include "EquipableItem.h"
 
-class Armor : EquipableItem {
+class Armor : public EquipableItem {
 private:
 	// Defense value of the armor piece
 	int m_baseArmorRating;
@@ -9,7 +9,7 @@ private:
 	// TODO: Add more data here as necessary
 
 public:
-	Armor();
+	Armor(std::string const& name);
 	~Armor();
 
 	// Getters and Setters

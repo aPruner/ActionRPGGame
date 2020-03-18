@@ -3,7 +3,7 @@
 
 // Abstract class from which to derive equipable, consumable, and other game items
 class Item {
-private:
+protected:
 	// Item name
 	std::string m_name;
 

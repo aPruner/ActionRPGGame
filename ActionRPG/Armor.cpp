@@ -1,8 +1,10 @@
 #include "Armor.h"
 
-Armor::Armor()
+Armor::Armor(std::string const& name)
 {
-
+	m_name = name;
+	
+	// TODO: Set baseArmorRating and other necessary stuff
 }
 
 Armor::~Armor()
