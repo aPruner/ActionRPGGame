@@ -149,6 +149,8 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
+
+	// Update the FPS counter
 	m_timeSinceLastFpsUpdateSeconds += dtSeconds;
 	if (m_timeSinceLastFpsUpdateSeconds > 1) {
 		m_fps = 1.f / dtSeconds;
@@ -157,6 +159,7 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 		m_timeSinceLastFpsUpdateSeconds = 0;
 	}
 
+	// Update game objects
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
 		(*it)->update(dtSeconds);

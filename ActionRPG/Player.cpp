@@ -153,6 +153,7 @@ void Player::update(float timeElapsed)
 	// Get the global bounds of the debugRect
 	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
 
+	// First, check the hardcoded room boundaries
 	// Check left boundary
 	if (boundsRect.left < 0)
 	{
@@ -176,6 +177,8 @@ void Player::update(float timeElapsed)
 	{
 		newPosition.y -= timeElapsed * m_speed;
 	}
+
+	// Check if player has collided with any solid tiles
 
 	// Handle animation, only one animation should animate at a time
 	if (m_idleAnimation->getIsAnimating())
