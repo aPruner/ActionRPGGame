@@ -114,7 +114,8 @@ void Player::initializePlayer()
 // Override for GameObject::update
 void Player::update(float timeElapsed)
 {
-
+	// TODO: Modularize the contents of this method (and ideally all update methods)
+	// into multiple private methods (one for each purpose), for example, one for movement, collision detection, etc
 	sf::Vector2f newPosition = getPosition();
 	// Move the Player if necessary
 	if (m_moveUpPressed)

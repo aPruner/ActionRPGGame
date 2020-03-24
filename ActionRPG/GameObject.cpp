@@ -90,7 +90,7 @@ void GameObject::setSprite(sf::Sprite newSprite)
 void GameObject::setPosition(sf::Vector2f position)
 {
 	m_position = position;
-	// Origin is in local co - ordinates, and getBoundingBox() returns the original widthand height of the sprite after scaling,
+	// Origin is in local co-ordinates, and getBoundingBox() returns the original width and height of the sprite after scaling,
 	// but origin is applied and then scaled (so e.g for the player, width / 4 is width / 2 scaled by the scaling factor (2))
 	m_sprite.setOrigin(getBoundingBox().width / 2 / abs(m_sprite.getScale().x), getBoundingBox().height / 2 / abs(m_sprite.getScale().y));
 	m_sprite.setPosition(position);
