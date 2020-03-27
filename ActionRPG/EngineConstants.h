@@ -7,7 +7,7 @@ public:
 	// also figure out how to do this with the sf types, such as Vector2f and Color
 	const std::string c_defaultFontFilename = "fonts/MiddleEarth.ttf";
 	const std::string c_fpsCounterInitString = "FPS: ";
-	const std::string c_playerDebugTextInitString = "Player is facing left: ";
+	const std::string c_playerDebugTextInitString = "Player pos in tile map X: ";
 	const std::string c_playerInvertedXDebugString = "Inv X (run anim): ";
 	const std::string c_playerSpriteScaleDebugString = "Sprite scale (run anim): ";
 	const sf::Vector2f c_fpsCounterPosition = sf::Vector2f(25, 25);

@@ -11,72 +11,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 
 	m_inventory = new Inventory();
 
-	// Initialize animations
-	// By default, the player is facing right, the animations need a pointer to this member variable
-	// in order to properly know to invert themselves or not
-	m_isFacingLeft = false;
-
-	m_idleAnimation = new Animation(
-		textureMap,
-		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
-		m_playerConstants->c_playerAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	m_runAnimation = new Animation(
-		textureMap,
-		m_playerConstants->getPlayerRunAnimName(m_playerClass),
-		m_playerConstants->c_playerAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		&m_isFacingLeft
-
-	);
-
-	m_hitAnimation = new Animation(
-		textureMap,
-		m_playerConstants->getPlayerHitAnimName(m_playerClass),
-		m_playerConstants->c_playerAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	m_weaponIdleAnimation = new Animation(
-		textureMap,
-		m_playerConstants->c_weaponIdleAnimName,
-		m_playerConstants->c_weaponAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed,
-		&m_isFacingLeft
-	);
-	m_weaponSwingAnimation = new Animation(
-		textureMap,
-		m_playerConstants->c_weaponSwingAnimName,
-		m_playerConstants->c_weaponAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	m_weaponHitboxAnimation = new Animation(
-		textureMap,
-		m_playerConstants->c_weaponSwingHitboxAnimName,
-		m_playerConstants->c_weaponHitboxAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponHitboxAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponHitboxAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	// By default, the player will be idle
-	m_sprite = *m_idleAnimation->getFrameSprite();
-	m_idleAnimation->startAnimation();
-
-	// Weapon stuff
-	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
-	m_weaponIdleAnimation->startAnimation();
+	initializePlayerAnims();
 
 	// Init Origin rect (weapon)
 	m_weaponDebugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
@@ -89,11 +24,85 @@ Player::Player(TextureMap *textureMap, Room *room)
 	// Initialize player stats
 	initializePlayer();
 	initDebugRect();
+
+	// TODO: Constant for player start position - base it on tile map
+	setPosition(sf::Vector2f(100, 200));
 }
 
 Player::~Player()
 {
 	delete m_inventory;
+}
+
+void Player::initializePlayerAnims()
+{
+	// Initialize animations
+	// By default, the player is facing right, the animations need a pointer to this member variable
+	// in order to properly know to invert themselves or not
+	m_isFacingLeft = false;
+
+	m_runAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->getPlayerRunAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_hitAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->getPlayerHitAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_weaponIdleAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->c_weaponIdleAnimName,
+		m_playerConstants->c_weaponAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_weaponSwingAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->c_weaponSwingAnimName,
+		m_playerConstants->c_weaponAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_weaponHitboxAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->c_weaponSwingHitboxAnimName,
+		m_playerConstants->c_weaponHitboxAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponHitboxAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponHitboxAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_idleAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+	);
+
+
+	// By default, the player will be idle
+	m_sprite = *m_idleAnimation->getFrameSprite();
+	m_idleAnimation->startAnimation();
+
+	// Weapon stuff
+	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
+	m_weaponIdleAnimation->startAnimation();
 }
 
 // Initialize the player attributes

@@ -1,5 +1,30 @@
 #include "GameObject.h"
 
+void GameObject::initDebugRect()
+{
+	// Init outline rect
+	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(getBoundingBox().width, getBoundingBox().height));
+	m_debugRectOutline.setOrigin(getPosition());
+	m_debugRectOutline.setFillColor(sf::Color::Transparent);
+	m_debugRectOutline.setOutlineColor(sf::Color::Red);
+	m_debugRectOutline.setOutlineThickness((float)1);
+
+	// Init Origin rect
+	m_debugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
+	m_debugRectOrigin.setOrigin(getPosition());
+	m_debugRectOrigin.setFillColor(sf::Color::Green);
+	m_debugRectOrigin.setOutlineColor(sf::Color::Green);
+	m_debugRectOrigin.setOutlineThickness((float)1);
+
+	m_drawDebugRects = true;
+}
+
+void GameObject::updateCollisionArray()
+{
+	// Do math here to update the collision array
+}
+
+// Getters and Setters
 sf::Sprite GameObject::getSprite()
 {
 	return m_sprite;
@@ -41,25 +66,6 @@ int GameObject::getYPositionInTileMap()
 		return -1;
 	}
 	return yPositionInTileMap;
-}
-
-void GameObject::initDebugRect()
-{
-	// Init outline rect
-	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(getBoundingBox().width, getBoundingBox().height));
-	m_debugRectOutline.setOrigin(getPosition());
-	m_debugRectOutline.setFillColor(sf::Color::Transparent);
-	m_debugRectOutline.setOutlineColor(sf::Color::Red);
-	m_debugRectOutline.setOutlineThickness((float)1);
-
-	// Init Origin rect
-	m_debugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
-	m_debugRectOrigin.setOrigin(getPosition());
-	m_debugRectOrigin.setFillColor(sf::Color::Green);
-	m_debugRectOrigin.setOutlineColor(sf::Color::Green);
-	m_debugRectOrigin.setOutlineThickness((float)1);
-
-	m_drawDebugRects = true;
 }
 
 bool GameObject::getDebugStatus()

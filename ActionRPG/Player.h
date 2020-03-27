@@ -76,6 +76,7 @@ private:
 	sf::Sprite m_weaponHitboxAnimSprite;
 	sf::RectangleShape m_weaponDebugRectOrigin;
 
+	void initializePlayerAnims();
 	void initializePlayer();
 
 public:

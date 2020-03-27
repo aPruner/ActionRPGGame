@@ -162,6 +162,7 @@
     <ClInclude Include="ConsumableItem.h" />
     <ClInclude Include="DisplayGuiWidget.h" />
     <ClInclude Include="DungeonReader.h" />
+    <ClInclude Include="GameObjectConstants.h" />
     <ClInclude Include="GuiWidgetConstants.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryConstants.h" />

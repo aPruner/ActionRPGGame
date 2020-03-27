@@ -1,0 +1,17 @@
+16 16
+5bbbbbbbbbbbbbb6
+7eeeeeeeeeeeeee8
+7vvvxxwww11vwxy8
+7yyvvwwwxx1222v8
+7vyxwyvv221vvww8
+7wwwwyyxxxvvwvx8
+7xvwy;;;;;;;v128
+7xvxyeeeeeeevxx8
+7wwwwww22122xvv8
+7yyvwyvvwwwwxxx8
+7xxyyww11122xxx8
+7xxxyyvv1111xxx8
+7xyyyyvvvv1212v8
+7xxwwwwyyyyvvv28
+7,,,;;;;:::><>'8
+9eeeeeeeeeeeeee!

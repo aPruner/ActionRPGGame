@@ -3,6 +3,7 @@
 #include <cmath>
 #include "TextureMap.h"
 #include "RoomConstants.h"
+#include "GameObjectConstants.h"
 
 // Abstract class from which to derive GameObject classes
 class GameObject : public sf::Drawable
@@ -28,6 +29,12 @@ protected:
 
 	// Position (global coordinates) of the GameObject
 	sf::Vector2f m_position;
+
+	// Boolean array for keeping track of collisions with tiles
+	bool m_collisionArray[GameObjectConstants::c_collisionArrayLength];
+
+	// Fill the collision array appropriately
+	void updateCollisionArray();
 
 public:
 	// Direction enum
