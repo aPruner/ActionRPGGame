@@ -14,7 +14,7 @@ void GameObject::initDebugRect()
 	m_debugRectOrigin.setOrigin(getPosition());
 	m_debugRectOrigin.setFillColor(sf::Color::Green);
 	m_debugRectOrigin.setOutlineColor(sf::Color::Green);
-	m_debugRectOrigin.setOutlineThickness((float)1);
+	m_debugRectOrigin.setOutlineThickness((float)1); // TODO: Constants
 
 	m_drawDebugRects = true;
 }

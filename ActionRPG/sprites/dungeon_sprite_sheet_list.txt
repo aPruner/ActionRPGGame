@@ -1,4 +1,4 @@
-# INFO: the following texture coordinate format is:
+# INFO: the following texture coordinate format is: (frames will only be present if the sprite is animated)
 # <name> <top_left_x> <top_left_y> <x_offset> <y_offset> <frames>
 wall_top_left 16 0 16 16
 wall_top_mid 32 0 16 16

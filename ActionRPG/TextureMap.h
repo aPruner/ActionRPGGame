@@ -28,7 +28,7 @@ private:
 	std::map<std::string, std::tuple<int, int, int, int, int>> *m_spriteSheetAnimTextureMap;
 
 	// Map of pre-defined texture names to non animated tuples (don't have a number of frames)
-	std::map<std::string, std::tuple<int, int, int, int>> * m_spriteSheetNonAnimTextureMap;
+	std::map<std::string, std::tuple<int, int, int, int>> *m_spriteSheetNonAnimTextureMap;
 
 	// Original dungeon sprite sheet, from which the room is drawn
 	sf::Texture m_roomSpriteSheet;
