@@ -21,9 +21,6 @@ private:
 	// Player name
 	std::string m_name;
 
-	// Instance of the room
-	Room *m_room;
-
 	// Player inventory
 	Inventory *m_inventory;
 

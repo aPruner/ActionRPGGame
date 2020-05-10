@@ -22,6 +22,7 @@ void GameObject::initDebugRect()
 void GameObject::updateCollisionArray()
 {
 	// Do math here to update the collision array
+	
 }
 
 // Getters and Setters
@@ -46,26 +47,16 @@ sf::Vector2f GameObject::getOrigin()
 	return m_sprite.getOrigin();
 }
 
-// Returns -1 if outside
-int GameObject::getXPositionInTileMap()
+// Returns Vector2f(-1, -1) if outside
+std::pair<int, int> GameObject::getPositionInTileMap()
 {
-	int xPositionInTileMap = (int) m_position.x / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
-	if (m_position.x < 0)
+	if (m_position.x < 0 || m_position.y < 0)
 	{
-		return -1;
+		return std::make_pair(-1, -1);
 	}
-	return xPositionInTileMap;
-}
-
-// Returns -1 if outside
-int GameObject::getYPositionInTileMap()
-{
-	int yPositionInTileMap = (int) m_position.y / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
-	if (m_position.y < 0)
-	{
-		return -1;
-	}
-	return yPositionInTileMap;
+	int xPositionInTileMap = (int)m_position.x / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
+	int yPositionInTileMap = (int)m_position.y / RoomConstants::c_roomScalingFactor / RoomConstants::c_tileSideLengthPixels;
+	return (std::make_pair(xPositionInTileMap, yPositionInTileMap));
 }
 
 bool GameObject::getDebugStatus()

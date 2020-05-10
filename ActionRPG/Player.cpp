@@ -27,6 +27,10 @@ Player::Player(TextureMap *textureMap, Room *room)
 
 	// TODO: Constant for player start position - base it on tile map
 	setPosition(sf::Vector2f(100, 200));
+
+	// Create the collision array and update it
+	m_collisionArray = new std::vector<Tile*>();
+	updateCollisionArray();
 }
 
 Player::~Player()
@@ -152,12 +156,7 @@ void Player::update(float timeElapsed)
 		// TODO: Put out the hitbox
 	}
 
-	// TODO: Proper collision detection, with any walls and other GameObjects
-	// TODO: Since doing the face player left issue, existing hit detection is off. Good thing the system will be rewritten soon anyways!
 	// Collision detection - outer walls only
-	// Get the position in the TileMap, and check all 8 positions around the player for intersections
-	int xPositionInTileMap = getXPositionInTileMap();
-	int yPositionInTileMap = getYPositionInTileMap();
 
 	// Get the global bounds of the debugRect
 	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
