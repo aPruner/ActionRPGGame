@@ -10,6 +10,7 @@ public:
 	const static int c_maxRoomWidthPixels = 256;
 	const static int c_maxRoomHeightPixels = 256;
 
+	// TODO: This should be a TileConstant, but since it's used to calculate the below values, leave it here for now
 	const static int c_tileSideLengthPixels = 16;
 	const static int c_maxRoomWidthTiles = c_maxRoomWidthPixels / c_tileSideLengthPixels;
 	const static int c_maxRoomHeightTiles = c_maxRoomHeightPixels / c_tileSideLengthPixels;
