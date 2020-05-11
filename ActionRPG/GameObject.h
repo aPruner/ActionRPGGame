@@ -39,6 +39,9 @@ protected:
 
 	// Fill the collision array appropriately
 	void updateCollisionArray();
+	
+	// Check (with axis-aligned bounding boxes) if this GameObject collides with the current tile
+	bool getIsCollidingWithTile(Tile *tile);
 
 public:
 	// Direction enum

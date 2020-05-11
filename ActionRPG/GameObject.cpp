@@ -4,14 +4,12 @@ void GameObject::initDebugRect()
 {
 	// Init outline rect
 	m_debugRectOutline = sf::RectangleShape(sf::Vector2f(getBoundingBox().width, getBoundingBox().height));
-	m_debugRectOutline.setOrigin(getPosition());
 	m_debugRectOutline.setFillColor(sf::Color::Transparent);
 	m_debugRectOutline.setOutlineColor(sf::Color::Red);
 	m_debugRectOutline.setOutlineThickness((float)1);
 
 	// Init Origin rect
 	m_debugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
-	m_debugRectOrigin.setOrigin(getPosition());
 	m_debugRectOrigin.setFillColor(sf::Color::Green);
 	m_debugRectOrigin.setOutlineColor(sf::Color::Green);
 	m_debugRectOrigin.setOutlineThickness((float)1); // TODO: Constants
@@ -21,8 +19,37 @@ void GameObject::initDebugRect()
 
 void GameObject::updateCollisionArray()
 {
-	// Do math here to update the collision array
+	// Check for tile map errors, just in case
+	std::pair<int, int> positionInTileMap = getPositionInTileMap();
+	if (positionInTileMap.first == -1 || positionInTileMap.second == -1)
+	{
+		return;
+	}
+
+	// First, remove tiles that aren't currently colliding if they exist
+	/*
+	for (auto it = m_collisionArray->begin(); it < m_collisionArray->end(); it++)
+	{
+		if (!getIsCollidingWithTile(*it))
+		{
+			delete *it; // Not sure if this will mess up the loop or not
+		}
+	}
+	*/
+
+	// Get all the colliding tiles
 	
+
+}
+
+bool GameObject::getIsCollidingWithTile(Tile* tile)
+{
+	sf::FloatRect tileBoundingBox = tile->getBoundingBox();
+	sf::FloatRect gameObjectBoundingBox = getBoundingBox();
+	return tileBoundingBox.left < gameObjectBoundingBox.left + gameObjectBoundingBox.width &&
+		tileBoundingBox.left + tileBoundingBox.width > gameObjectBoundingBox.left &&
+		tileBoundingBox.top < gameObjectBoundingBox.top + gameObjectBoundingBox.height &&
+		tileBoundingBox.top + tileBoundingBox.height > gameObjectBoundingBox.top;
 }
 
 // Getters and Setters
@@ -41,7 +68,7 @@ sf::Vector2f GameObject::getPosition()
 	return m_position;
 }
 
-// This getter is mostly useless because it will always return the same value in local coordinates
+// This getter will always return local (relative) coordinates
 sf::Vector2f GameObject::getOrigin()
 {
 	return m_sprite.getOrigin();
@@ -91,4 +118,9 @@ void GameObject::setPosition(sf::Vector2f position)
 	// but origin is applied and then scaled (so e.g for the player, width / 4 is width / 2 scaled by the scaling factor (2))
 	m_sprite.setOrigin(getBoundingBox().width / 2 / abs(m_sprite.getScale().x), getBoundingBox().height / 2 / abs(m_sprite.getScale().y));
 	m_sprite.setPosition(position);
+
+	// Move the debug rects
+	sf::Vector2f debugRectOutlinePosition = sf::Vector2f(position.x - getBoundingBox().width / GameObjectConstants::c_halfDenominator, position.y - getBoundingBox().height / GameObjectConstants::c_halfDenominator);
+	m_debugRectOutline.setPosition(debugRectOutlinePosition);
+	m_debugRectOrigin.setPosition(position);
 }

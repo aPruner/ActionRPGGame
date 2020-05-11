@@ -40,7 +40,7 @@ void Tile::initDebugRect()
 
 // Getters and Setters
 // Getters
-sf::FloatRect Tile::getBounds()
+sf::FloatRect Tile::getBoundingBox()
 {
 	return m_bounds;
 }
@@ -60,6 +60,12 @@ TileProperties* Tile::getTileProperties()
 	return m_tileProperties;
 }
 
+bool Tile::getIsCollidingWithGameObject()
+{
+	return m_isCollidingWithGameObject;
+}
+
+// Debug getters
 sf::RectangleShape Tile::getDebugRectangleShape()
 {
 	return m_debugRect;
@@ -76,8 +82,23 @@ void Tile::setIsSolid(bool isSolid)
 	m_isSolid = isSolid;
 }
 
-
 void Tile::setIsAnimated(bool isAnimated)
 {
 	m_isAnimated = isAnimated;
 }
+
+void Tile::setIsCollidingWithGameObject(bool isCollidingWithGameObject)
+{
+	m_isCollidingWithGameObject = isCollidingWithGameObject;
+
+	// Hack in here to change the color of the debug rectangle based on collision
+	if (m_isCollidingWithGameObject)
+	{
+		m_debugRect.setFillColor(sf::Color::Yellow);
+	}
+	else
+	{
+		m_debugRect.setFillColor(sf::Color::Transparent);
+	}
+}
+

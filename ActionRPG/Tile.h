@@ -11,6 +11,9 @@ private:
 	bool m_isTopWallDrawn;
 	sf::FloatRect m_bounds;
 
+	// Flag for if the tile is colliding with a GameObject
+	bool m_isCollidingWithGameObject;
+
 	int m_xPosition;
 	int m_yPosition;
 
@@ -32,16 +35,21 @@ public:
 
 	// Getters and Setters
 	// Getters
-	sf::FloatRect getBounds();
+	sf::FloatRect getBoundingBox();
 	std::string const& getTextureName();
 	bool getIsTopWallDrawn();
 	TileProperties *getTileProperties();
+	bool getIsCollidingWithGameObject();
 
 	// Debug helper getters
 	bool getDebugStatus();
 	sf::RectangleShape getDebugRectangleShape();
 
 	// Setters
+
+	// TODO: Maybe consolidate these two setters into one setTileProperties setter?
 	void setIsSolid(bool isSolid);
 	void setIsAnimated(bool isAnimated);
+
+	void setIsCollidingWithGameObject(bool isCollidingWithGameObject);
 };

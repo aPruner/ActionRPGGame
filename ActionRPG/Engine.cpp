@@ -167,8 +167,10 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 
 	std::stringstream debugSS;
 	debugSS << m_engineConstants->c_playerDebugTextInitString << m_game->getPlayer()->getPositionInTileMap().first << " Y: " << m_game->getPlayer()->getPositionInTileMap().second << '\n';
-	debugSS << m_engineConstants->c_playerInvertedXDebugString << m_game->getPlayer()->getRunAnimation()->getIsInvertedX() << '\n';
-	debugSS << m_engineConstants->c_playerSpriteScaleDebugString << '(' << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().x << ", " << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().y << ')';
+	debugSS << "Player origin: (x: " << m_game->getPlayer()->getOrigin().x << ", y: " << m_game->getPlayer()->getOrigin().y << ")\n";
+	debugSS << "Player position: (x: " << m_game->getPlayer()->getPosition().x << ", y: " << m_game->getPlayer()->getPosition().y << ")\n";
+	// debugSS << m_engineConstants->c_playerInvertedXDebugString << m_game->getPlayer()->getRunAnimation()->getIsInvertedX() << '\n';
+	// debugSS << m_engineConstants->c_playerSpriteScaleDebugString << '(' << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().x << ", " << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().y << ')';
 	m_playerDebugText.setString(debugSS.str());
 
 	// Update the GameView's center point to be the player
