@@ -161,6 +161,9 @@ void Player::update(float timeElapsed)
 	// Get the global bounds of the debugRect
 	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
 
+	// TODO: figure out exactly where updateCollisionArray needs to be called
+	updateCollisionArray();
+
 	// First, check the hardcoded room boundaries
 	// Check left boundary
 	if (boundsRect.left < 0)
