@@ -27,18 +27,50 @@ void GameObject::updateCollisionArray()
 	}
 
 	// First, remove tiles that aren't currently colliding if they exist
-	/*
 	for (auto it = m_collisionArray->begin(); it < m_collisionArray->end(); it++)
 	{
 		if (!getIsCollidingWithTile(*it))
 		{
-			delete *it; // Not sure if this will mess up the loop or not
+			Tile *currentTile = *it;
+			currentTile->setIsCollidingWithGameObject(false);
+			// Decrement the iterator after erase is executed
+			m_collisionArray->erase(it--);
 		}
 	}
-	*/
 
 	// Get all the colliding tiles
-	
+	int maxTilesSpannedX = (getBoundingBox().width / RoomConstants::c_tileSideLengthPixels);
+	if ((int)getBoundingBox().width % RoomConstants::c_tileSideLengthPixels)
+	{
+		maxTilesSpannedX++;
+	}
+	int maxTilesSpannedY = (getBoundingBox().height / RoomConstants::c_tileSideLengthPixels);
+	if ((int)getBoundingBox().height % RoomConstants::c_tileSideLengthPixels)
+	{
+		maxTilesSpannedY++;
+	}
+
+	// Add colliding tiles to the collisionArray
+	// Math here isn't quite right yet in certain scenarios, because I'm basically assuming origin is top left of the GameObject
+	// TODO: Double check and fix this math
+	std::pair<int, int> posInTileMap = getPositionInTileMap();
+	int xPosInTileMap = posInTileMap.first;
+	int maxSpanPosX = xPosInTileMap + maxTilesSpannedX;
+	int yPosInTileMap = posInTileMap.second;
+	int maxSpanPosY = yPosInTileMap + maxTilesSpannedY;
+
+	for (int i = yPosInTileMap; i < maxSpanPosY; i++)
+	{
+		for (int j = xPosInTileMap; j < maxSpanPosX; j++)
+		{
+			Tile* currentTile = &m_room->getRoomTileGrid()[j][i];
+			if (getIsCollidingWithTile(currentTile))
+			{
+				m_collisionArray->push_back(currentTile);
+				currentTile->setIsCollidingWithGameObject(true);
+			}
+		}
+	}
 
 }
 
