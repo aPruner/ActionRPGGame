@@ -28,9 +28,10 @@ Player::Player(TextureMap *textureMap, Room *room)
 	// TODO: Constant for player start position - base it on tile map
 	setPosition(sf::Vector2f(100, 200));
 
-	// Create the collision array and update it
-	m_collisionArray = new std::vector<Tile*>();
-	updateCollisionArray();
+	// Create the collision arrays and update them
+	m_tileCollisionArray = new std::vector<Tile *>();
+	m_gameObjectCollisionArray = new std::vector<GameObject*>();
+	updateTileCollisionArray();
 }
 
 Player::~Player()
@@ -162,7 +163,7 @@ void Player::update(float timeElapsed)
 	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
 
 	// TODO: figure out exactly where updateCollisionArray needs to be called
-	updateCollisionArray();
+	updateTileCollisionArray();
 
 	// First, check the hardcoded room boundaries
 	// Check left boundary

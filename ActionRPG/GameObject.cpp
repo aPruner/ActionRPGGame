@@ -17,7 +17,7 @@ void GameObject::initDebugRect()
 	m_drawDebugRects = true;
 }
 
-void GameObject::updateCollisionArray()
+void GameObject::updateTileCollisionArray()
 {
 	// Check for tile map errors, just in case
 	std::pair<int, int> positionInTileMap = getPositionInTileMap();
@@ -27,15 +27,15 @@ void GameObject::updateCollisionArray()
 	}
 
 	// First, remove tiles that aren't currently colliding if they exist
-	auto it = m_collisionArray->begin();
-	while (it < m_collisionArray->end())
+	auto it = m_tileCollisionArray->begin();
+	while (it < m_tileCollisionArray->end())
 	{
 		if (!getIsCollidingWithTile(*it))
 		{
 			Tile *currentTile = *it;
 			currentTile->setIsCollidingWithGameObject(false);
 			// Decrement the iterator after erase is executed
-			it = m_collisionArray->erase(it);
+			it = m_tileCollisionArray->erase(it);
 		}
 		else
 		{
@@ -55,9 +55,7 @@ void GameObject::updateCollisionArray()
 		maxTilesSpannedY++;
 	}
 
-	// Add colliding tiles to the collisionArray
-	// Math here isn't quite right yet in certain scenarios, because I'm basically assuming origin is top left of the GameObject
-	// TODO: Double check and fix this math
+	// Add colliding tiles to the tileCollisionArray
 	std::pair<int, int> posInTileMap = getPositionInTileMap();
 	int xPosInTileMap = posInTileMap.first;
 	int maxSpanPosX = xPosInTileMap + maxTilesSpannedX;
@@ -73,7 +71,7 @@ void GameObject::updateCollisionArray()
 				Tile *currentTile = m_room->getTile(j, i);
 				if (getIsCollidingWithTile(currentTile))
 				{
-					m_collisionArray->push_back(currentTile);
+					m_tileCollisionArray->push_back(currentTile);
 					currentTile->setIsCollidingWithGameObject(true);
 				}
 			}
