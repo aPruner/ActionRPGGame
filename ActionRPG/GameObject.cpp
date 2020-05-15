@@ -64,11 +64,11 @@ void GameObject::updateCollisionArray()
 	int yPosInTileMap = posInTileMap.second;
 	int maxSpanPosY = yPosInTileMap + maxTilesSpannedY;
 
-	for (int i = yPosInTileMap; i < maxSpanPosY; i++)
+	for (int i = yPosInTileMap - 1; i < maxSpanPosY; i++)
 	{
-		for (int j = xPosInTileMap; j < maxSpanPosX; j++)
+		for (int j = xPosInTileMap - 1; j < maxSpanPosX; j++)
 		{
-			if (i < m_room->getMaxRoomHeightTiles() && j < m_room->getMaxRoomWidthTiles())
+			if (i >= 0 && i < m_room->getMaxRoomHeightTiles() && j >= 0 && j < m_room->getMaxRoomWidthTiles())
 			{
 				Tile *currentTile = m_room->getTile(j, i);
 				if (getIsCollidingWithTile(currentTile))
