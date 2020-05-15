@@ -37,6 +37,16 @@ Player::Player(TextureMap *textureMap, Room *room)
 Player::~Player()
 {
 	delete m_inventory;
+	for (auto tile : *m_tileCollisionArray)
+	{
+		delete tile;
+	}
+	delete m_tileCollisionArray;
+	for (auto gameObject : *m_gameObjectCollisionArray)
+	{
+		delete gameObject;
+	}
+	delete m_gameObjectCollisionArray;
 }
 
 void Player::initializePlayerAnims()
