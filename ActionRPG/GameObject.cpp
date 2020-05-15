@@ -70,7 +70,7 @@ void GameObject::updateCollisionArray()
 		{
 			if (i < m_room->getMaxRoomHeightTiles() && j < m_room->getMaxRoomWidthTiles())
 			{
-				Tile* currentTile = &m_room->getRoomTileGrid()[j][i];
+				Tile *currentTile = m_room->getTile(j, i);
 				if (getIsCollidingWithTile(currentTile))
 				{
 					m_collisionArray->push_back(currentTile);
@@ -82,7 +82,7 @@ void GameObject::updateCollisionArray()
 
 }
 
-bool GameObject::getIsCollidingWithTile(Tile* tile)
+bool GameObject::getIsCollidingWithTile(Tile *tile)
 {
 	sf::FloatRect tileBoundingBox = tile->getBoundingBox();
 	sf::FloatRect gameObjectBoundingBox = getBoundingBox();

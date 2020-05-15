@@ -121,7 +121,7 @@ sf::VertexArray& Room::getRoomWallLayerVA()
 
 Tile *Room::getTile(int x, int y)
 {
-	return m_roomTileGrid[y * RoomConstants::c_maxRoomWidthPixels + x];
+	return m_roomTileGrid[y * RoomConstants::c_maxRoomWidthTiles + x];
 }
 
 Tile **Room::getRoomTileGrid()
