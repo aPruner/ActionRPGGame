@@ -27,14 +27,19 @@ void GameObject::updateCollisionArray()
 	}
 
 	// First, remove tiles that aren't currently colliding if they exist
-	for (auto it = m_collisionArray->begin(); it < m_collisionArray->end(); it++)
+	auto it = m_collisionArray->begin();
+	while (it < m_collisionArray->end())
 	{
 		if (!getIsCollidingWithTile(*it))
 		{
 			Tile *currentTile = *it;
 			currentTile->setIsCollidingWithGameObject(false);
 			// Decrement the iterator after erase is executed
-			m_collisionArray->erase(it--);
+			it = m_collisionArray->erase(it);
+		}
+		else
+		{
+			it++;
 		}
 	}
 
@@ -63,7 +68,7 @@ void GameObject::updateCollisionArray()
 	{
 		for (int j = xPosInTileMap; j < maxSpanPosX; j++)
 		{
-			if (i >= 0 && i < m_room->getMaxRoomHeightTiles() && j >= 0 && j < m_room->getMaxRoomWidthTiles())
+			if (i < m_room->getMaxRoomHeightTiles() && j < m_room->getMaxRoomWidthTiles())
 			{
 				Tile* currentTile = &m_room->getRoomTileGrid()[j][i];
 				if (getIsCollidingWithTile(currentTile))

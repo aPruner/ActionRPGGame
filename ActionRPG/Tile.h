@@ -43,7 +43,7 @@ public:
 
 	// Debug helper getters
 	bool getDebugStatus();
-	sf::RectangleShape getDebugRectangleShape();
+	sf::RectangleShape getDebugRect();
 
 	// Setters
 

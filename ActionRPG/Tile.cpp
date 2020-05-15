@@ -66,7 +66,7 @@ bool Tile::getIsCollidingWithGameObject()
 }
 
 // Debug getters
-sf::RectangleShape Tile::getDebugRectangleShape()
+sf::RectangleShape Tile::getDebugRect()
 {
 	return m_debugRect;
 }

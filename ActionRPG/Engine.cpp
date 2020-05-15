@@ -199,7 +199,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 			Tile *tile = roomTileGrid[i * yRoomTileMapSize + j];
 			if (tile->getDebugStatus())
 			{
-				m_gameWindow->draw(tile->getDebugRectangleShape());
+				m_gameWindow->draw(tile->getDebugRect());
 			}
 		}
 	}
