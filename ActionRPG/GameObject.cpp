@@ -77,7 +77,11 @@ void GameObject::updateTileCollisionArray()
 			}
 		}
 	}
+}
 
+void GameObject::updateGameObjectCollisionArray()
+{
+	// Loop through tileCollisionArray and check for other gameObjects colliding with those tiles, may need to keep some sort of map of Tile*->vector<GameObject*> in the room
 }
 
 bool GameObject::getIsCollidingWithTile(Tile *tile)

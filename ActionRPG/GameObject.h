@@ -34,14 +34,13 @@ protected:
 	// Position (global coordinates) of the GameObject
 	sf::Vector2f m_position;
 
-	// Array of Tile pointers that this GameObject currently collides with
+	// Collision arrays - these hold Tiles and GameObjects that this GameObject currently collides with
 	std::vector<Tile *> *m_tileCollisionArray;
-
-	// Array of GameObject pointers that this GameObject currently collides with
 	std::vector<GameObject*> *m_gameObjectCollisionArray;
 
-	// Fill the collision array appropriately
+	// Fill the collision arrays appropriately
 	void updateTileCollisionArray();
+	void updateGameObjectCollisionArray();
 	
 	// Check (with axis-aligned bounding boxes) if this GameObject collides with the current tile
 	bool getIsCollidingWithTile(Tile *tile);
