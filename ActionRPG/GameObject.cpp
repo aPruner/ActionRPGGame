@@ -63,11 +63,14 @@ void GameObject::updateCollisionArray()
 	{
 		for (int j = xPosInTileMap; j < maxSpanPosX; j++)
 		{
-			Tile* currentTile = &m_room->getRoomTileGrid()[j][i];
-			if (getIsCollidingWithTile(currentTile))
+			if (i >= 0 && i < m_room->getMaxRoomHeightTiles() && j >= 0 && j < m_room->getMaxRoomWidthTiles())
 			{
-				m_collisionArray->push_back(currentTile);
-				currentTile->setIsCollidingWithGameObject(true);
+				Tile* currentTile = &m_room->getRoomTileGrid()[j][i];
+				if (getIsCollidingWithTile(currentTile))
+				{
+					m_collisionArray->push_back(currentTile);
+					currentTile->setIsCollidingWithGameObject(true);
+				}
 			}
 		}
 	}
