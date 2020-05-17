@@ -17,7 +17,7 @@ void GameObject::initDebugRect()
 	m_drawDebugRects = true;
 }
 
-void GameObject::updateTileCollisionArray()
+void GameObject::updateTileCollisions()
 {
 	// Check for tile map errors, just in case
 	std::pair<int, int> positionInTileMap = getPositionInTileMap();
@@ -27,15 +27,15 @@ void GameObject::updateTileCollisionArray()
 	}
 
 	// First, remove tiles that aren't currently colliding if they exist
-	auto it = m_tileCollisionArray->begin();
-	while (it < m_tileCollisionArray->end())
+	auto it = m_tileCollisions->begin();
+	while (it < m_tileCollisions->end())
 	{
 		if (!getIsCollidingWithTile(*it))
 		{
 			Tile *currentTile = *it;
 			currentTile->setIsCollidingWithGameObject(false);
 			// Decrement the iterator after erase is executed
-			it = m_tileCollisionArray->erase(it);
+			it = m_tileCollisions->erase(it);
 		}
 		else
 		{
@@ -71,7 +71,7 @@ void GameObject::updateTileCollisionArray()
 				Tile *currentTile = m_room->getTile(j, i);
 				if (getIsCollidingWithTile(currentTile))
 				{
-					m_tileCollisionArray->push_back(currentTile);
+					m_tileCollisions->push_back(currentTile);
 					currentTile->setIsCollidingWithGameObject(true);
 				}
 			}
@@ -79,10 +79,10 @@ void GameObject::updateTileCollisionArray()
 	}
 }
 
-void GameObject::updateGameObjectCollisionArray()
+void GameObject::updateGameObjectCollisions()
 {
 	// Loop through tileCollisionArray and check for other gameObjects colliding with those tiles, may need to keep some sort of map of Tile*->vector<GameObject*> in the room
-	for (auto it = m_tileCollisionArray->begin(); it < m_tileCollisionArray->end(); it++)
+	for (auto it = m_tileCollisions->begin(); it < m_tileCollisions->end(); it++)
 	{
 	}
 }

@@ -29,24 +29,24 @@ Player::Player(TextureMap *textureMap, Room *room)
 	setPosition(sf::Vector2f(100, 200));
 
 	// Create the collision arrays and update them
-	m_tileCollisionArray = new std::vector<Tile *>();
-	m_gameObjectCollisionArray = new std::vector<GameObject*>();
-	updateTileCollisionArray();
+	m_tileCollisions = new std::vector<Tile *>();
+	m_gameObjectCollisions = new std::vector<GameObject*>();
+	updateTileCollisions();
 }
 
 Player::~Player()
 {
 	delete m_inventory;
-	for (auto tile : *m_tileCollisionArray)
+	for (auto tile : *m_tileCollisions)
 	{
 		delete tile;
 	}
-	delete m_tileCollisionArray;
-	for (auto gameObject : *m_gameObjectCollisionArray)
+	delete m_tileCollisions;
+	for (auto gameObject : *m_gameObjectCollisions)
 	{
 		delete gameObject;
 	}
-	delete m_gameObjectCollisionArray;
+	delete m_gameObjectCollisions;
 }
 
 void Player::initializePlayerAnims()
@@ -173,7 +173,7 @@ void Player::update(float timeElapsed)
 	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
 
 	// TODO: figure out exactly where updateCollisionArray needs to be called
-	updateTileCollisionArray();
+	updateTileCollisions();
 
 	// First, check the hardcoded room boundaries
 	// Check left boundary
