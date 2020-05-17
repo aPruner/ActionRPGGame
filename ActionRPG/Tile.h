@@ -9,7 +9,7 @@ private:
 	bool m_isSolid;
 	bool m_isAnimated;
 	bool m_isTopWallDrawn;
-	sf::FloatRect m_bounds;
+	sf::FloatRect m_boundingBox;
 
 	// Flag for if the tile is colliding with a GameObject
 	bool m_isCollidingWithGameObject;

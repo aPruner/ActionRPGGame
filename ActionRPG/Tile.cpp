@@ -9,7 +9,7 @@ Tile::Tile(TileProperties *tileProperties, int xPosition, int yPosition)
 	m_isTopWallDrawn = tileProperties->getIsTopWallDrawn();
 	m_xPosition = xPosition;
 	m_yPosition = yPosition;
-	m_bounds = sf::FloatRect(
+	m_boundingBox = sf::FloatRect(
 		(float) (xPosition * RoomConstants::c_tileSideLengthPixels * RoomConstants::c_roomScalingFactor),
 		(float) (yPosition * RoomConstants::c_tileSideLengthPixels * RoomConstants::c_roomScalingFactor),
 		RoomConstants::c_tileSideLengthPixels * RoomConstants::c_roomScalingFactor,
@@ -20,7 +20,7 @@ Tile::Tile(TileProperties *tileProperties, int xPosition, int yPosition)
 
 void Tile::initDebugRect()
 {
-	m_debugRect = sf::RectangleShape(sf::Vector2f(m_bounds.width, m_bounds.height));
+	m_debugRect = sf::RectangleShape(sf::Vector2f(m_boundingBox.width, m_boundingBox.height));
 	m_debugRect.setPosition(sf::Vector2f(
 		(float)(m_xPosition * RoomConstants::c_tileSideLengthPixels * RoomConstants::c_roomScalingFactor),
 		(float)(m_yPosition * RoomConstants::c_tileSideLengthPixels * RoomConstants::c_roomScalingFactor)
@@ -42,7 +42,7 @@ void Tile::initDebugRect()
 // Getters
 sf::FloatRect Tile::getBoundingBox()
 {
-	return m_bounds;
+	return m_boundingBox;
 }
 
 std::string const& Tile::getTextureName()
