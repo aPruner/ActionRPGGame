@@ -91,10 +91,7 @@ bool GameObject::getIsCollidingWithTile(Tile *tile)
 {
 	sf::FloatRect tileBoundingBox = tile->getBoundingBox();
 	sf::FloatRect gameObjectBoundingBox = getBoundingBox();
-	return tileBoundingBox.left < gameObjectBoundingBox.left + gameObjectBoundingBox.width &&
-		tileBoundingBox.left + tileBoundingBox.width > gameObjectBoundingBox.left &&
-		tileBoundingBox.top < gameObjectBoundingBox.top + gameObjectBoundingBox.height &&
-		tileBoundingBox.top + tileBoundingBox.height > gameObjectBoundingBox.top;
+	return tileBoundingBox.intersects(gameObjectBoundingBox);
 }
 
 // Getters and Setters
