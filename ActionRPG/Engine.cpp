@@ -31,6 +31,9 @@ Engine::Engine()
 	// Initialize Player Gui
 	m_playerSummaryGui = new PlayerSummaryGui(m_game->getPlayer());
 
+	// Initialize Hud
+	m_hud = new Hud(m_game->getPlayer());
+
 	// Add gui instances to vector (for drawing later)
 	m_guiInstances->push_back(m_playerSummaryGui);
 }
@@ -210,6 +213,12 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 			m_gameWindow->draw(gameObject->getDebugRectOrigin());
 		}
 	}
+
+	// Draw the hud
+	m_gameWindow->setView(m_game->getHudView());
+	m_gameWindow->draw(m_hud->getHealthBarRect());
+	m_gameWindow->draw(m_hud->getManaBarRect());
+	m_gameWindow->draw(m_hud->getExperienceBarRect());
 
 	// Draw the guis
 	m_gameWindow->setView(m_game->getGuiView());

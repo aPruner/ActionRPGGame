@@ -9,6 +9,7 @@
 #include "EngineConstants.h"
 #include "PlayerSummaryGui.h"
 #include "Player.h"
+#include "Hud.h"
 
 
 class Engine
@@ -28,6 +29,9 @@ private:
 
 	// Game instance
 	Game *m_game;
+
+	// Hud instance
+	Hud* m_hud;
 
 	// PlayerSummaryGui instance
 	PlayerSummaryGui *m_playerSummaryGui;
