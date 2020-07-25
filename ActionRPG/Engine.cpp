@@ -143,6 +143,16 @@ void Engine::input()
 			player->stopAttack();
 		}
 
+		// Debugging Hud elements
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+		{
+			player->debugStartDamagePlayer();
+		}
+		else
+		{
+			player->debugStopDamagePlayer();
+		}
+
 	}
 }
 
@@ -173,6 +183,8 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 
 	// Update the GameView's center point to be the player
 	m_game->centerGameViewOnPlayer();
+
+	m_hud->update(dtSeconds);
 }
 
 // Draw the screen

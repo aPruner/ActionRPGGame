@@ -11,6 +11,10 @@ Player::Player(TextureMap *textureMap, Room *room)
 
 	m_inventory = new Inventory();
 
+	// Initialize input booleans
+	m_isAttacking = false;
+	m_damageKeyPressed = false;
+		
 	// Initialize animations
 	// By default, the player is facing right, the animations need a pointer to this member variable
 	// in order to properly know to invert themselves or not
@@ -104,6 +108,7 @@ void Player::initializePlayer()
 	m_playerClass = PlayerConstants::PlayerClass::Knight;
 	m_level = PlayerConstants::c_startingLevel;
 	m_health = PlayerConstants::c_startingHealth;
+	m_mana = PlayerConstants::c_startingMana;
 	m_speed = PlayerConstants::c_startingSpeed;
 	m_strength = PlayerConstants::c_startingStrength;
 	m_wisdom = PlayerConstants::c_startingWisdom;
@@ -140,6 +145,12 @@ void Player::update(float timeElapsed)
 	if (m_attackPressed)
 	{
 		// TODO: Put out the hitbox
+	}
+
+	// Debugging code
+	if (m_damageKeyPressed)
+	{
+		m_health -= 5;
 	}
 
 	// TODO: Proper collision detection, with any walls and other GameObjects
@@ -316,6 +327,16 @@ void Player::stopAttack()
 	m_weaponSwingAnimation->stopAnimation();
 	m_weaponHitboxAnimation->stopAnimation();
 	m_weaponIdleAnimation->startAnimation();
+}
+
+void Player::debugStartDamagePlayer()
+{
+	m_damageKeyPressed = true;
+}
+
+void Player::debugStopDamagePlayer()
+{
+	m_damageKeyPressed = false;
 }
 
 // Getters and Setters

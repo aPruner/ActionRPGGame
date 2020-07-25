@@ -59,6 +59,9 @@ private:
 	bool m_attackPressed;
 	bool m_isAttacking;
 
+	// Debug hurt player flag
+	bool m_damageKeyPressed;
+
 	// Player animations
 	Animation *m_idleAnimation;
 	Animation *m_runAnimation;
@@ -99,6 +102,10 @@ public:
 
 	// Input handler for stopping the player's attack
 	void stopAttack();
+
+	// Debug hurt player
+	void debugStartDamagePlayer();
+	void debugStopDamagePlayer();
 
 	// Getters and Setters
 	// Getters

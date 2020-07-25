@@ -15,6 +15,11 @@ Hud::~Hud()
 void Hud::update(float timeElapsed)
 {
 	// Update the Hud piece by piece
+	m_healthBarRect.setSize(sf::Vector2f(m_player->getHealth() / PlayerConstants::c_startingHealth * 400, 60));
+	m_manaBarRect.setSize(sf::Vector2f(m_player->getMana() / PlayerConstants::c_startingMana * 400, 60));
+	
+	// TODO: create getter for current experience
+	//m_experienceBarRect.setSize(sf::Vector2f(100 / m_player->getExperience(), 60));
 }
 
 // Override for sf::Drawable::draw
@@ -34,7 +39,7 @@ void Hud::initStatusBarRects()
 	m_healthBarRect.setFillColor(sf::Color::Red);
 	m_healthBarRect.setOutlineColor(sf::Color::Black);
 	m_healthBarRect.setOutlineThickness((float)1);
-
+	
 	// Init mana rect
 	m_manaBarRect = sf::RectangleShape(sf::Vector2f(400, 60));
 	m_manaBarRect.setPosition(sf::Vector2f(100, 200));
