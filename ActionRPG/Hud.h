@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
-#include "EngineConstants.h"
+#include "GlobalConstants.h"
+#include "HudConstants.h"
 #include "Player.h"
 
 class Hud : public sf::Drawable 
 {
 private:
 	// Engine constants
-	EngineConstants* m_engineConstants;
+	GlobalConstants* m_globalConstants;
 	
 	// Instance of the player
 	Player *m_player;

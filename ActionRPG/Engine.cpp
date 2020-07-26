@@ -2,6 +2,9 @@
 
 Engine::Engine()
 {
+	// Initialize global constants object
+	m_globalConstants = new GlobalConstants();
+
 	// Initialize constants object
 	m_engineConstants = new EngineConstants();
 
@@ -41,11 +44,11 @@ Engine::Engine()
 // Initialize the fps counter
 void Engine::initFpsCounter()
 {
-	m_fpsCounterFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
+	m_fpsCounterFont.loadFromFile(m_globalConstants->c_defaultFontFilename);
 	m_fpsCounter.setString(m_engineConstants->c_fpsCounterInitString);
 	m_fpsCounter.setFont(m_fpsCounterFont);
-	m_fpsCounter.setCharacterSize(m_engineConstants->c_defaultFontSize);
-	m_fpsCounter.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_fpsCounter.setCharacterSize(m_globalConstants->c_defaultFontSize);
+	m_fpsCounter.setFillColor(m_globalConstants->c_defaultFontColor);
 	m_fpsCounter.setPosition(m_engineConstants->c_fpsCounterPosition);
 	m_timeSinceLastFpsUpdateSeconds = 0;
 }
@@ -53,11 +56,11 @@ void Engine::initFpsCounter()
 void Engine::initPlayerDebugText()
 {
 	m_playerDebugTextPosition = sf::Vector2f(m_screenResolution.x - m_engineConstants->c_playerDebugTextOffsetX, m_screenResolution.y - m_engineConstants->c_playerDebugTextOffsetY);
-	m_playerDebugTextFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
+	m_playerDebugTextFont.loadFromFile(m_globalConstants->c_defaultFontFilename);
 	m_playerDebugText.setString(m_engineConstants->c_playerDebugTextInitString);
 	m_playerDebugText.setFont(m_playerDebugTextFont);
-	m_playerDebugText.setCharacterSize(m_engineConstants->c_defaultFontSize);
-	m_playerDebugText.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_playerDebugText.setCharacterSize(m_globalConstants->c_defaultFontSize);
+	m_playerDebugText.setFillColor(m_globalConstants->c_defaultFontColor);
 	m_playerDebugText.setPosition(m_playerDebugTextPosition);
 }
 

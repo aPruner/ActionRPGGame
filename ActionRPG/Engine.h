@@ -10,11 +10,15 @@
 #include "PlayerSummaryGui.h"
 #include "Player.h"
 #include "Hud.h"
+#include "GlobalConstants.h"
 
 
 class Engine
 {
 private:
+	// Global Constants object
+	GlobalConstants *m_globalConstants;
+
 	// Engine Constants object
 	EngineConstants *m_engineConstants;
 
