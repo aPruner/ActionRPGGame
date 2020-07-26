@@ -97,7 +97,7 @@ void Engine::input()
 
 			if (event.key.code == sf::Keyboard::O)
 			{
-				player->giveExperience(5);
+				player->takeDamage(5);
 			}
 		}		
 
@@ -223,9 +223,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 
 	// Draw the hud
 	m_gameWindow->setView(m_game->getHudView());
-	m_gameWindow->draw(m_hud->getHealthBarRect());
-	m_gameWindow->draw(m_hud->getManaBarRect());
-	m_gameWindow->draw(m_hud->getExperienceBarRect());
+	m_gameWindow->draw(*m_hud);
 
 	// Draw the guis
 	m_gameWindow->setView(m_game->getGuiView());

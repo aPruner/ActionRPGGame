@@ -2,10 +2,14 @@
 
 Hud::Hud(Player* player)
 {
+	// Initialize constants object
+	m_engineConstants = new EngineConstants();
+
 	// Initialize the player
 	m_player = player;
 
 	initStatusBarRects();
+	initStatusText();
 }
 
 Hud::~Hud() 
@@ -28,6 +32,11 @@ void Hud::update(float timeElapsed)
 	float playerLevel = (float)m_player->getLevel();
 	// TODO: FIX THE MATH
 	m_experienceBarRect.setSize(sf::Vector2f((float)400 * (playerExperience - (playerLevel - 1) * PlayerConstants::c_startingExperienceForNextLevel) / experienceForNextLevel, 60));
+
+	m_healthText.setString(sf::String(std::to_string(m_player->getHealth())));
+	m_manaText.setString(sf::String(std::to_string(m_player->getMana())));
+	m_experienceText.setString(sf::String(std::to_string(m_player->getExperience())));
+
 }
 
 // Override for sf::Drawable::draw
@@ -36,6 +45,10 @@ void Hud::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_healthBarRect, states);
 	target.draw(m_manaBarRect, states);
 	target.draw(m_experienceBarRect, states);
+	
+	target.draw(m_healthText, states);
+	target.draw(m_manaText, states);
+	target.draw(m_experienceText, states);
 }
 
 void Hud::initStatusBarRects()
@@ -60,4 +73,27 @@ void Hud::initStatusBarRects()
 	m_experienceBarRect.setFillColor(sf::Color::Green);
 	m_experienceBarRect.setOutlineColor(sf::Color::Black);
 	m_experienceBarRect.setOutlineThickness((float)1);
+}
+
+void Hud::initStatusText()
+{
+	
+	
+	m_statusBarFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
+
+	m_healthText.setFont(m_statusBarFont);
+	m_healthText.setCharacterSize(m_engineConstants->c_defaultFontSize);
+	m_healthText.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_healthText.setPosition(sf::Vector2f(280, 110));
+
+	m_manaText.setFont(m_statusBarFont);
+	m_manaText.setCharacterSize(m_engineConstants->c_defaultFontSize);
+	m_manaText.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_manaText.setPosition(sf::Vector2f(280, 210));
+
+	m_experienceText.setFont(m_statusBarFont);
+	m_experienceText.setCharacterSize(m_engineConstants->c_defaultFontSize);
+	m_experienceText.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_experienceText.setPosition(sf::Vector2f(280, 310));
+
 }

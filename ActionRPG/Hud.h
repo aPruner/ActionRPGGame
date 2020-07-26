@@ -1,18 +1,31 @@
 #include <SFML/Graphics.hpp>
+#include "EngineConstants.h"
 #include "Player.h"
 
-class Hud : sf::Drawable 
+class Hud : public sf::Drawable 
 {
 private:
+	// Engine constants
+	EngineConstants* m_engineConstants;
+	
 	// Instance of the player
 	Player *m_player;
-	
+
 	// Rectangle drawables for status bars
 	sf::RectangleShape m_healthBarRect;
 	sf::RectangleShape m_manaBarRect;
 	sf::RectangleShape m_experienceBarRect;
 
+	// Font for status bar text
+	sf::Font m_statusBarFont;
+
+	// Text for status bars
+	sf::Text m_healthText;
+	sf::Text m_manaText;
+	sf::Text m_experienceText;
+
 	void initStatusBarRects();
+	void initStatusText();
 
 public:
 	Hud(Player* player);
@@ -41,6 +54,11 @@ public:
 		return m_experienceBarRect;
 	}
 
+	sf::Text getHealthText()
+	{
+		return m_healthText;
+	}
+
 	// Setters
 	void setHealthBarRect(sf::RectangleShape healthBarRect)
 	{
@@ -55,6 +73,11 @@ public:
 	void setExperienceBarRect(sf::RectangleShape experienceBarRect)
 	{
 		m_experienceBarRect = experienceBarRect;
+	}
+
+	void setHealthText(sf::Text healthText)
+	{
+		m_healthText = healthText;
 	}
 
 };
