@@ -15,11 +15,13 @@ Hud::~Hud()
 void Hud::update(float timeElapsed)
 {
 	// Update the Hud piece by piece
-	// TODO: x value should not be directly equal to player health, should be scaled by ratio of currHealth / maxHealth * barLength
-	//		 but for some reason setSize doesn't like that equation and the rect disappears
-	m_healthBarRect.setSize(sf::Vector2f(m_player->getHealth(), 60));
+	float playerHealth = (float)m_player->getHealth();
+	float startingHealth = (float)PlayerConstants::c_startingHealth;
+	m_healthBarRect.setSize(sf::Vector2f(playerHealth / startingHealth * (float)400, 60)); 
 
-	//m_manaBarRect.setSize(sf::Vector2f(m_player->getMana() / PlayerConstants::c_startingMana * 400, 60));
+	float playerMana = (float)m_player->getMana();
+	float startingMana = (float)PlayerConstants::c_startingMana;
+	m_manaBarRect.setSize(sf::Vector2f(playerMana / startingMana * (float)400, 60));
 	
 	// TODO: create getter for current experience
 	//m_experienceBarRect.setSize(sf::Vector2f(100 / m_player->getExperience(), 60));
@@ -31,27 +33,26 @@ void Hud::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_healthBarRect, states);
 	target.draw(m_manaBarRect, states);
 	target.draw(m_experienceBarRect, states);
-
 }
 
 void Hud::initStatusBarRects()
 {
 	// Init health rect
-	m_healthBarRect = sf::RectangleShape(sf::Vector2f(100, 60));
+	m_healthBarRect = sf::RectangleShape(sf::Vector2f(400, 60));
 	m_healthBarRect.setPosition(sf::Vector2f(100, 100));
 	m_healthBarRect.setFillColor(sf::Color::Red);
 	m_healthBarRect.setOutlineColor(sf::Color::Black);
-	m_healthBarRect.setOutlineThickness((float)1);
+	m_healthBarRect.setOutlineThickness(1);
 	
 	// Init mana rect
-	m_manaBarRect = sf::RectangleShape(sf::Vector2f(100, 60));
+	m_manaBarRect = sf::RectangleShape(sf::Vector2f(400, 60));
 	m_manaBarRect.setPosition(sf::Vector2f(100, 200));
 	m_manaBarRect.setFillColor(sf::Color::Blue);
 	m_manaBarRect.setOutlineColor(sf::Color::Black);
 	m_manaBarRect.setOutlineThickness((float)1);
 
 	// Init experience rect
-	m_experienceBarRect = sf::RectangleShape(sf::Vector2f(100, 60));
+	m_experienceBarRect = sf::RectangleShape(sf::Vector2f(400, 60));
 	m_experienceBarRect.setPosition(sf::Vector2f(100, 300));
 	m_experienceBarRect.setFillColor(sf::Color::Green);
 	m_experienceBarRect.setOutlineColor(sf::Color::Black);
