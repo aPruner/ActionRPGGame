@@ -18,6 +18,8 @@ Hud::~Hud()
 
 void Hud::update(float timeElapsed)
 {
+	// TODO: Centre text on bars
+
 	// Update the Hud piece by piece
 	float playerHealth = (float)m_player->getHealth();
 	float startingHealth = (float)PlayerConstants::c_startingHealth;
@@ -31,12 +33,13 @@ void Hud::update(float timeElapsed)
 
 	m_manaText.setString(std::to_string((int)playerMana));
 	
+	// TODO: Tidy up exp towards level and exp needed for level-up
 	int playerLevel = m_player->getLevel();
 	float offsetTotalExperience = (float)m_player->getTotalExperience() - (playerLevel - 1) * 100;
 	float offsetExperienceNeededForNextLevel = (float)m_player->getExperienceNeededForNextLevel() - (playerLevel - 1) * 100;	
 	m_totalExperienceBarRect.setSize(sf::Vector2f((float)400 * offsetTotalExperience / offsetExperienceNeededForNextLevel, 60));
 		
-	m_totalExperienceText.setString(std::to_string((int)offsetTotalExperience) + "/" + std::to_string((int)offsetExperienceNeededForNextLevel));
+	m_totalExperienceText.setString(std::to_string((int)m_player->getTotalExperience()) + "/" + std::to_string((int)m_player->getExperienceNeededForNextLevel()));
 
 	m_levelText.setString("Level: " + std::to_string(playerLevel));
 
@@ -96,7 +99,7 @@ void Hud::initStatusText()
 	m_totalExperienceText.setFont(m_statusBarFont);
 	m_totalExperienceText.setCharacterSize(m_engineConstants->c_defaultFontSize);
 	m_totalExperienceText.setFillColor(m_engineConstants->c_defaultFontColor);
-	m_totalExperienceText.setPosition(sf::Vector2f(280, 310));
+	m_totalExperienceText.setPosition(sf::Vector2f(250, 310));
 
 	m_levelText.setString("Level: ");
 	m_levelText.setFont(m_statusBarFont);
