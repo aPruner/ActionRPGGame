@@ -14,7 +14,7 @@ private:
 	// Rectangle drawables for status bars
 	sf::RectangleShape m_healthBarRect;
 	sf::RectangleShape m_manaBarRect;
-	sf::RectangleShape m_experienceBarRect;
+	sf::RectangleShape m_totalExperienceBarRect;
 
 	// Font for status bar text
 	sf::Font m_statusBarFont;
@@ -22,7 +22,10 @@ private:
 	// Text for status bars
 	sf::Text m_healthText;
 	sf::Text m_manaText;
-	sf::Text m_experienceText;
+	sf::Text m_totalExperienceText;
+
+	// Text for level
+	sf::Text m_levelText;
 
 	void initStatusBarRects();
 	void initStatusText();
@@ -51,7 +54,7 @@ public:
 
 	sf::RectangleShape getExperienceBarRect()
 	{
-		return m_experienceBarRect;
+		return m_totalExperienceBarRect;
 	}
 
 	sf::Text getHealthText()
@@ -72,7 +75,7 @@ public:
 
 	void setExperienceBarRect(sf::RectangleShape experienceBarRect)
 	{
-		m_experienceBarRect = experienceBarRect;
+		m_totalExperienceBarRect = experienceBarRect;
 	}
 
 	void setHealthText(sf::Text healthText)

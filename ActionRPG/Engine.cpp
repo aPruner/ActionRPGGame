@@ -98,6 +98,8 @@ void Engine::input()
 			if (event.key.code == sf::Keyboard::O)
 			{
 				player->takeDamage(5);
+				player->setMana(player->getMana() - 5);
+				player->giveExperience(5);
 			}
 		}		
 

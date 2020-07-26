@@ -105,8 +105,8 @@ void Player::initializePlayer()
 	// TODO: name and class selection (much later)
 	m_name = "PlayerNameHere";
 	m_playerClass = PlayerConstants::PlayerClass::Knight;
-	m_experience = PlayerConstants::c_startingExperience;
-	m_experienceForNextLevel = PlayerConstants::c_startingExperienceForNextLevel;
+	m_totalExperience = PlayerConstants::c_startingExperience;
+	m_experienceNeededForNextLevel = PlayerConstants::c_startingExperienceForNextLevel;
 	m_level = PlayerConstants::c_startingLevel;
 	m_health = PlayerConstants::c_startingHealth;
 	m_mana = PlayerConstants::c_startingMana;
@@ -332,16 +332,16 @@ void Player::takeDamage(int dmg)
 
 void Player::giveExperience(int experience)
 {
-	m_experience += experience;
+	m_totalExperience += experience;
 	checkExperienceForLevelUp();
 }
 
 void Player::checkExperienceForLevelUp()
 {
-	if (m_experience > m_experienceForNextLevel)
-	{
-		m_level += 1;
-		m_experienceForNextLevel += m_level * PlayerConstants::c_startingExperienceForNextLevel;
+	if (m_totalExperience >= m_experienceNeededForNextLevel)
+	{		
+		m_level += 1; 
+		m_experienceNeededForNextLevel += PlayerConstants::c_startingExperienceForNextLevel;
 	}
 }
 
@@ -356,14 +356,14 @@ std::string& Player::getName()
 	return m_name;
 }
 
-int Player::getExperience()
+int Player::getTotalExperience()
 {
-	return m_experience;
+	return m_totalExperience;
 }
 
-int Player::getExperienceForNextLevel()
+int Player::getExperienceNeededForNextLevel()
 {
-	return m_experienceForNextLevel;
+	return m_experienceNeededForNextLevel;
 }
 
 int Player::getLevel()
@@ -446,14 +446,14 @@ void Player::setName(std::string name)
 	m_name = name;
 }
 
-void Player::setExperience(int experience)
+void Player::setTotalExperience(int experience)
 {
-	m_experience = experience;
+	m_totalExperience = experience;
 }
 
-void Player::setExperienceForNextLevel(int experience)
+void Player::setExperienceNeededForNextLevel(int experience)
 {
-	m_experienceForNextLevel = experience;
+	m_experienceNeededForNextLevel = experience;
 }
 
 void Player::setLevel(int level)

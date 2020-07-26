@@ -16,8 +16,8 @@ private:
 	PlayerConstants::PlayerClass m_playerClass;
 
 	// Player experience
-	int m_experience;
-	int m_experienceForNextLevel;
+	int m_totalExperience;
+	int m_experienceNeededForNextLevel;
 
 	// Player level
 	int m_level;
@@ -117,8 +117,8 @@ public:
 	// Getters
 	PlayerConstants *getPlayerConstants();
 	std::string& getName();
-	int getExperience();
-	int getExperienceForNextLevel();
+	int getTotalExperience();
+	int getExperienceNeededForNextLevel();
 	int getLevel();
 	int getHealth();
 	int getMana();
@@ -137,8 +137,8 @@ public:
 
 	// Setters
 	void setName(std::string name);
-	void setExperience(int experience);
-	void setExperienceForNextLevel(int experience);
+	void setTotalExperience(int experience);
+	void setExperienceNeededForNextLevel(int experience);
 	void setLevel(int level);
 	void setHealth(int health);
 	void setMana(int mana);
