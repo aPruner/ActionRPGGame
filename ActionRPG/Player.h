@@ -100,7 +100,7 @@ public:
 	// Input handler for stopping the player's attack
 	void stopAttack();
 
-	// HUD DEBUGGING
+	// Apply some damage to the player
 	void takeDamage(int dmg);
 
 	// Getters and Setters

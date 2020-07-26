@@ -94,12 +94,6 @@ void Engine::input()
 					m_playerSummaryGui->open();
 				}
 			}
-
-			// HUD DEBUGGING
-			if (event.key.code == sf::Keyboard::O)
-			{
-				player->takeDamage(5);
-			}
 		}		
 
 		// Handle movement

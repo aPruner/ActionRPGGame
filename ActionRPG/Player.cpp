@@ -322,7 +322,7 @@ void Player::stopAttack()
 	m_weaponIdleAnimation->startAnimation();
 }
 
-// HUD DEBUGGING
+// TODO: Add logic for checking edge cases
 void Player::takeDamage(int dmg)
 {
 	m_health -= dmg;
