@@ -105,6 +105,8 @@ void Player::initializePlayer()
 	// TODO: name and class selection (much later)
 	m_name = "PlayerNameHere";
 	m_playerClass = PlayerConstants::PlayerClass::Knight;
+	m_experience = PlayerConstants::c_startingExperience;
+	m_experienceForNextLevel = PlayerConstants::c_startingExperienceForNextLevel;
 	m_level = PlayerConstants::c_startingLevel;
 	m_health = PlayerConstants::c_startingHealth;
 	m_mana = PlayerConstants::c_startingMana;
@@ -328,6 +330,21 @@ void Player::takeDamage(int dmg)
 	m_health -= dmg;
 }
 
+void Player::giveExperience(int experience)
+{
+	m_experience += experience;
+	checkExperienceForLevelUp();
+}
+
+void Player::checkExperienceForLevelUp()
+{
+	if (m_experience > m_experienceForNextLevel)
+	{
+		m_level += 1;
+		m_experienceForNextLevel += m_level * PlayerConstants::c_startingExperienceForNextLevel;
+	}
+}
+
 // Getters and Setters
 PlayerConstants* Player::getPlayerConstants()
 {
@@ -337,6 +354,16 @@ PlayerConstants* Player::getPlayerConstants()
 std::string& Player::getName()
 {
 	return m_name;
+}
+
+int Player::getExperience()
+{
+	return m_experience;
+}
+
+int Player::getExperienceForNextLevel()
+{
+	return m_experienceForNextLevel;
 }
 
 int Player::getLevel()
@@ -417,6 +444,16 @@ Inventory *Player::getInventory()
 void Player::setName(std::string name)
 {
 	m_name = name;
+}
+
+void Player::setExperience(int experience)
+{
+	m_experience = experience;
+}
+
+void Player::setExperienceForNextLevel(int experience)
+{
+	m_experienceForNextLevel = experience;
 }
 
 void Player::setLevel(int level)

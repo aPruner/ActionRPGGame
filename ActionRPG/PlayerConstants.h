@@ -11,6 +11,10 @@ public:
 	// Player Class enum
 	const enum class PlayerClass { Knight, Wizard, Elf, Dino };
 
+	// Starting experience
+	const static int c_startingExperience = 0;
+	const static int c_startingExperienceForNextLevel = 100;
+
 	// Starting level
 	const static int c_startingLevel = 1;
 

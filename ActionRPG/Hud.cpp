@@ -23,8 +23,11 @@ void Hud::update(float timeElapsed)
 	float startingMana = (float)PlayerConstants::c_startingMana;
 	m_manaBarRect.setSize(sf::Vector2f(playerMana / startingMana * (float)400, 60));
 	
-	// TODO: create getter for current experience
-	//m_experienceBarRect.setSize(sf::Vector2f(100 / m_player->getExperience(), 60));
+	float playerExperience = (float)m_player->getExperience();
+	float experienceForNextLevel = (float)m_player->getExperienceForNextLevel();
+	float playerLevel = (float)m_player->getLevel();
+	// TODO: FIX THE MATH
+	m_experienceBarRect.setSize(sf::Vector2f((float)400 * (playerExperience - (playerLevel - 1) * PlayerConstants::c_startingExperienceForNextLevel) / experienceForNextLevel, 60));
 }
 
 // Override for sf::Drawable::draw

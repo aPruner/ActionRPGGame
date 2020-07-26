@@ -94,6 +94,11 @@ void Engine::input()
 					m_playerSummaryGui->open();
 				}
 			}
+
+			if (event.key.code == sf::Keyboard::O)
+			{
+				player->giveExperience(5);
+			}
 		}		
 
 		// Handle movement
