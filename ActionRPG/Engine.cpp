@@ -64,6 +64,8 @@ void Engine::initPlayerDebugText()
 // Handle input
 void Engine::input()
 {
+	Player* player = m_game->getPlayer();
+
 	sf::Event event;
 	while (m_gameWindow->pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
@@ -92,9 +94,13 @@ void Engine::input()
 					m_playerSummaryGui->open();
 				}
 			}
-		}
 
-		Player *player = m_game->getPlayer();
+			// HUD DEBUGGING
+			if (event.key.code == sf::Keyboard::O)
+			{
+				player->takeDamage(5);
+			}
+		}		
 
 		// Handle movement
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -141,16 +147,6 @@ void Engine::input()
 		else
 		{
 			player->stopAttack();
-		}
-
-		// Debugging Hud elements
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-		{
-			player->debugStartDamagePlayer();
-		}
-		else
-		{
-			player->debugStopDamagePlayer();
 		}
 
 	}

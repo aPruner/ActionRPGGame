@@ -13,7 +13,6 @@ Player::Player(TextureMap *textureMap, Room *room)
 
 	// Initialize input booleans
 	m_isAttacking = false;
-	m_damageKeyPressed = false;
 		
 	// Initialize animations
 	// By default, the player is facing right, the animations need a pointer to this member variable
@@ -145,12 +144,6 @@ void Player::update(float timeElapsed)
 	if (m_attackPressed)
 	{
 		// TODO: Put out the hitbox
-	}
-
-	// Debugging code
-	if (m_damageKeyPressed)
-	{
-		m_health -= 5;
 	}
 
 	// TODO: Proper collision detection, with any walls and other GameObjects
@@ -329,14 +322,10 @@ void Player::stopAttack()
 	m_weaponIdleAnimation->startAnimation();
 }
 
-void Player::debugStartDamagePlayer()
+// HUD DEBUGGING
+void Player::takeDamage(int dmg)
 {
-	m_damageKeyPressed = true;
-}
-
-void Player::debugStopDamagePlayer()
-{
-	m_damageKeyPressed = false;
+	m_health -= dmg;
 }
 
 // Getters and Setters
