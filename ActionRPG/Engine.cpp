@@ -97,13 +97,6 @@ void Engine::input()
 					m_playerSummaryGui->open();
 				}
 			}
-
-			if (event.key.code == sf::Keyboard::O)
-			{
-				player->takeDamage(5);
-				player->setMana(player->getMana() - 5);
-				player->giveExperience(5);
-			}
 		}		
 
 		// Handle movement

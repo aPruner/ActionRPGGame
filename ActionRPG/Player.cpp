@@ -324,10 +324,9 @@ void Player::stopAttack()
 	m_weaponIdleAnimation->startAnimation();
 }
 
-// TODO: Add logic for checking edge cases
 void Player::takeDamage(int dmg)
 {
-	m_health -= dmg;
+	m_health - dmg < 0 ? m_health = 0 : m_health -= dmg;
 }
 
 void Player::giveExperience(int experience)
