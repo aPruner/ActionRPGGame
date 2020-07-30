@@ -81,7 +81,9 @@ void GameObject::updateTileCollisions()
 
 void GameObject::updateGameObjectCollisions()
 {
-	// Loop through tileCollisionArray and check for other gameObjects colliding with those tiles, may need to keep some sort of map of Tile*->vector<GameObject*> in the room
+	// Loop through tileCollisionArray and check for other gameObjects colliding with those tiles
+	// TODO: may need to keep some sort of map of Tile*->vector<int> where the ints are GameObject ids
+	// also need to add ids to GameObjects, as I obvs cannot use GameObject pointers here, as there'd be a circular dependency
 	for (auto it = m_tileCollisions->begin(); it < m_tileCollisions->end(); it++)
 	{
 	}
