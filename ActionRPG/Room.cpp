@@ -8,6 +8,8 @@ Room::Room(TextureMap* textureMap, TileConstants* tileConstants, int widthTiles,
 
 	m_widthTiles = widthTiles;
 	m_heightTiles = heightTiles;
+
+	m_tileCollisionsMap = new std::map<Tile*, std::vector<int>*>();
 }
 
 Room::~Room()
@@ -137,4 +139,9 @@ int Room::getMaxRoomWidthTiles()
 int Room::getMaxRoomHeightTiles()
 {
 	return RoomConstants::c_maxRoomHeightTiles;
+}
+
+std::map<Tile*, std::vector<int>*> *Room::getTileCollisionsMap()
+{
+	return m_tileCollisionsMap;
 }

@@ -27,6 +27,9 @@ private:
 	// VertexArray for walls that are drawn ontop (and around) the tiles
 	sf::VertexArray m_roomWallLayerVA;
 
+	// Map that keeps track of which GameObjectIDs are colliding with which tiles
+	std::map<Tile*, std::vector<int>*> *m_tileCollisionsMap;
+
 public:
 	Room(TextureMap *textureMap, TileConstants* tileConstants, int roomWidthTiles, int roomHeightTiles, Tile *roomTileGrid[]);
 	~Room();
@@ -51,4 +54,6 @@ public:
 
 	int getMaxRoomWidthTiles();
 	int getMaxRoomHeightTiles();
+
+	std::map<Tile*, std::vector<int>*> *getTileCollisionsMap();
 };

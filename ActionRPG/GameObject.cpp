@@ -86,6 +86,14 @@ void GameObject::updateGameObjectCollisions()
 	// also need to add ids to GameObjects, as I obvs cannot use GameObject pointers here, as there'd be a circular dependency
 	for (auto it = m_tileCollisions->begin(); it < m_tileCollisions->end(); it++)
 	{
+		std::vector<int>* potentialCollidingGameObjectIDs = m_room->getTileCollisionsMap()->at(*it);
+		if (potentialCollidingGameObjectIDs)
+		{
+			for (auto it = potentialCollidingGameObjectIDs->begin(); it < potentialCollidingGameObjectIDs->end(); it++)
+			{
+				// Check collisions for each potentialCollidingGameObject
+			}
+		}
 	}
 }
 

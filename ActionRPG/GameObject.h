@@ -44,6 +44,9 @@ protected:
 	// Check (with axis-aligned bounding boxes) if this GameObject collides with the current tile
 	bool getIsCollidingWithTile(Tile *tile);
 
+	// Game Objects have an ID so that tiles know which game objects they're colliding with
+	int m_id;
+
 public:
 	// Direction enum
 	const enum class Direction { UP, RIGHT, DOWN, LEFT };

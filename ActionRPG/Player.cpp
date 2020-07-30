@@ -2,6 +2,9 @@
 
 Player::Player(TextureMap *textureMap, Room *room)
 {
+	// Set ID
+	m_id = 0;
+
 	// Initialize constants object
 	m_playerConstants = new PlayerConstants();
 
