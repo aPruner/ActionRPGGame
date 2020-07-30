@@ -76,6 +76,10 @@ private:
 	void initializePlayerAnims();
 	void initializePlayer();
 
+	// Methods called during update
+	void handleUpdateAnimations();
+	void handleMovement(sf::Vector2f newPosition);
+
 public:
 	Player(TextureMap *textureMap, Room *room);
 	~Player();

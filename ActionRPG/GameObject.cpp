@@ -162,7 +162,7 @@ void GameObject::setPosition(sf::Vector2f position)
 	m_sprite.setPosition(position);
 
 	// Move the debug rects
-	sf::Vector2f debugRectOutlinePosition = sf::Vector2f(position.x - getBoundingBox().width / GameObjectConstants::c_halfDenominator, position.y - getBoundingBox().height / GameObjectConstants::c_halfDenominator);
+	sf::Vector2f debugRectOutlinePosition = sf::Vector2f(position.x - getBoundingBox().width / 2, position.y - getBoundingBox().height / 2);
 	m_debugRectOutline.setPosition(debugRectOutlinePosition);
 	m_debugRectOrigin.setPosition(position);
 }

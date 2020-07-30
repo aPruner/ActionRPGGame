@@ -135,6 +135,55 @@ void Player::initializePlayer()
 	m_agility = PlayerConstants::c_startingAgility;
 }
 
+void Player::handleUpdateAnimations()
+{
+	// Handle animation, only one animation should animate at a time
+	if (m_idleAnimation->getIsAnimating())
+	{
+		m_idleAnimation->animate();
+		setSprite(*m_idleAnimation->getFrameSprite());
+	}
+	else if (m_runAnimation->getIsAnimating())
+	{
+		m_runAnimation->animate();
+		setSprite(*m_runAnimation->getFrameSprite());
+	}
+
+	// Handle weapon animation, only one weapon animation should animate at a time
+	// Player can move and attack at the same time
+	if (m_weaponIdleAnimation->getIsAnimating() && !m_weaponHitboxAnimation->getIsAnimating())
+	{
+		m_weaponIdleAnimation->animate();
+		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
+		// Seems kinda hacky but it's probably fine: set the weaponHitboxAnimSprite to the empty Sprite when not animating
+		// This will be used for all animations that aren't visible when not animating
+		setWeaponHitboxAnimSprite(sf::Sprite());
+	}
+	else if (m_weaponSwingAnimation->getIsAnimating() && m_weaponHitboxAnimation->getIsAnimating())
+	{
+		m_weaponSwingAnimation->animate();
+		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
+		m_weaponHitboxAnimation->animate();
+		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
+	}
+}
+
+void Player::handleMovement(sf::Vector2f newPosition)
+{
+	// Move the debug rect as well as the player
+
+	// Move the player
+	setPosition(newPosition);
+
+	// Set weapon sprite position
+	sf::Vector2f allWeaponSpritesPosition = sf::Vector2f(newPosition.x, newPosition.y + m_playerConstants->c_weaponPositionOffsetY);
+	m_weaponSprite.setPosition(allWeaponSpritesPosition);
+	m_weaponDebugRectOrigin.setPosition(allWeaponSpritesPosition);
+
+	// Set weapon hitbox anim sprite position
+	m_weaponHitboxAnimSprite.setPosition(allWeaponSpritesPosition);
+}
+
 // Override for GameObject::update
 void Player::update(float timeElapsed)
 {
@@ -202,48 +251,11 @@ void Player::update(float timeElapsed)
 
 	// Check if player has collided with any solid tiles
 
-	// Handle animation, only one animation should animate at a time
-	if (m_idleAnimation->getIsAnimating())
-	{
-		m_idleAnimation->animate();
-		setSprite(*m_idleAnimation->getFrameSprite());
-	}
-	else if (m_runAnimation->getIsAnimating())
-	{
-		m_runAnimation->animate();
-		setSprite(*m_runAnimation->getFrameSprite());
-	}
+	// Handle animations
+	handleUpdateAnimations();
 
-	// Handle weapon animation, only one weapon animation should animate at a time
-	// Player can move and attack at the same time
-	if (m_weaponIdleAnimation->getIsAnimating() && !m_weaponHitboxAnimation->getIsAnimating())
-	{
-		m_weaponIdleAnimation->animate();
-		setWeaponSprite(*m_weaponIdleAnimation->getFrameSprite());
-		// Seems kinda hacky but it's probably fine: set the weaponHitboxAnimSprite to the empty Sprite when not animating
-		// This will be used for all animations that aren't visible when not animating
-		setWeaponHitboxAnimSprite(sf::Sprite());
-	}
-	else if (m_weaponSwingAnimation->getIsAnimating() && m_weaponHitboxAnimation->getIsAnimating())
-	{
-		m_weaponSwingAnimation->animate();
-		setWeaponSprite(*m_weaponSwingAnimation->getFrameSprite());
-		m_weaponHitboxAnimation->animate();
-		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
-	}
-
-	// Move the debug rect as well as the player
-
-	// Move the player
-	setPosition(newPosition);
-
-	// Set weapon sprite position
-	sf::Vector2f allWeaponSpritesPosition = sf::Vector2f(newPosition.x, newPosition.y + m_playerConstants->c_weaponPositionOffsetY);
-	m_weaponSprite.setPosition(allWeaponSpritesPosition);
-	m_weaponDebugRectOrigin.setPosition(allWeaponSpritesPosition);
-
-	// Set weapon hitbox anim sprite position
-	m_weaponHitboxAnimSprite.setPosition(allWeaponSpritesPosition);
+	// Handle movement
+	handleMovement(newPosition);
 }
 
 // Override for GameObject::draw

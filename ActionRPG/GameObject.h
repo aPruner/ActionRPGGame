@@ -3,7 +3,6 @@
 #include <cmath>
 #include "TextureMap.h"
 #include "RoomConstants.h"
-#include "GameObjectConstants.h"
 #include "Room.h"
 
 // Abstract class from which to derive GameObject classes
