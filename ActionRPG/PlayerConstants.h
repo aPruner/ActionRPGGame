@@ -6,8 +6,6 @@ class PlayerConstants {
 public:
 	// Player Constants
 
-	const static int c_halfDenominator = 2;
-
 	// Player Class enum
 	const enum class PlayerClass { Knight, Wizard, Elf, Dino };
 

@@ -38,11 +38,11 @@ void Animation::updateAnimationFrame()
 	// If necessary, invert the sprite on this frame
 	if (*m_isInvertedX)
 	{
-		m_sprite->setScale(AnimationConstants::c_invertedXScaleValue * m_scalingFactor, m_scalingFactor);
+		m_sprite->setScale((float)(AnimationConstants::c_invertedXScaleValue * m_scalingFactor), (float)m_scalingFactor);
 	}
 	else
 	{
-		m_sprite->setScale(m_scalingFactor, m_scalingFactor);
+		m_sprite->setScale((float)m_scalingFactor, (float)m_scalingFactor);
 	}
 
 	if (m_animIndex < m_frames)

@@ -3,6 +3,7 @@
 #include <cmath>
 #include "TextureMap.h"
 #include "RoomConstants.h"
+#include "Room.h"
 
 // Abstract class from which to derive GameObject classes
 class GameObject : public sf::Drawable
@@ -10,6 +11,9 @@ class GameObject : public sf::Drawable
 protected:
 	// TextureMap to fetch textures from
 	TextureMap *m_textureMap;
+
+	// Instance of the room
+	Room *m_room;
 
 	// Sprite for the GameObject
 	sf::Sprite m_sprite;
@@ -28,6 +32,20 @@ protected:
 
 	// Position (global coordinates) of the GameObject
 	sf::Vector2f m_position;
+
+	// Collision arrays - these hold Tiles and GameObjects that this GameObject currently collides with
+	std::vector<Tile *> *m_tileCollisions;
+	std::vector<GameObject*> *m_gameObjectCollisions;
+
+	// Fill the collision arrays appropriately
+	void updateTileCollisions();
+	void updateGameObjectCollisions();
+	
+	// Check (with axis-aligned bounding boxes) if this GameObject collides with the current tile
+	bool getIsCollidingWithTile(Tile *tile);
+
+	// Game Objects have an ID so that tiles know which game objects they're colliding with
+	int m_id;
 
 public:
 	// Direction enum
@@ -56,9 +74,9 @@ public:
 	// Get the origin (center in local coordinates) of the GameObject - kinda useless
 	sf::Vector2f getOrigin();
 
-	// Return x or y position of this GameObject in the tile map (Room position)
-	int getXPositionInTileMap();
-	int getYPositionInTileMap();
+	// Return position of this GameObject in the tile map (Room position)
+	// as a std::pair of (x, y)
+	std::pair<int, int> getPositionInTileMap();
 
 	// Debug getters
 	bool getDebugStatus();

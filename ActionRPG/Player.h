@@ -21,9 +21,6 @@ private:
 	// Player name
 	std::string m_name;
 
-	// Instance of the room
-	Room *m_room;
-
 	// Player inventory
 	Inventory *m_inventory;
 
@@ -76,7 +73,12 @@ private:
 	sf::Sprite m_weaponHitboxAnimSprite;
 	sf::RectangleShape m_weaponDebugRectOrigin;
 
+	void initializePlayerAnims();
 	void initializePlayer();
+
+	// Methods called during update
+	void handleUpdateAnimations();
+	void handleMovement(sf::Vector2f newPosition);
 
 public:
 	Player(TextureMap *textureMap, Room *room);

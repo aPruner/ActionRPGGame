@@ -2,6 +2,9 @@
 
 Player::Player(TextureMap *textureMap, Room *room)
 {
+	// Set ID
+	m_id = 0;
+
 	// Initialize constants object
 	m_playerConstants = new PlayerConstants();
 
@@ -11,72 +14,7 @@ Player::Player(TextureMap *textureMap, Room *room)
 
 	m_inventory = new Inventory();
 
-	// Initialize animations
-	// By default, the player is facing right, the animations need a pointer to this member variable
-	// in order to properly know to invert themselves or not
-	m_isFacingLeft = false;
-
-	m_idleAnimation = new Animation(
-		textureMap,
-		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
-		m_playerConstants->c_playerAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	m_runAnimation = new Animation(
-		textureMap,
-		m_playerConstants->getPlayerRunAnimName(m_playerClass),
-		m_playerConstants->c_playerAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		&m_isFacingLeft
-
-	);
-
-	m_hitAnimation = new Animation(
-		textureMap,
-		m_playerConstants->getPlayerHitAnimName(m_playerClass),
-		m_playerConstants->c_playerAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
-		m_playerConstants->c_playerAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	m_weaponIdleAnimation = new Animation(
-		textureMap,
-		m_playerConstants->c_weaponIdleAnimName,
-		m_playerConstants->c_weaponAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed,
-		&m_isFacingLeft
-	);
-	m_weaponSwingAnimation = new Animation(
-		textureMap,
-		m_playerConstants->c_weaponSwingAnimName,
-		m_playerConstants->c_weaponAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	m_weaponHitboxAnimation = new Animation(
-		textureMap,
-		m_playerConstants->c_weaponSwingHitboxAnimName,
-		m_playerConstants->c_weaponHitboxAnimScalingFactor,
-		m_textureMap->getTextureMapConstants()->c_weaponHitboxAnimSpriteSheetFilename,
-		m_playerConstants->c_weaponHitboxAnimSpeed,
-		&m_isFacingLeft
-	);
-
-	// By default, the player will be idle
-	m_sprite = *m_idleAnimation->getFrameSprite();
-	m_idleAnimation->startAnimation();
-
-	// Weapon stuff
-	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
-	m_weaponIdleAnimation->startAnimation();
+	initializePlayerAnims();
 
 	// Init Origin rect (weapon)
 	m_weaponDebugRectOrigin = sf::RectangleShape(sf::Vector2f((float)4, (float)4));
@@ -89,11 +27,100 @@ Player::Player(TextureMap *textureMap, Room *room)
 	// Initialize player stats
 	initializePlayer();
 	initDebugRect();
+
+	// TODO: Constant for player start position - base it on tile map
+	setPosition(sf::Vector2f(100, 200));
+
+	// Create the collision arrays and update them
+	m_tileCollisions = new std::vector<Tile *>();
+	m_gameObjectCollisions = new std::vector<GameObject*>();
+	updateTileCollisions();
 }
 
 Player::~Player()
 {
 	delete m_inventory;
+	for (auto tile : *m_tileCollisions)
+	{
+		delete tile;
+	}
+	delete m_tileCollisions;
+	for (auto gameObject : *m_gameObjectCollisions)
+	{
+		delete gameObject;
+	}
+	delete m_gameObjectCollisions;
+}
+
+void Player::initializePlayerAnims()
+{
+	// Initialize animations
+	// By default, the player is facing right, the animations need a pointer to this member variable
+	// in order to properly know to invert themselves or not
+	m_isFacingLeft = false;
+
+	m_runAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->getPlayerRunAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_hitAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->getPlayerHitAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_weaponIdleAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->c_weaponIdleAnimName,
+		m_playerConstants->c_weaponAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_weaponSwingAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->c_weaponSwingAnimName,
+		m_playerConstants->c_weaponAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_weaponHitboxAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->c_weaponSwingHitboxAnimName,
+		m_playerConstants->c_weaponHitboxAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_weaponHitboxAnimSpriteSheetFilename,
+		m_playerConstants->c_weaponHitboxAnimSpeed,
+		&m_isFacingLeft
+	);
+
+	m_idleAnimation = new Animation(
+		m_textureMap,
+		m_playerConstants->getPlayerIdleAnimName(m_playerClass),
+		m_playerConstants->c_playerAnimScalingFactor,
+		m_textureMap->getTextureMapConstants()->c_spriteSheetFilename,
+		m_playerConstants->c_playerAnimSpeed,
+		&m_isFacingLeft
+	);
+
+
+	// By default, the player will be idle
+	m_sprite = *m_idleAnimation->getFrameSprite();
+	m_idleAnimation->startAnimation();
+
+	// Weapon stuff
+	m_weaponSprite = *m_weaponIdleAnimation->getFrameSprite();
+	m_weaponIdleAnimation->startAnimation();
 }
 
 // Initialize the player attributes
@@ -111,71 +138,8 @@ void Player::initializePlayer()
 	m_agility = PlayerConstants::c_startingAgility;
 }
 
-// Override for GameObject::update
-void Player::update(float timeElapsed)
+void Player::handleUpdateAnimations()
 {
-
-	sf::Vector2f newPosition = getPosition();
-	// Move the Player if necessary
-	if (m_moveUpPressed)
-	{
-		newPosition.y -= timeElapsed * m_speed;
-	}
-
-	if (m_moveDownPressed)
-	{
-		newPosition.y += timeElapsed * m_speed;
-	}
-
-	if (m_moveLeftPressed)
-	{
-		newPosition.x -= timeElapsed * m_speed;
-	}
-
-	if (m_moveRightPressed)
-	{
-		newPosition.x += timeElapsed * m_speed;
-	}
-
-	if (m_attackPressed)
-	{
-		// TODO: Put out the hitbox
-	}
-
-	// TODO: Proper collision detection, with any walls and other GameObjects
-	// TODO: Since doing the face player left issue, existing hit detection is off. Good thing the system will be rewritten soon anyways!
-	// Collision detection - outer walls only
-	// Get the position in the TileMap, and check all 8 positions around the player for intersections
-	int xPositionInTileMap = getXPositionInTileMap();
-	int yPositionInTileMap = getYPositionInTileMap();
-
-	// Get the global bounds of the debugRect
-	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
-
-	// Check left boundary
-	if (boundsRect.left < 0)
-	{
-		newPosition.x += timeElapsed * m_speed;
-	}
-
-	// Check top boundary
-	if (boundsRect.top < 0)
-	{
-		newPosition.y += timeElapsed * m_speed;
-	}
-
-	// Check right boundary
-	if (boundsRect.left + boundsRect.width >= RoomConstants::c_maxRoomWidthPixels * RoomConstants::c_roomScalingFactor)
-	{
-		newPosition.x -= timeElapsed * m_speed;
-	}
-
-	// Check bottom boundary
-	if (boundsRect.top + boundsRect.height >= RoomConstants::c_maxRoomHeightPixels * RoomConstants::c_roomScalingFactor)
-	{
-		newPosition.y -= timeElapsed * m_speed;
-	}
-
 	// Handle animation, only one animation should animate at a time
 	if (m_idleAnimation->getIsAnimating())
 	{
@@ -205,17 +169,14 @@ void Player::update(float timeElapsed)
 		m_weaponHitboxAnimation->animate();
 		setWeaponHitboxAnimSprite(*m_weaponHitboxAnimation->getFrameSprite());
 	}
+}
 
+void Player::handleMovement(sf::Vector2f newPosition)
+{
 	// Move the debug rect as well as the player
 
 	// Move the player
 	setPosition(newPosition);
-
-	// Move the debug rect
-	// TODO: Constants
-	sf::Vector2f debugRectOutlinePosition = sf::Vector2f(newPosition.x - getBoundingBox().width / m_playerConstants->c_halfDenominator, newPosition.y - getBoundingBox().height / m_playerConstants->c_halfDenominator);
-	m_debugRectOutline.setPosition(debugRectOutlinePosition);
-	m_debugRectOrigin.setPosition(newPosition);
 
 	// Set weapon sprite position
 	sf::Vector2f allWeaponSpritesPosition = sf::Vector2f(newPosition.x, newPosition.y + m_playerConstants->c_weaponPositionOffsetY);
@@ -224,6 +185,80 @@ void Player::update(float timeElapsed)
 
 	// Set weapon hitbox anim sprite position
 	m_weaponHitboxAnimSprite.setPosition(allWeaponSpritesPosition);
+}
+
+// Override for GameObject::update
+void Player::update(float timeElapsed)
+{
+	// TODO: Modularize the contents of this method (and ideally all update methods)
+	// into multiple private methods (one for each purpose), for example, one for movement, collision detection, etc
+	sf::Vector2f newPosition = getPosition();
+	// Move the Player if necessary
+	if (m_moveUpPressed)
+	{
+		newPosition.y -= timeElapsed * m_speed;
+	}
+
+	if (m_moveDownPressed)
+	{
+		newPosition.y += timeElapsed * m_speed;
+	}
+
+	if (m_moveLeftPressed)
+	{
+		newPosition.x -= timeElapsed * m_speed;
+	}
+
+	if (m_moveRightPressed)
+	{
+		newPosition.x += timeElapsed * m_speed;
+	}
+
+	if (m_attackPressed)
+	{
+		// TODO: Put out the hitbox
+	}
+
+	// Collision detection - outer walls only
+
+	// Get the global bounds of the debugRect
+	sf::FloatRect boundsRect = m_debugRectOutline.getGlobalBounds();
+
+	// TODO: figure out exactly where updateCollisionArray needs to be called
+	updateTileCollisions();
+
+	// First, check the hardcoded room boundaries
+	// Check left boundary
+	if (boundsRect.left < 0)
+	{
+		newPosition.x += timeElapsed * m_speed;
+	}
+
+	// Check top boundary
+	if (boundsRect.top < 0)
+	{
+		newPosition.y += timeElapsed * m_speed;
+	}
+
+	// Check right boundary
+	if (boundsRect.left + boundsRect.width >= RoomConstants::c_maxRoomWidthPixels * RoomConstants::c_roomScalingFactor)
+	{
+		newPosition.x -= timeElapsed * m_speed;
+	}
+
+	// Check bottom boundary
+	if (boundsRect.top + boundsRect.height >= RoomConstants::c_maxRoomHeightPixels * RoomConstants::c_roomScalingFactor)
+	{
+		newPosition.y -= timeElapsed * m_speed;
+	}
+
+	// Check if player has collided with any solid tiles
+
+	// Handle animations
+	handleUpdateAnimations();
+
+	// Handle movement
+	handleMovement(newPosition);
 }
 
 // Override for GameObject::draw

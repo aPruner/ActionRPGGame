@@ -149,6 +149,8 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 
 	sf::Time dt = clock->restart();
 	float dtSeconds = dt.asSeconds();
+
+	// Update the FPS counter
 	m_timeSinceLastFpsUpdateSeconds += dtSeconds;
 	if (m_timeSinceLastFpsUpdateSeconds > 1) {
 		m_fps = 1.f / dtSeconds;
@@ -157,15 +159,18 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 		m_timeSinceLastFpsUpdateSeconds = 0;
 	}
 
+	// Update game objects
 	for (auto it = gameObjects->begin(); it != gameObjects->end(); it++)
 	{
 		(*it)->update(dtSeconds);
 	}
 
 	std::stringstream debugSS;
-	debugSS << m_engineConstants->c_playerDebugTextInitString << m_game->getPlayer()->getIsFacingLeft() << '\n';
-	debugSS << m_engineConstants->c_playerInvertedXDebugString << m_game->getPlayer()->getRunAnimation()->getIsInvertedX() << '\n';
-	debugSS << m_engineConstants->c_playerSpriteScaleDebugString << '(' << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().x << ", " << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().y << ')';
+	debugSS << m_engineConstants->c_playerDebugTextInitString << m_game->getPlayer()->getPositionInTileMap().first << " Y: " << m_game->getPlayer()->getPositionInTileMap().second << '\n';
+	debugSS << "Player origin: (x: " << m_game->getPlayer()->getOrigin().x << ", y: " << m_game->getPlayer()->getOrigin().y << ")\n";
+	debugSS << "Player position: (x: " << m_game->getPlayer()->getPosition().x << ", y: " << m_game->getPlayer()->getPosition().y << ")\n";
+	// debugSS << m_engineConstants->c_playerInvertedXDebugString << m_game->getPlayer()->getRunAnimation()->getIsInvertedX() << '\n';
+	// debugSS << m_engineConstants->c_playerSpriteScaleDebugString << '(' << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().x << ", " << m_game->getPlayer()->getRunAnimation()->getFrameSprite()->getScale().y << ')';
 	m_playerDebugText.setString(debugSS.str());
 
 	// Update the GameView's center point to be the player
@@ -194,7 +199,7 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 			Tile *tile = roomTileGrid[i * yRoomTileMapSize + j];
 			if (tile->getDebugStatus())
 			{
-				m_gameWindow->draw(tile->getDebugRectangleShape());
+				m_gameWindow->draw(tile->getDebugRect());
 			}
 		}
 	}

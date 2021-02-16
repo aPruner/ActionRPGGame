@@ -8,6 +8,8 @@ Room::Room(TextureMap* textureMap, TileConstants* tileConstants, int widthTiles,
 
 	m_widthTiles = widthTiles;
 	m_heightTiles = heightTiles;
+
+	m_tileCollisionsMap = new std::map<Tile*, std::vector<int>*>();
 }
 
 Room::~Room()
@@ -121,7 +123,7 @@ sf::VertexArray& Room::getRoomWallLayerVA()
 
 Tile *Room::getTile(int x, int y)
 {
-	return m_roomTileGrid[y * RoomConstants::c_maxRoomWidthPixels + x];
+	return m_roomTileGrid[y * RoomConstants::c_maxRoomWidthTiles + x];
 }
 
 Tile **Room::getRoomTileGrid()
@@ -137,4 +139,9 @@ int Room::getMaxRoomWidthTiles()
 int Room::getMaxRoomHeightTiles()
 {
 	return RoomConstants::c_maxRoomHeightTiles;
+}
+
+std::map<Tile*, std::vector<int>*> *Room::getTileCollisionsMap()
+{
+	return m_tileCollisionsMap;
 }
