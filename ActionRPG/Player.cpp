@@ -11,6 +11,9 @@ Player::Player(TextureMap *textureMap, Room *room)
 
 	m_inventory = new Inventory();
 
+	// Initialize input booleans
+	m_isAttacking = false;
+		
 	// Initialize animations
 	// By default, the player is facing right, the animations need a pointer to this member variable
 	// in order to properly know to invert themselves or not
@@ -102,8 +105,11 @@ void Player::initializePlayer()
 	// TODO: name and class selection (much later)
 	m_name = "PlayerNameHere";
 	m_playerClass = PlayerConstants::PlayerClass::Knight;
+	m_totalExperience = PlayerConstants::c_startingExperience;
+	m_experienceNeededForNextLevel = PlayerConstants::c_startingExperienceForNextLevel;
 	m_level = PlayerConstants::c_startingLevel;
 	m_health = PlayerConstants::c_startingHealth;
+	m_mana = PlayerConstants::c_startingMana;
 	m_speed = PlayerConstants::c_startingSpeed;
 	m_strength = PlayerConstants::c_startingStrength;
 	m_wisdom = PlayerConstants::c_startingWisdom;
@@ -318,6 +324,26 @@ void Player::stopAttack()
 	m_weaponIdleAnimation->startAnimation();
 }
 
+void Player::takeDamage(int dmg)
+{
+	m_health - dmg < 0 ? m_health = 0 : m_health -= dmg;
+}
+
+void Player::giveExperience(int experience)
+{
+	m_totalExperience += experience;
+	checkExperienceForLevelUp();
+}
+
+void Player::checkExperienceForLevelUp()
+{
+	if (m_totalExperience >= m_experienceNeededForNextLevel)
+	{		
+		m_level += 1; 
+		m_experienceNeededForNextLevel += PlayerConstants::c_startingExperienceForNextLevel;
+	}
+}
+
 // Getters and Setters
 PlayerConstants* Player::getPlayerConstants()
 {
@@ -327,6 +353,16 @@ PlayerConstants* Player::getPlayerConstants()
 std::string& Player::getName()
 {
 	return m_name;
+}
+
+int Player::getTotalExperience()
+{
+	return m_totalExperience;
+}
+
+int Player::getExperienceNeededForNextLevel()
+{
+	return m_experienceNeededForNextLevel;
 }
 
 int Player::getLevel()
@@ -407,6 +443,16 @@ Inventory *Player::getInventory()
 void Player::setName(std::string name)
 {
 	m_name = name;
+}
+
+void Player::setTotalExperience(int experience)
+{
+	m_totalExperience = experience;
+}
+
+void Player::setExperienceNeededForNextLevel(int experience)
+{
+	m_experienceNeededForNextLevel = experience;
 }
 
 void Player::setLevel(int level)

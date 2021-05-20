@@ -2,6 +2,9 @@
 
 Engine::Engine()
 {
+	// Initialize global constants object
+	m_globalConstants = new GlobalConstants();
+
 	// Initialize constants object
 	m_engineConstants = new EngineConstants();
 
@@ -31,6 +34,9 @@ Engine::Engine()
 	// Initialize Player Gui
 	m_playerSummaryGui = new PlayerSummaryGui(m_game->getPlayer());
 
+	// Initialize Hud
+	m_hud = new Hud(m_game->getPlayer());
+
 	// Add gui instances to vector (for drawing later)
 	m_guiInstances->push_back(m_playerSummaryGui);
 }
@@ -38,11 +44,11 @@ Engine::Engine()
 // Initialize the fps counter
 void Engine::initFpsCounter()
 {
-	m_fpsCounterFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
+	m_fpsCounterFont.loadFromFile(m_globalConstants->c_defaultFontFilename);
 	m_fpsCounter.setString(m_engineConstants->c_fpsCounterInitString);
 	m_fpsCounter.setFont(m_fpsCounterFont);
-	m_fpsCounter.setCharacterSize(m_engineConstants->c_defaultFontSize);
-	m_fpsCounter.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_fpsCounter.setCharacterSize(m_globalConstants->c_defaultFontSize);
+	m_fpsCounter.setFillColor(m_globalConstants->c_defaultFontColor);
 	m_fpsCounter.setPosition(m_engineConstants->c_fpsCounterPosition);
 	m_timeSinceLastFpsUpdateSeconds = 0;
 }
@@ -50,17 +56,19 @@ void Engine::initFpsCounter()
 void Engine::initPlayerDebugText()
 {
 	m_playerDebugTextPosition = sf::Vector2f(m_screenResolution.x - m_engineConstants->c_playerDebugTextOffsetX, m_screenResolution.y - m_engineConstants->c_playerDebugTextOffsetY);
-	m_playerDebugTextFont.loadFromFile(m_engineConstants->c_defaultFontFilename);
+	m_playerDebugTextFont.loadFromFile(m_globalConstants->c_defaultFontFilename);
 	m_playerDebugText.setString(m_engineConstants->c_playerDebugTextInitString);
 	m_playerDebugText.setFont(m_playerDebugTextFont);
-	m_playerDebugText.setCharacterSize(m_engineConstants->c_defaultFontSize);
-	m_playerDebugText.setFillColor(m_engineConstants->c_defaultFontColor);
+	m_playerDebugText.setCharacterSize(m_globalConstants->c_defaultFontSize);
+	m_playerDebugText.setFillColor(m_globalConstants->c_defaultFontColor);
 	m_playerDebugText.setPosition(m_playerDebugTextPosition);
 }
 
 // Handle input
 void Engine::input()
 {
+	Player* player = m_game->getPlayer();
+
 	sf::Event event;
 	while (m_gameWindow->pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
@@ -89,9 +97,7 @@ void Engine::input()
 					m_playerSummaryGui->open();
 				}
 			}
-		}
-
-		Player *player = m_game->getPlayer();
+		}		
 
 		// Handle movement
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -170,6 +176,8 @@ void Engine::update(std::vector<GameObject *> *gameObjects, sf::Clock *clock)
 
 	// Update the GameView's center point to be the player
 	m_game->centerGameViewOnPlayer();
+
+	m_hud->update(dtSeconds);
 }
 
 // Draw the screen
@@ -210,6 +218,10 @@ void Engine::draw(std::vector<GameObject *> *gameObjects)
 			m_gameWindow->draw(gameObject->getDebugRectOrigin());
 		}
 	}
+
+	// Draw the hud
+	m_gameWindow->setView(m_game->getHudView());
+	m_gameWindow->draw(*m_hud);
 
 	// Draw the guis
 	m_gameWindow->setView(m_game->getGuiView());

@@ -11,12 +11,18 @@ public:
 	// Player Class enum
 	const enum class PlayerClass { Knight, Wizard, Elf, Dino };
 
+	// Starting experience
+	const static int c_startingExperience = 0;
+	const static int c_startingExperienceForNextLevel = 100;
+
 	// Starting level
 	const static int c_startingLevel = 1;
 
-	// Starting base health and speed
+	// Starting base health, speed, and mana
+	// These are placeholder values
 	const static int c_startingHealth = 100;
 	const static int c_startingSpeed = 200;
+	const static int c_startingMana = 100;
 
 	// Starting base attributes
 	const static int c_startingStrength = 4;

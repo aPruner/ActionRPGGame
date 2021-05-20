@@ -15,6 +15,10 @@ private:
 	// Player Class - defines abilities
 	PlayerConstants::PlayerClass m_playerClass;
 
+	// Player experience
+	int m_totalExperience;
+	int m_experienceNeededForNextLevel;
+
 	// Player level
 	int m_level;
 
@@ -100,10 +104,21 @@ public:
 	// Input handler for stopping the player's attack
 	void stopAttack();
 
+	// Apply some damage to the player
+	void takeDamage(int dmg);
+
+	// Give the player some experience
+	void giveExperience(int experience);
+
+	// Level up the player and set experience for next level
+	void checkExperienceForLevelUp();
+
 	// Getters and Setters
 	// Getters
 	PlayerConstants *getPlayerConstants();
 	std::string& getName();
+	int getTotalExperience();
+	int getExperienceNeededForNextLevel();
 	int getLevel();
 	int getHealth();
 	int getMana();
@@ -122,6 +137,8 @@ public:
 
 	// Setters
 	void setName(std::string name);
+	void setTotalExperience(int experience);
+	void setExperienceNeededForNextLevel(int experience);
 	void setLevel(int level);
 	void setHealth(int health);
 	void setMana(int mana);

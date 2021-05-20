@@ -138,6 +138,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="GuiWidget.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemPickup.cpp" />
@@ -162,7 +163,10 @@
     <ClInclude Include="ConsumableItem.h" />
     <ClInclude Include="DisplayGuiWidget.h" />
     <ClInclude Include="DungeonReader.h" />
+    <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GuiWidgetConstants.h" />
+    <ClInclude Include="Hud.h" />
+    <ClInclude Include="HudConstants.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryConstants.h" />
     <ClInclude Include="Item.h" />
